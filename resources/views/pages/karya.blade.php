@@ -57,7 +57,7 @@
                                                 <i class="bi bi-star-fill"></i>
                                                 <h6 class="mt-2 text-muted">5.0 (200 ulasan)</h6>
                                             </div>
-                                            <a href="{{ route('detailkarya', 1) }}" class="btn btn-tpl btn-sm mt-auto">Selengkapnya</a>
+                                            <a href="{{ route('karya.show', 1) }}" class="btn btn-tpl btn-sm mt-auto">Selengkapnya</a>
                                         </div>
                                     </div>
                                 </div>
@@ -76,7 +76,7 @@
                                                 <i class="bi bi-star-half"></i>
                                                 <h6 class="mt-2 text-muted">4.5 (150 ulasan)</h6>
                                             </div>
-                                            <a href="{{ route('detailkarya', 2) }}" class="btn btn-tpl btn-sm mt-auto">Selengkapnya</a>
+                                            <a href="{{ route('karya.show', 1) }}" class="btn btn-tpl btn-sm mt-auto">Selengkapnya</a>
                                         </div>
                                     </div>
                                 </div>
@@ -95,7 +95,7 @@
                                                 <i class="bi bi-star"></i>
                                                 <h6 class="mt-2 text-muted">4.0 (120 ulasan)</h6>
                                             </div>
-                                            <a href="{{ route('detailkarya', 3) }}" class="btn btn-tpl btn-sm mt-auto">Selengkapnya</a>
+                                            <a href="{{ route('karya.show', 1) }}" class="btn btn-tpl btn-sm mt-auto">Selengkapnya</a>
                                         </div>
                                     </div>
                                 </div>
@@ -116,7 +116,7 @@
                                                 <i class="bi bi-star"></i>
                                                 <h6 class="mt-2 text-muted">3.5 (80 ulasan)</h6>
                                             </div>
-                                            <a href="{{ route('detailkarya', 4) }}" class="btn btn-tpl btn-sm mt-auto">Selengkapnya</a>
+                                            <a href="{{ route('karya.show', 1) }}" class="btn btn-tpl btn-sm mt-auto">Selengkapnya</a>
                                         </div>
                                     </div>
                                 </div>
@@ -135,7 +135,7 @@
                                                 <i class="bi bi-star"></i>
                                                 <h6 class="mt-2 text-muted">4.0 (110 ulasan)</h6>
                                             </div>
-                                            <a href="{{ route('detailkarya', 5) }}" class="btn btn-tpl btn-sm mt-auto">Selengkapnya</a>
+                                            <a href="{{ route('karya.show', 1) }}" class="btn btn-tpl btn-sm mt-auto">Selengkapnya</a>
                                         </div>
                                     </div>
                                 </div>
@@ -154,7 +154,7 @@
                                                 <i class="bi bi-star-fill"></i>
                                                 <h6 class="mt-2 text-muted">5.0 (250 ulasan)</h6>
                                             </div>
-                                            <a href="{{ route('detailkarya', 6) }}" class="btn btn-tpl btn-sm mt-auto">Selengkapnya</a>
+                                            <a href="{{ route('karya.show', 1) }}" class="btn btn-tpl btn-sm mt-auto">Selengkapnya</a>
                                         </div>
                                     </div>
                                 </div>
@@ -180,7 +180,7 @@
                                                 <i class="bi bi-star"></i>
                                                 <h6 class="mt-2 text-muted">4.0 (100 ulasan)</h6>
                                             </div>
-                                            <a href="{{ route('detailkarya', $i) }}" class="btn btn-tpl btn-sm mt-auto">Selengkapnya</a>
+                                            <a href="{{ route('karya.show', 1) }}" class="btn btn-tpl btn-sm mt-auto">Selengkapnya</a>
                                         </div>
                                     </div>
                                 </div>

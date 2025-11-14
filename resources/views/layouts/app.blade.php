@@ -32,7 +32,7 @@
         @yield('hero')
 
         {{-- 🔹 MAIN CONTENT --}}
-        <main class="flex-grow-1 mt-5 pt-4">
+        <main class="flex-grow-1">
             @yield('content')
         </main>
 

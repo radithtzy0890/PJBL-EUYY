@@ -64,9 +64,11 @@ body {
     font-size: 3rem;
 }
 
+
+/* 
 .info-section {
     padding: 60px 0;
-}
+} */
 
 .info-header {
     text-align: center;
@@ -162,7 +164,7 @@ body {
 
 .hero-section,
 .info-section {
-    padding-top: 3.5rem;
+    /* padding-top: 3.5rem; */
     padding-bottom: 3.5rem;
 }
 

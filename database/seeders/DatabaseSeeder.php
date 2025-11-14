@@ -18,22 +18,22 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // Create Admin User
-        User::create([
-            'id_user' => 'ADM001',
-            'username' => 'admin',
-            'email' => 'admin@tpl.svipb.ac.id',
-            'password' => Hash::make('password'),
-            'id_role' => 'admin',
-        ]);
+        // User::create([
+        //     'id_user' => 'ADM001',
+        //     'username' => 'admin',
+        //     'email' => 'admin@tpl.svipb.ac.id',
+        //     'password' => Hash::make('password'),
+        //     'id_role' => 'admin',
+        // ]);
 
         // Create Mahasiswa User
-        User::create([
-            'id_user' => 'MHS001',
-            'username' => 'mahasiswa',
-            'email' => 'mahasiswa@tpl.svipb.ac.id',
-            'password' => Hash::make('password'),
-            'id_role' => 'mahasiswa',
-        ]);
+        // User::create([
+        //     'id_user' => 'MHS001',
+        //     'username' => 'mahasiswa',
+        //     'email' => 'mahasiswa@tpl.svipb.ac.id',
+        //     'password' => Hash::make('password'),
+        //     'id_role' => 'mahasiswa',
+        // ]);
 
         // Create Profil Prodi
        // ProfilProdi::create([
@@ -51,6 +51,7 @@ class DatabaseSeeder extends Seeder
             // FaqSeeder::class,
             // DosenSeeder::class,
             // MataKuliahSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }

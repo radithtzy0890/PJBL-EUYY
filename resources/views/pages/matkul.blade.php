@@ -10,6 +10,15 @@
 <link rel="stylesheet" href="{{ asset('css/matkul.css') }}">
 @endpush
 
+@section('hero')
+<section class="hero-section text-white text-center py-5">
+    <div class="container">
+        <h1 class="display-4">Selamat Datang Di Portal Teknologi Rekayasa Perangkat Lunak SV IPB <br></h1>
+        <p class="lead-7">Syntax Error Compile Lagi</p>
+    </div>
+</section>
+@endsection
+
 {{-- 3. INI ADALAH SLOT KONTEN UTAMA (@yield('content') di app.blade.php) --}}
 @section('content')
 <main class="dosen-section info-section py-5">

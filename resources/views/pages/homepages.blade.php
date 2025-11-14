@@ -9,7 +9,7 @@
 @section('hero')
 <section class="hero-section text-white text-center py-5">
     <div class="container">
-        <h1 class="display-6">Selamat Datang Di Portal Teknologi Rekayasa Perangkat Lunak SV IPB</h1>
+         <h1 class="display-4">Selamat Datang Di Portal Teknologi Rekayasa Perangkat Lunak SV IPB <br></h1>
         <p class="lead">Syntax Error Compile Lagi</p>
     </div>
 </section>
@@ -17,16 +17,16 @@
 
 @section('content')
 <section class="info-section">
-    <div class="container">
-        <div class="video-container mb-4" style="animation: fadeIn 0.5s ease-out forwards; opacity: 0;">
-            <div class="ratio ratio-16x9 shadow-sm" style="border-radius: 8px; max-height: 450px;">
-                <video controls autoplay muted loop style="width: 100%; height: 100%; object-fit: cover;">
-                    <source src="{{ asset('videos/TEKNOLOGI REKAYASA PERANGKAT LUNAK - Video Profil 2025 (1).mp4') }}" type="video/mp4">
-                    Browser Anda tidak mendukung tag video.
-                </video>
-            </div>
+    <div class="mb-4" style="animation: fadeIn 0.5s ease-out forwards; opacity: 0;">
+        <div class="ratio ratio-16x9 shadow-sm" style="border-radius: 8px; max-height: 450px;">
+            <video controls autoplay muted loop style="width: 100%; height: 100%; object-fit: cover;">
+            <source src="{{ asset('videos/TEKNOLOGI REKAYASA PERANGKAT LUNAK - Video Profil 2025 (1).mp4') }}" type="video/mp4">
+                Browser Anda tidak mendukung tag video.
+            </video>
         </div>
-
+    </div>
+            
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <header class="info-header">
@@ -101,13 +101,13 @@
                 </div>
 
                 <div class="text-center mt-3">
-                    <a href="{{ route('karya') }}" class="btn btn-tpl btn-lg px-5 py-3">Cari Karya Lainnya</a>
+                    <a href="{{ route('karya.user') }}" class="btn btn-tpl btn-lg px-5 py-3">Cari Karya Lainnya</a>
                     <a href="{{ route('unggah') }}" class="btn btn-tpl btn-lg px-5 py-3 ms-2">Unggah Karya</a>
                 </div>
             </div>
         </div>
-           <div class="container my-5 py-4" style="background-color: #f8f9fa;">
-    <h2 class="text-center mb-4">Berita TPL SV IPB</h2>
+    <div class="container my-5 py-4" style="background-color: #f8f9fa;">
+    <h2 class="text-center mb-4">Berita TPL SVIPB</h2>
     <div class="row justify-content-center">
         <div class="col-lg-8">
             

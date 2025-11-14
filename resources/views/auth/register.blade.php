@@ -37,7 +37,7 @@
             <label for="password">Buat kata sandi</label>
             <input type="password" id="password" name="password" placeholder="Buat kata sandi?" required>
 
-            <label for="password_confirmation ">Konfirmasi Kata Sandi</label>
+            <label for="password_confirmation">Konfirmasi Kata Sandi</label>
             <input type="password" id="password_confirmation " name="password_confirmation" placeholder="Konfirmasi kata sandi" required>
 
             <button class="login-btn" type="submit"> Daftar</button>

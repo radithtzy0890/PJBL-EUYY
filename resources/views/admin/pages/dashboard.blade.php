@@ -23,10 +23,10 @@
   <div class="layout">
     <aside class="sidebar">
       <a href="#" class="active">Dashboard</a>
-      <a href="{{ route('kelolakarya') }}">Kelola Karya</a>
-      <a href="{{ route('infoprodi') }}">Edit Info Profil</a>
-      <a href="{{ route('validasikonten') }}">Validasi Konten</a>
-      <a href ="{{ route('dosen') }}">Dosen</a>
+      {{-- <a href="{{ route('kelolakarya') }}">Kelola Karya</a> --}}
+      {{-- <a href="{{ route('infoprodi') }}">Edit Info Profil</a> --}}
+      {{-- <a href="{{ route('validasikonten') }}">Validasi Konten</a> --}}
+      {{-- <a href ="{{ route('dosen') }}">Dosen</a> --}}
     </aside>
 
     <main class="content">
@@ -40,7 +40,7 @@
           </div>
           <div class="right">
             <h3>Ajuan Karya</h3>
-            <button class="btn-lihat" type="button" onclick="window.location.href='{{ route('ajuankarya') }}'"> Lihat</button>
+            {{-- <button class="btn-lihat" type="button" onclick="window.location.href='{{ route('ajuankarya') }}'"> Lihat</button> --}}
           </div>
         </div>
 
@@ -53,7 +53,7 @@
           </div>
           <div class="right">
             <h3>Validasi Karya</h3>
-            <button class="btn-lihat" type="button" onclick="window.location.href='{{ route('lihatvalidasi') }}'"> Lihat</button>
+            {{-- <button class="btn-lihat" type="button" onclick="window.location.href='{{ route('lihatvalidasi') }}'"> Lihat</button> --}}
           </div>
         </div>
 
@@ -66,7 +66,7 @@
           </div>
           <div class="right">
             <h3> Karya Terunggah</h3>
-            <button class="btn-lihat" type="button" onclick="window.location.href='{{ route('lihatkarya') }}'"> Lihat</button>
+            {{-- <button class="btn-lihat" type="button" onclick="window.location.href='{{ route('lihatkarya') }}'"> Lihat</button> --}}
           </div>
         </div>
 
@@ -79,7 +79,7 @@
           </div>
           <div class="right">
             <h3>Pengunjung</h3>
-            <button class="btn-lihat" type="button" onclick="window.location.href='{{ route('lihatpengunjung') }}'"> Lihat</button>
+            {{-- <button class="btn-lihat" type="button" onclick="window.location.href='{{ route('lihatpengunjung') }}'"> Lihat</button> --}}
           </div>
         </div>
       </div>

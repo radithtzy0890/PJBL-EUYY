@@ -24,14 +24,16 @@
       <div class="login-box">
         <h2>Masuk</h2>
         <p>Masuk untuk dapat mengeksplore karya!</p>
-        <form action="dashboard.html" method="POST">
+        <form action="{{ route ('login.submit') }}" method="POST">
+          @csrf
+          @method("POST")
           <label for="email">Email</label>
           <input type="email" id="email" name="email" placeholder="Masukkan email" required>
 
           <label for="password">Kata Sandi</label>
           <input type="password" id="password" name="password" placeholder="Masukkan kata sandi" required>
 
-          <button class="login-btn" type="button" onclick="window.location.href='dashboard.html'"> Masuk</button>
+          <button class="login-btn" type="submit">Masuk</button>
 
           <div class="links">
             <p>Belum punya akun? <a href="{{ route('register') }}" class="signup">Daftar</a></p>

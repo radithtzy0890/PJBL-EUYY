@@ -9,16 +9,22 @@
 @endpush
 
 {{-- CATATAN: Blok @section('hero') Dihapus karena Hero Section sudah di Layout Master --}}
+@section('hero')
+<section class="hero-section text-white text-center py-5">
+    <div class="container">
+        <h1 class="display-4">Selamat Datang Di Portal Teknologi Rekayasa Perangkat Lunak SV IPB <br></h1>
+        <p class="lead-7">Syntax Error Compile Lagi</p>
+    </div>
+</section>
+@endsection
 
 @section('content')
 <main class="tentang-section">
     <div class="profile-video"> 
         <div class="ratio ratio-16x9 shadow-sm" style="border-radius: 8px; max-height: 450px;">
-            <video controls autoplay muted loop style="width: 100%; height: 100%; object-fit: cover;">
-                
+            <video controls autoplay muted loop style="width: 100%; height: 100%; object-fit: cover;"> 
                 {{-- KOREKSI: Menggunakan asset() dengan path video  --}}
                 <source src="{{ asset('videos/TEKNOLOGI REKAYASA PERANGKAT LUNAK - Video Profil 2025 (1).mp4') }}" type="video/mp4">
-                
                 Browser Anda tidak mendukung tag video.
             </video>
         </div>

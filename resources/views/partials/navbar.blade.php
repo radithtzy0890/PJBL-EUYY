@@ -22,23 +22,27 @@
                 <li class="nav-item">
                     <a class="nav-link nav-tpl-link {{ request()->routeIs('tentang') ? 'active' : '' }}" href="{{ route('tentang') }}">Tentang</a>
                 </li>
-                @auth()
                 <li class="nav-item">
                     <a class="nav-link nav-tpl-link {{ request()->routeIs('dosen') ? 'active' : '' }}" href="{{ route('dosen') }}">Dosen</a>
                 </li>
-                @endauth()
                 <li class="nav-item">
                     <a class="nav-link nav-tpl-link {{ request()->routeIs('matkul') ? 'active' : '' }}" href="{{ route('matkul') }}">Mata Kuliah</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-tpl-link {{ request()->routeIs('faq') ? 'active' : '' }}" href="{{ route('faq') }}">FAQ</a>
                 </li>
-                <li class="nav-item">
-                    <a class="btn btn-light me-2 {{ request()->routeIs('register') ? 'active' : '' }}" href="{{ route('login') }}">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="btn btn-outline-light {{ request()->routeIs('register') ? 'active' : '' }}" href="{{ route('register') }}">Register</a>
-                </li>
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-link nav-tpl-link" href="">{{ Auth::user()->name }}</a>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a class="btn btn-light me-3 {{ request()->routeIs('login') ? 'active' : '' }}" href="{{ route('login') }}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light {{ request()->routeIs('register') ? 'active' : '' }}" href="{{ route('register') }}">Register</a>
+                    </li>
+                @endauth
             </ul>
         </div>
     </div>

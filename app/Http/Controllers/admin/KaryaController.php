@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
-class KaryaManagementController extends Controller
+class KaryaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,6 +18,11 @@ class KaryaManagementController extends Controller
         $karya = Karya::with('user')->latest()->get();
         return view('admin.pages.kelolakarya', compact('karya'));
     }
+
+    public function karyaUser()
+    {
+        return view('pages.karya');
+    } 
 
     /**
      * Show the form for creating a new resource.
@@ -66,6 +71,16 @@ class KaryaManagementController extends Controller
         $totalReviews = $karya->totalReviews();
         
         return view('admin.pages.lihatkarya', compact('karya', 'averageRating', 'totalReviews'));
+    }
+    
+    public function userShow(string $id)
+    {
+        // $karya = Karya::with(['user', 'ratings', 'reviews.user'])->findOrFail($id);
+        // $averageRating = $karya->averageRating();
+        // $totalReviews = $karya->totalReviews();
+        
+        // return view('pages.detailkarya', compact('karya', 'averageRating', 'totalReviews'));
+        return view('pages.detailkarya');
     }
 
     /**

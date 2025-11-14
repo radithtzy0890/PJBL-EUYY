@@ -9,7 +9,7 @@
 @section('hero')
 <section class="hero-section text-white text-center py-5">
     <div class="container">
-        <h1 class="display-6">Selamat Datang Di Portal Teknologi Rekayasa Perangkat Lunak SV IPB</h1>
+        <h1 class="display-4">Selamat Datang Di Portal Teknologi Rekayasa Perangkat Lunak SV IPB <br></h1>
         <p class="lead">Syntax Error Compile Lagi</p>
     </div>
 </section>
