@@ -62,7 +62,7 @@
               <p>Teknologi Rekayasa Perangkat Lunak</p>
               <span class="status aktif">Aktif</span>
             </div>
-            <button class="edit-btn" type="button" onclick="window.location.href='{{ route('dosen1') }}'">Edit</button>
+            <button class="edit-btn" type="button" onclick="window.location.href='{{ route('dosen') }}'">Edit</button>
           </div>
 
             <div class="card">
@@ -73,7 +73,7 @@
               <p>Teknologi Rekayasa Perangkat Lunak</p>
               <span class="status aktif">Aktif</span>
             </div>
-            <button class="edit-btn" type="button" onclick="window.location.href='{{ route('dosen1') }}'">Edit</button>
+            <button class="edit-btn" type="button" onclick="window.location.href='{{ route('dosen') }}'">Edit</button>
           </div>
 
             <div class="card">

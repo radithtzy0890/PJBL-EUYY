@@ -23,7 +23,7 @@
     <div class="sidebar">
       <a href="{{ route('kelolakarya') }}" class="active">Kelola Karya</a>
       <a href="{{ route('dashboard') }}">Dashboard</a>
-      <a href="{{ route('infoprodi') }}">Info Prodi</a>
+      <a href="{{ route('infoprodi') }}">InfoProdi</a>
       <a href="{{ route('validasikonten') }}">Validasi Konten</a>
       <a href="{{ route('dosen') }}">Dosen</a>
     </div>
