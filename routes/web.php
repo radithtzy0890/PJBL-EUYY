@@ -92,15 +92,122 @@ Route::get('/forgot-password', function () {
     return view('auth.forgot-password');
 })->name('forgot-password');
 
+
+// Proses kirim email reset password
+Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])
+    ->middleware('guest')->name('password.email');
+
+// Halaman Reset Password (Form input password baru)
+Route::get('/reset-password/{token}', function ($token) {
+    return view('auth.reset-password', ['token' => $token]);
+})->middleware('guest')->name('password.reset');
+
+// Proses update password baru
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])
+    ->middleware('guest')->name('password.update');
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])
+    ->middleware('guest')->name('password.update');
+
 // Karya
 Route::get('karya', [KaryaController::class, 'karyaUser'])->name('karya.user');
 Route::post('karya', [KaryaController::class, 'store'])->name('karya.store');
 Route::get('karya/{id}', [KaryaController::class, 'userShow'])->name('karya.show');
 
-// Admin Dashboard
-Route::get('dashboard', function () {
-     return view('admin.pages.dashboard');
- })->name('dashboard');
+// Berita
+Route::get('/berita/{id}', function ($id) {
+    return view('pages.berita', compact('id'));
+})->name('berita');
+
+// Unggah Karya
+Route::get('/unggah-karya', function () {
+    return view('pages.unggah');
+})->name('unggah');
+
+Route::middleware(['auth'])->group(function () {
+    
+    // User Profile
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    // Unggah Karya (untuk semua user yang login)
+    Route::get('/unggah-karya', function () {
+        return view('pages.unggah');
+    })->name('unggah');
+    Route::post('karya', [KaryaController::class, 'store'])->name('karya.store');
+    
+    // Rating & Review
+    Route::post('/rating', [RatingController::class, 'store'])->name('rating.store');
+    Route::delete('/rating/{id}', [RatingController::class, 'destroy'])->name('rating.destroy');
+});
+
+// ============================================
+// ROUTES KHUSUS ADMIN & SUPERADMIN
+// ============================================
+Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->group(function () {
+    
+    // Dashboard Admin
+    Route::get('dashboard', function () {
+        return view('admin.pages.dashboard');
+    })->name('dashboard');
+    
+    // Kelola Karya
+    Route::get('kelola-karya', function () {
+        return view('admin.pages.kelolakarya');
+    })->name('kelolakarya');
+    
+    // Validasi Konten
+    Route::get('validasi-konten', function () {
+        return view('admin.pages.validasikonten');
+    })->name('validasikonten');
+    
+    // Info Prodi
+    Route::get('info-prodi', function () {
+        return view('admin.pages.infoprodi');
+    })->name('infoprodi');
+    
+    // Dosen Management
+    Route::get('dosen-admin', function () {
+        return view('admin.pages.dosen');
+    })->name('dosen.admin');
+    
+    // Ajuan Karya
+    Route::get('ajuan-karya', function () {
+        return view('admin.pages.ajuankarya');
+    })->name('ajuankarya');
+    
+    // Lihat Karya
+    Route::get('lihat-karya', function () {
+        return view('admin.pages.lihatkarya');
+    })->name('lihatkarya');
+    
+    // Lihat Validasi
+    Route::get('lihat-validasi', function () {
+        return view('admin.pages.lihatvalidasi');
+    })->name('lihatvalidasi');
+    
+    // Lihat Pengunjung
+    Route::get('lihat-pengunjung', function () {
+        return view('admin.pages.lihatpengunjung');
+    })->name('lihatpengunjung');
+    
+    // Tambah Dosen
+    Route::get('tambah-dosen', function () {
+        return view('admin.pages.tambahdosen');
+    })->name('tambahdosen');
+    
+    // Daftar Admin (CRUD Admin) - Nanti kita bikin controller-nya
+    Route::get('daftar-admin', function () {
+        return view('admin.pages.daftaradmin');
+    })->name('daftaradmin');
+});
+
+ 
+    // Nanti di sini kamu bisa tambah route kelola admin
+    // Route::get('kelola-admin', [AdminController::class, 'index'])->name('kelola.admin');
+    // Route::post('kelola-admin', [AdminController::class, 'store'])->name('kelola.admin.store');
+    // dst...
+//});
 
 // Route::middleware(['auth'])->prefix('admin')->group(function () {
 //     Route::resource('karya', KaryaManagementController::class);
@@ -128,16 +235,6 @@ Route::get('dashboard', function () {
 // Route::get('/karya/{id}', function ($id) {
 //     return view('pages.detailkarya', compact('id'));
 // })->name('detailkarya');
-
-// Berita
-Route::get('/berita/{id}', function ($id) {
-    return view('pages.berita', compact('id'));
-})->name('berita');
-
-// Unggah Karya
-Route::get('/unggah-karya', function () {
-    return view('pages.unggah');
-})->name('unggah');
 
 // // Store Karya (untuk handle form submit)
 // Route::post('/karya/store', function () {
