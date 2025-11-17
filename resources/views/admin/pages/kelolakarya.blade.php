@@ -86,7 +86,27 @@
       </div>
 
       <button class="btn-tambahkarya" type="button" onclick="window.location.href='{{ route('kelolakarya1') }}'">
-        + Tambah Karya
+      <div class="content">
+  
+  {{-- Pesan Sukses --}}
+  @if (session('success'))
+    <div class="alert alert-success">
+      <strong>✓ Berhasil!</strong> {{ session('success') }}
+    </div>
+  @endif
+
+  {{-- ✅ TAMBAHKAN TOMBOL INI --}}
+  <div style="margin: 20px; text-align: right;">
+    <a href="{{ route('admin.karya.create') }}" 
+       style="background: #007bff; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; display: inline-block;">
+      <i data-feather="plus"></i> Tambah Karya
+    </a>
+  </div>
+
+  <div class="grid-container">
+    {{-- ... kolom karya ... --}}
+  </div>
+</div>
       </button>
     </div>
   </div>
@@ -98,7 +118,7 @@
           <i data-feather="map-pin"></i>
           <div class="address">
             <p><strong>KAMPUS BOGOR</strong> — Jl. Raya Pajajaran, Kota Bogor, Jawa Barat 16128</p>
-            <p><strong>KAMPUS SUKABUMI</strong> — Jl. Sarasa No. 46, Babakan, Kec. Cibeureum, Kota Sukabumi, Jawa Barat 43142</p>
+            <p><strong>KAMPUS SUKABUMI</strong> — Jl. S arasa No. 46, Babakan, Kec. Cibeureum, Kota Sukabumi, Jawa Barat 43142</p>
           </div>
         </div>
       </div>

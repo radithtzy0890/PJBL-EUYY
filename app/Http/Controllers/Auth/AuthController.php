@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SendEmail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password;
 
 class AuthController extends Controller
 {
@@ -78,5 +82,43 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
     
         return redirect(route('home'));
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        $email = $request->email;
+        $user = User::where('email', $email)->first();
+        if (!$user) {
+            return back();
+        }
+        $token = Crypt::encryptString(value: json_encode($user));
+        $resetLink = route('reset-password', $token);
+        Mail::to($email)->send(new SendEmail($resetLink));
+        echo "Email berhasil terkirim..";
+    }
+
+    public function resetPassword(Request $request)
+    {
+        return view('auth.reset-password', [
+            'token' => $request->token
+        ]);
+    }
+
+    public function submitResetPassword(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|min:8|confirmed',
+        ]);
+
+        $decrypt = Crypt::decryptString($request->token);
+        $data = json_decode($decrypt, true);
+        $userId = $data["id"];
+
+        // update password
+        $update = User::where("id", $userId)->update([
+            "password" => Hash::make($request->password),
+        ]);
+
+        return redirect(route('login'));
     }
 }

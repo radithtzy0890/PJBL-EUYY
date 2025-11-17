@@ -10,7 +10,7 @@ class HomeController extends Controller
     public function index()
     {
         // Ambil 6 karya terbaru yang ACCEPTED dengan relasi reviews
-        $karyas = Karya::where('status_validasi', 'accepted') // ✅ GANTI
+        $karyas = Karya::where('status_validasi', 'accepted')
                       ->with('reviews')
                       ->orderBy('created_at', 'desc')
                       ->limit(6)

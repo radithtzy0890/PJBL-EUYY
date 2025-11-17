@@ -171,24 +171,32 @@
                 </div>
             </div>
             
-            {{-- KARTU 3: BERITA MENYUSUL (Placeholder) --}}
+            {{-- KARTU 2: Agridation Festival --}}
             <div class="card mb-4 shadow-sm text-dark">
                  <div class="row g-0">
                     <div class="col-md-4">
-                         {{-- PLACEHOLDER --}}
-                         <img src="https://placehold.co/500x300/e0e0e0/555555?text=Berita+Baru" class="img-fluid rounded-top rounded-md-start" alt="Berita Menyusul">
+                        <a href="{{ route('berita', ['id' => 1]) }}">
+                            {{-- GAMBAR: Agridation Team --}}
+                            <img src="{{ asset('images/Berita tpl.png') }}" 
+                                 class="img-fluid rounded-top rounded-md-start" 
+                                 alt="Agridation Festival">
+                        </a>
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title fw-bold">Berita Terbaru (Menyusul)</h5>
+                            <h5 class="card-title fw-bold">
+                                <a href="{{ route('berita', ['id' => 1]) }}" class="text-decoration-none text-dark">
+                                    Agridation Festival
+                                </a>
+                            </h5>
                             <p class="card-text text-muted">
-                                Informasi mengenai kegiatan dan prestasi terbaru TPL SV IPB akan segera ditambahkan di sini.
+                                Mahasiswa TPL SV IPB ikut meramaikan Agridation Festival lewat tenant spesial yang menampilkan karya inovatif...
                             </p>
                             <p class="card-text d-flex justify-content-between align-items-center">
-                                <small class="text-muted">Segera</small>
+                                <small class="text-muted">5 hari yang lalu</small>
                                 <a href="#" class="text-muted"><i class="bi bi-share-fill"></i></a>
                             </p>
-                        </div>
+                        </div>  
                     </div>
                 </div>
             </div>

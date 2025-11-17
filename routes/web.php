@@ -13,6 +13,24 @@ use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\KontakController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\KaryaController;
+use Illuminate\Support\Facades\Mail; // tambahkan ini
+use App\Mail\SendEmail; // tambahkan ini
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+// tambahkan route baru
+Route::get('/mail/send', function () {
+    $data = [
+        'subject' => 'Testing Kirim Email',
+        'title' => 'Testing Kirim Email',
+        'body' => 'Ini adalah email uji coba dari Tutorial Laravel: Send Email Via SMTP GMAIL @ qadrLabs.com'
+    ];
+
+    Mail::to('email_tujuan@gmail.com')->send(new SendEmail($data));
+
+});
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -48,9 +66,12 @@ use App\Http\Controllers\Admin\KaryaController;
 require __DIR__.'/auth.php';
 
 // Home
-Route::get('/', function () {
-    return view('pages.homepages');
-})->name('home');
+//Route::get('/', function () {
+    //return view('pages.homepages');
+//})->name('home');
+
+// Home
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Tentang
 Route::get('/tentang', function () {
@@ -61,6 +82,7 @@ Route::get('/tentang', function () {
 Route::get('/dosen', function () {
     return view('pages.dosen');
 })->name('dosen');
+
 
 // Mata Kuliah
 Route::get('/mata-kuliah', function () {
@@ -85,28 +107,19 @@ Route::get('/login', function () {
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 
 // Logout
-Route::get('logout', [AuthController::class, 'logout']);
+Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 // forgot password
 Route::get('/forgot-password', function () {
     return view('auth.forgot-password');
 })->name('forgot-password');
+Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgot-password.submit');
 
-
-// Proses kirim email reset password
-Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])
-    ->middleware('guest')->name('password.email');
-
-// Halaman Reset Password (Form input password baru)
-Route::get('/reset-password/{token}', function ($token) {
-    return view('auth.reset-password', ['token' => $token]);
-})->middleware('guest')->name('password.reset');
+Route::get('/reset-password/{token}', [AuthController::class, 'resetPassword'])->name('reset-password');
+Route::post('/reset-password/{token}', [AuthController::class, 'submitResetPassword'])->name('reset-password.submit');
 
 // Proses update password baru
-Route::post('/reset-password', [AuthController::class, 'resetPassword'])
-    ->middleware('guest')->name('password.update');
-Route::post('/reset-password', [AuthController::class, 'resetPassword'])
-    ->middleware('guest')->name('password.update');
+
 
 // Karya
 Route::get('karya', [KaryaController::class, 'karyaUser'])->name('karya.user');
@@ -137,8 +150,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('karya', [KaryaController::class, 'store'])->name('karya.store');
     
     // Rating & Review
-    Route::post('/rating', [RatingController::class, 'store'])->name('rating.store');
-    Route::delete('/rating/{id}', [RatingController::class, 'destroy'])->name('rating.destroy');
+    Route::post('/review', [App\Http\Controllers\ReviewController::class, 'store'])->name('review.store');
 });
 
 // ============================================
@@ -148,60 +160,107 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->group(fun
     
     // Dashboard Admin
     Route::get('dashboard', function () {
-        return view('admin.pages.dashboard');
+    return view('admin.pages.dashboard');
     })->name('dashboard');
     
-    // Kelola Karya
-    Route::get('kelola-karya', function () {
-        return view('admin.pages.kelolakarya');
-    })->name('kelolakarya');
+   // Kelola Karya masih salah masih error
+    Route::get('kelolakarya', function () {
+     return view('admin.pages.kelolakarya');
+     })->name('kelolakarya');
+
+    Route::get('kelolakarya1', function () {
+    Return view('admin.pages.kelolakarya1');
+     })->name('kelolakarya1');
+
+     Route::get('kelolakarya3', function () {
+     return view('admin.pages.kelolakarya3');
+    })->name('kelolakarya3');
+
+    //Route::get('kelola-karya', [KaryaController::class, 'index'])->name('kelolakarya');
+    //Route::get('kelola-karya/create', [KaryaController::class, 'create'])->name('admin.karya.create'); // ✅ TAMBAHKAN
+    //Route::post('kelola-karya/store', [KaryaController::class, 'storeAdmin'])->name('admin.karya.store'); // ✅ TAMBAHKAN
+   // Route::patch('karya/{id}/approve', [KaryaController::class, 'approve'])->name('admin.karya.approve');
+    //Route::patch('karya/{id}/reject', [KaryaController::class, 'reject'])->name('admin.karya.reject');
     
-    // Validasi Konten
-    Route::get('validasi-konten', function () {
-        return view('admin.pages.validasikonten');
-    })->name('validasikonten');
+    // Validasi Konten Terbaru 
+    //Route::get('validasi-konten', [KaryaController::class, 'validationPage'])->name('validasikonten'); // ✅ UPDATE INI
+
+    // Validasi Konten yang lama
+    //Route::get('validasi-konten', function () {
+        //return view('admin.pages.validasikonten');
+    //})->name('validasikonten');
     
     // Info Prodi
-    Route::get('info-prodi', function () {
-        return view('admin.pages.infoprodi');
+    Route::get('infoprodi', function () {
+    return view('admin.pages.infoprodi');
     })->name('infoprodi');
+
+    Route::get('infoprodicapaian', function () {
+    return view('admin.pages.infoprodicapaian');
+    })->name('infoprodicapaian');
+
+    Route::get('infoproditujuan', function () {
+    return view('admin.pages.infoproditujuan');
+    })->name('infoproditujuan');
+
+    Route::get('infoprodividio', function () {
+    return view('admin.pages.infoprodividio');
+    })->name('infoprodividio');
+
+    Route::get('infoprodivisimisi', function () {
+    return view('admin.pages.infoprodivisimisi');
+    })->name('infoprodivisimisi');
     
-    // Dosen Management
-    Route::get('dosen-admin', function () {
-        return view('admin.pages.dosen');
-    })->name('dosen.admin');
+    // Dosen 
+    Route::get('dosen', function () {
+    return view('admin.pages.dosen');
+    })->name('dosen');
+
+    Route::get('dosen1', function () {
+    return view('admin.pages.dosen1');
+    })->name('dosen1');
+
+     Route::get('tambahdosen', function () {
+     return view('admin.pages.tambahdosen');
+    })->name('tambahdosen');
     
     // Ajuan Karya
-    Route::get('ajuan-karya', function () {
-        return view('admin.pages.ajuankarya');
+     Route::get('ajuankarya', function () {
+    return view('admin.pages.ajuankarya');
     })->name('ajuankarya');
-    
+
+    Route::get('ajuankarya1', function () {
+    return view('admin.pages.ajuankarya1');
+    })->name('ajuankarya1');
+
     // Lihat Karya
-    Route::get('lihat-karya', function () {
-        return view('admin.pages.lihatkarya');
+    Route::get('lihatkarya', function () {
+    return view('admin.pages.lihatkarya');
     })->name('lihatkarya');
     
     // Lihat Validasi
-    Route::get('lihat-validasi', function () {
-        return view('admin.pages.lihatvalidasi');
+    Route::get('lihatvalidasi', function () {
+    return view('admin.pages.lihatvalidasi');
     })->name('lihatvalidasi');
-    
+
+    Route::get('validasikonten', function () {
+    return view('admin.pages.validasikonten');
+    })->name('validasikonten');
+
+    Route::get('validasikonten1', function () {
+    return view('admin.pages.validasikonten1');
+    })->name('validasikonten1');
+
     // Lihat Pengunjung
     Route::get('lihat-pengunjung', function () {
         return view('admin.pages.lihatpengunjung');
     })->name('lihatpengunjung');
-    
-    // Tambah Dosen
-    Route::get('tambah-dosen', function () {
-        return view('admin.pages.tambahdosen');
-    })->name('tambahdosen');
     
     // Daftar Admin (CRUD Admin) - Nanti kita bikin controller-nya
     Route::get('daftar-admin', function () {
         return view('admin.pages.daftaradmin');
     })->name('daftaradmin');
 });
-
  
     // Nanti di sini kamu bisa tambah route kelola admin
     // Route::get('kelola-admin', [AdminController::class, 'index'])->name('kelola.admin');
@@ -242,92 +301,12 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->group(fun
 //     return redirect()->route('karya')->with('success', 'Karya berhasil diunggah!');
 // })->name('karya.store');
 
-// Route::get('ajuankarya', function () {
-//     return view('admin.pages.ajuankarya');
-// })->name('ajuankarya');
-
-// Route::get('ajuankarya1', function () {
-//     return view('admin.pages.ajuankarya1');
-// })->name('ajuankarya1');
-
-// Route::get('daftaradmin', function () {
-//     return view('admin.pages.daftaradmin');
-// })->name('daftaradmin');
-
-// Route::get('dosen', function () {
-//     return view('admin.pages.dosen');
-// })->name('dosen');
-
-// Route::get('dosen1', function () {
-//     return view('admin.pages.dosen1');
-// })->name('dosen1');
-
-// Route::get('infoprodi', function () {
-//     return view('admin.pages.infoprodi');
-// })->name('infoprodi');
-
-// Route::get('infoprodicapaian', function () {
-//     return view('admin.pages.infoprodicapaian');
-// })->name('infoprodicapaian');
-
-// Route::get('infoproditujuan', function () {
-//     return view('admin.pages.infoproditujuan');
-// })->name('infoproditujuan');
-
-// Route::get('infoprodividio', function () {
-//     return view('admin.pages.infoprodividio');
-// })->name('infoprodividio');
-
-// Route::get('infoprodivisimisi', function () {
-//     return view('admin.pages.infoprodivisimisi');
-// })->name('infoprodivisimisi');
-
-
-// Route::get('kelolakarya', function () {
-//     return view('admin.pages.kelolakarya');
-// })->name('kelolakarya');
-
-// Route::get('kelolakarya1', function () {
-//     return view('admin.pages.kelolakarya1');
-// })->name('kelolakarya1');
-
-//Route::get('kelolakarya3', function () {
-    //return view('admin.pages.kelolakarya3');
-//})->name('kelolakarya3');
-
 // Route::get('kirimtautan', function () {
 //     return view('admin.pages.kirimtautan');
 // })->name('ajuankarya');
-
-// Route::get('lihatkarya', function () {
-//     return view('admin.pages.lihatkarya');
-// })->name('lihatkarya');
-
-// Route::get('lihatpengunjung', function () {
-//     return view('admin.pages.lihatpengunjung');
-// })->name('lihatpengunjung');
-
-// Route::get('lihatvalidasi', function () {
-//     return view('admin.pages.lihatvalidasi');
-// })->name('lihatvalidasi');
-
-// Route::get('loginadmin01', function () {
-//     return view('admin.pages.loginadmin01');
-// })->name('loginadmin01');
 
 // Route::get('lupasandi', function () {
 //     return view('admin.pages.lupasandi');
 // })->name('lupasandi');
 
-// Route::get('tambahdosen', function () {
-//     return view('admin.pages.tambahdosen');
-// })->name('tambahdosen');
-
-// Route::get('validasikonten', function () {
-//     return view('admin.pages.validasikonten');
-// })->name('validasikonten');
-
-// Route::get('validasikonten1', function () {
-//     return view('admin.pages.validasikonten1');
-// })->name('validasikonten1');
 

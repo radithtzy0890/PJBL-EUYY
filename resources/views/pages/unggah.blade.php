@@ -47,22 +47,28 @@
                     <form action="{{ route('karya.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         
-                        {{-- Judul Karya --}}
+                        {{-- 1. Judul Karya --}}
                         <div class="mb-3">
                             <label for="judul" class="form-label">Judul Karya <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('judul') is-invalid @enderror" 
-                                   id="judul" name="judul" value="{{ old('judul') }}" 
-                                   required placeholder="Masukkan judul karya">
+                            <input type="text" 
+                                   class="form-control @error('judul') is-invalid @enderror" 
+                                   id="judul" 
+                                   name="judul" 
+                                   value="{{ old('judul') }}" 
+                                   required 
+                                   placeholder="Masukkan judul karya">
                             @error('judul')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        {{-- Kategori --}}
+                        {{-- 2. Kategori --}}
                         <div class="mb-3">
                             <label for="kategori" class="form-label">Kategori <span class="text-danger">*</span></label>
                             <select class="form-select @error('kategori') is-invalid @enderror" 
-                                    id="kategori" name="kategori" required>
+                                    id="kategori" 
+                                    name="kategori" 
+                                    required>
                                 <option value="">Pilih Kategori</option>
                                 <option value="Web Development" {{ old('kategori') == 'Web Development' ? 'selected' : '' }}>Web Development</option>
                                 <option value="Mobile Apps" {{ old('kategori') == 'Mobile Apps' ? 'selected' : '' }}>Mobile Apps</option>
@@ -76,44 +82,78 @@
                             @enderror
                         </div>
 
-                        {{-- Nama Tim/Pembuat --}}
+                        {{-- 3. Nama Tim/Pembuat --}}
                         <div class="mb-3">
-                            <label for="pembuat" class="form-label">Nama Tim/Pembuat <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('pembuat') is-invalid @enderror" 
-                                   id="pembuat" name="pembuat" value="{{ old('pembuat') }}" 
-                                   required placeholder="Contoh: Tim StockNest">
-                            @error('pembuat')
+                            <label for="tim_pembuat" class="form-label">Nama Tim/Pembuat <span class="text-danger">*</span></label>
+                            <input type="text" 
+                                   class="form-control @error('tim_pembuat') is-invalid @enderror" 
+                                   id="tim_pembuat" 
+                                   name="tim_pembuat" 
+                                   value="{{ old('tim_pembuat') }}" 
+                                   required 
+                                   placeholder="Contoh: Tim StockNest">
+                            @error('tim_pembuat')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        {{-- Email --}}
+                        {{-- 4. Tahun --}}
+                        <div class="mb-3">
+                            <label for="tahun" class="form-label">Tahun <span class="text-danger">*</span></label>
+                            <select class="form-select @error('tahun') is-invalid @enderror" 
+                                    id="tahun" 
+                                    name="tahun" 
+                                    required>
+                                <option value="">Pilih Tahun</option>
+                                @for ($year = date('Y'); $year >= 2020; $year--)
+                                    <option value="{{ $year }}" {{ old('tahun', date('Y')) == $year ? 'selected' : '' }}>
+                                        {{ $year }}
+                                    </option>
+                                @endfor
+                            </select>
+                            @error('tahun')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        {{-- 5. Email --}}
                         <div class="mb-3">
                             <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" 
-                                   id="email" name="email" value="{{ old('email', Auth::user()->email ?? '') }}" 
-                                   required placeholder="pembuat@gmail.com">
+                            <input type="email" 
+                                   class="form-control @error('email') is-invalid @enderror" 
+                                   id="email" 
+                                   name="email" 
+                                   value="{{ old('email', Auth::user()->email ?? '') }}" 
+                                   required 
+                                   placeholder="pembuat@gmail.com">
                             @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        {{-- Deskripsi --}}
+                        {{-- 6. Deskripsi --}}
                         <div class="mb-3">
                             <label for="deskripsi" class="form-label">Deskripsi Karya <span class="text-danger">*</span></label>
                             <textarea class="form-control @error('deskripsi') is-invalid @enderror" 
-                                      id="deskripsi" name="deskripsi" rows="5" 
-                                      required placeholder="Jelaskan detail tentang karyamu...">{{ old('deskripsi') }}</textarea>
+                                      id="deskripsi" 
+                                      name="deskripsi" 
+                                      rows="5" 
+                                      required 
+                                      placeholder="Jelaskan detail tentang karyamu...">{{ old('deskripsi') }}</textarea>
                             @error('deskripsi')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        {{-- Upload Gambar --}}
+                        {{-- 7. Upload Gambar --}}
                         <div class="mb-3">
                             <label for="gambar" class="form-label">Screenshot/Gambar Karya <span class="text-danger">*</span></label>
-                            <input type="file" class="form-control @error('gambar') is-invalid @enderror" 
-                                   id="gambar" name="gambar" accept="image/*" required>
+                            <input type="file" 
+                                   class="form-control @error('gambar') is-invalid @enderror" 
+                                   id="gambar" 
+                                   name="gambar" 
+                                   accept="image/*" 
+                                   required>
                             <small class="text-muted">Format: JPG, PNG, max 2MB</small>
                             @error('gambar')
                                 <div class="invalid-feedback">{{ $message }}</div>
