@@ -145,13 +145,23 @@
                             @enderror
                         </div>
 
+                        <div class="form-group">
+                            <label for="link">Pengumpulan (Link)</label>
+                            <input type="url" id="link" name="link" value="{{ old('link') }}" 
+                                placeholder="https://drive.google.com/karya123">
+                            <small style="color: #666;">Link Google Drive, GitHub, atau URL lainnya</small>
+                            @error('link')
+                                <div class="error">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         {{-- 7. Upload Gambar --}}
                         <div class="mb-3">
                             <label for="gambar" class="form-label">Screenshot/Gambar Karya <span class="text-danger">*</span></label>
                             <input type="file" 
                                    class="form-control @error('gambar') is-invalid @enderror" 
                                    id="gambar" 
-                                   name="gambar" 
+                                   name="preview_karya" 
                                    accept="image/*" 
                                    required>
                             <small class="text-muted">Format: JPG, PNG, max 2MB</small>

@@ -48,36 +48,13 @@
     
                         {{-- Project Card --}}
                         <div class="card p-4 project-card">
-                            <h2 class="h4 fw-bold">BookNest – Aplikasi Perpustakaan Digital</h2>
+                            <h2 class="h4 fw-bold">{{ $karya->judul }}</h2>
                             <img src="https://placehold.co/800x400/333/fff?text=Screenshot+Kode" alt="Screenshot Proyek" class="img-fluid rounded my-3">
                             
-                            <h5 class="fw-bold">Deskripsi</h5>
+                            <h5 class="fw-bold">{{ $karya->deskripsi }}</h5>
                             <p>
                                 BookNest adalah aplikasi perpustakaan digital yang memudahkan pengguna mencari, membaca, dan meminjam buku secara online. Dengan fitur pencarian cepat, rekomendasi bacaan, serta akses baca online maupun offline, aplikasi ini hadir untuk meningkatkan minat baca dan mempermudah pengelolaan koleksi secara modern.
                             </p>
-
-                            <h5 class="fw-bold mt-4">Fitur Utama</h5>
-                            <ul>
-                                <li>Pencarian buku yang cepat dan akurat</li>
-                                <li>Sistem rekomendasi berbasis AI</li>
-                                <li>Akses offline untuk buku yang sudah diunduh</li>
-                                <li>Dashboard admin untuk manajemen koleksi</li>
-                                <li>Notifikasi pengingat pengembalian buku</li>
-                            </ul>
-
-                            <h5 class="fw-bold mt-4">Teknologi yang Digunakan</h5>
-                            <div class="d-flex flex-wrap gap-2 mb-3">
-                                <span class="badge bg-primary">Laravel</span>
-                                <span class="badge bg-info">Vue.js</span>
-                                <span class="badge bg-success">MySQL</span>
-                                <span class="badge bg-warning text-dark">Bootstrap</span>
-                                <span class="badge bg-danger">Redis</span>
-                            </div>
-
-                            <div class="mt-4">
-                                <a href="#" class="btn btn-tpl me-2"><i class="bi bi-globe me-2"></i>Demo Live</a>
-                                <a href="#" class="btn btn-outline-secondary"><i class="bi bi-github me-2"></i>GitHub</a>
-                            </div>
                         </div>
                     </div>
     

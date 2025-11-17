@@ -91,7 +91,7 @@
       </div>
     @endif
 
-    <form action="{{ route('admin.karya.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('karya.store') }}" method="POST" enctype="multipart/form-data">
       @csrf
       
       {{-- Judul Karya --}}
@@ -159,11 +159,11 @@
 
       {{-- Link Pengumpulan (Google Drive, dll) --}}
       <div class="form-group">
-        <label for="link_pengumpulan">Pengumpulan (Link/PDF)</label>
-        <input type="url" id="link_pengumpulan" name="link_pengumpulan" value="{{ old('link_pengumpulan') }}" 
+        <label for="link">Pengumpulan (Link/PDF)</label>
+        <input type="url" id="link" name="link" value="{{ old('link') }}" 
                placeholder="https://drive.google.com/karya123">
         <small style="color: #666;">Link Google Drive, GitHub, atau URL lainnya</small>
-        @error('link_pengumpulan')
+        @error('link')
           <div class="error">{{ $message }}</div>
         @enderror
       </div>
@@ -182,7 +182,7 @@
       <button type="submit" class="btn-submit">
         <i data-feather="save"></i> Simpan ke Validasi
       </button>
-      <a href="{{ route('kelolakarya') }}" class="btn-cancel">
+      <a href="{{ route('karya.index') }}" class="btn-cancel">
         <i data-feather="x"></i> Batal
       </a>
     </form>

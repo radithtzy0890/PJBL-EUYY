@@ -101,7 +101,7 @@
                 </div>
 
                 <div class="text-center mt-3">
-                    <a href="{{ route('karya.user') }}" class="btn btn-tpl btn-lg px-5 py-3">Cari Karya Lainnya</a>
+                    <a href="/karya" class="btn btn-tpl btn-lg px-5 py-3">Cari Karya Lainnya</a>
                     <a href="{{ route('unggah') }}" class="btn btn-tpl btn-lg px-5 py-3 ms-2">Unggah Karya</a>
                 </div>
             </div>

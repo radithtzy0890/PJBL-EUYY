@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\KaryaController;
 use Illuminate\Support\Facades\Mail; // tambahkan ini
 use App\Mail\SendEmail; // tambahkan ini
+use App\Models\Karya;
 
 Route::get('/', function () {
     return view('welcome');
@@ -122,9 +123,21 @@ Route::post('/reset-password/{token}', [AuthController::class, 'submitResetPassw
 
 
 // Karya
-Route::get('karya', [KaryaController::class, 'karyaUser'])->name('karya.user');
-Route::post('karya', [KaryaController::class, 'store'])->name('karya.store');
-Route::get('karya/{id}', [KaryaController::class, 'userShow'])->name('karya.show');
+// Route::get('karya', [KaryaController::class, 'karyaUser'])->name('karya.user');
+// Route::post('karya', [KaryaController::class, 'store'])->name('karya.store');
+// Route::get('karya/{id}', [KaryaController::class, 'userShow'])->name('karya.show');
+
+//cari karya lainnya
+Route::get('karya', function(){
+    $karya=Karya::where('status_validasi','accepted')->get();
+    return view('pages.karya',compact('karya'));
+});
+
+//cari karya lainnya (2)
+Route::get('karya/{id}', function($id){
+    $karya=Karya::find($id);
+    return view('pages.detailkarya',compact('karya'));
+});
 
 // Berita
 Route::get('/berita/{id}', function ($id) {
@@ -150,7 +163,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('karya', [KaryaController::class, 'store'])->name('karya.store');
     
     // Rating & Review
-    Route::post('/review', [App\Http\Controllers\ReviewController::class, 'store'])->name('review.store');
+    // Route::post('/review', [App\Http\Controllers\ReviewController::class, 'store'])->name('review.store');
 });
 
 // ============================================
@@ -163,18 +176,10 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->group(fun
     return view('admin.pages.dashboard');
     })->name('dashboard');
     
-   // Kelola Karya masih salah masih error
-    Route::get('kelolakarya', function () {
-     return view('admin.pages.kelolakarya');
-     })->name('kelolakarya');
-
-    Route::get('kelolakarya1', function () {
-    Return view('admin.pages.kelolakarya1');
-     })->name('kelolakarya1');
-
-     Route::get('kelolakarya3', function () {
-     return view('admin.pages.kelolakarya3');
-    })->name('kelolakarya3');
+    // Kelola Karya masih salah masih error
+    Route::get('karya/validasi', [KaryaController::class, 'validation'])->name("karya.validasi");
+    Route::get('karya/validasi/{id}', [KaryaController::class, 'validationForm'])->name("karya.form");
+    Route::resource('karya', KaryaController::class);
 
     //Route::get('kelola-karya', [KaryaController::class, 'index'])->name('kelolakarya');
     //Route::get('kelola-karya/create', [KaryaController::class, 'create'])->name('admin.karya.create'); // ✅ TAMBAHKAN
@@ -183,7 +188,7 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->group(fun
     //Route::patch('karya/{id}/reject', [KaryaController::class, 'reject'])->name('admin.karya.reject');
     
     // Validasi Konten Terbaru 
-    //Route::get('validasi-konten', [KaryaController::class, 'validationPage'])->name('validasikonten'); // ✅ UPDATE INI
+    // Route::get('validasi-konten', [KaryaController::class, 'validationPage'])->name('validasikonten'); // ✅ UPDATE INI
 
     // Validasi Konten yang lama
     //Route::get('validasi-konten', function () {
