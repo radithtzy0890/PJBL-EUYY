@@ -4,18 +4,12 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\RatingController;
-use App\Http\Controllers\Admin\ProfilProdiController;
-use App\Http\Controllers\Admin\DosenController;
-use App\Http\Controllers\Admin\MatkulController;
-use App\Http\Controllers\Admin\BeritaController;
-use App\Http\Controllers\Admin\KontakController;
-use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\KaryaController;
+use App\Http\Controllers\Admin\ReviewController;
 use Illuminate\Support\Facades\Mail; // tambahkan ini
 use App\Mail\SendEmail; // tambahkan ini
 use App\Models\Karya;
+use App\Models\Review;
 
 Route::get('/', function () {
     return view('welcome');
@@ -136,7 +130,8 @@ Route::get('karya', function(){
 //cari karya lainnya (2)
 Route::get('karya/{id}', function($id){
     $karya=Karya::find($id);
-    return view('pages.detailkarya',compact('karya'));
+    $review = Review::with('user')->where('karya_id', $id)->get();
+    return view('pages.detailkarya',compact('karya','review'));
 });
 
 // Berita
@@ -163,7 +158,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('karya', [KaryaController::class, 'store'])->name('karya.store');
     
     // Rating & Review
-    // Route::post('/review', [App\Http\Controllers\ReviewController::class, 'store'])->name('review.store');
+    Route::post('review', [ReviewController::class, 'store'])->name('review.store');
 });
 
 // ============================================

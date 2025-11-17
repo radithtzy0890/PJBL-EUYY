@@ -52,9 +52,6 @@
                             <img src="https://placehold.co/800x400/333/fff?text=Screenshot+Kode" alt="Screenshot Proyek" class="img-fluid rounded my-3">
                             
                             <h5 class="fw-bold">{{ $karya->deskripsi }}</h5>
-                            <p>
-                                BookNest adalah aplikasi perpustakaan digital yang memudahkan pengguna mencari, membaca, dan meminjam buku secara online. Dengan fitur pencarian cepat, rekomendasi bacaan, serta akses baca online maupun offline, aplikasi ini hadir untuk meningkatkan minat baca dan mempermudah pengelolaan koleksi secara modern.
-                            </p>
                         </div>
                     </div>
     
@@ -62,84 +59,50 @@
                     <div class="col-lg-4">
                         {{-- Feedback Form --}}
                         <div class="card p-3 mb-4">
-                            <h5 class="fw-bold">Tulis Umpan Balik</h5>
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <div class="stars-input text-muted fs-4">
-                                    <i class="bi bi-star" data-value="1"></i>
-                                    <i class="bi bi-star" data-value="2"></i>
-                                    <i class="bi bi-star" data-value="3"></i>
-                                    <i class="bi bi-star" data-value="4"></i>
-                                    <i class="bi bi-star" data-value="5"></i>
+                            <form action="{{ route('review.store') }}" method="post">
+                                @csrf
+                                @method('post')
+                                <h5 class="fw-bold">Tulis Umpan Balik</h5>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div class="stars-input text-muted fs-4">
+                                        <i class="bi bi-star" data-value="1"></i>
+                                        <i class="bi bi-star" data-value="2"></i>
+                                        <i class="bi bi-star" data-value="3"></i>
+                                        <i class="bi bi-star" data-value="4"></i>
+                                        <i class="bi bi-star" data-value="5"></i>
+                                    </div>
+                                    <span class="fw-bold text-muted" id="rating-display">N/A</span>
                                 </div>
-                                <span class="fw-bold text-muted" id="rating-display">N/A</span>
-                            </div>
-                            <textarea class="form-control my-2" rows="5" placeholder="Tulis reviewmu disini..."></textarea>
-                            <input type="hidden" name="rating" id="rating-value" value="0">
-                            <button class="btn btn-tpl w-100">Kirim</button>
+                                <textarea name="comment" class="form-control my-2" rows="5" placeholder="Tulis reviewmu disini..."></textarea>
+                                <input type="hidden" name="rating" id="rating-value" value="0">
+                                <input type="hidden" name="karya_id" value="{{ $karya->id }}">
+                                <button class="btn btn-tpl w-100" type="submit">Kirim</button>
+                            </form>
                         </div>
     
                         {{-- Review 1 --}}
+                        @foreach ($review as $r)
                         <div class="card p-3 mb-3 feedback-card">
                             <div class="d-flex align-items-center mb-2">
                                 <img src="https://placehold.co/50x50" alt="Avatar Reviewer" class="avatar-sm">
                                 <div class="ms-3">
-                                    <h6 class="mb-0 fw-bold">Dandi</h6>
-                                    <small class="text-muted">28 September 2025</small>
+                                    <h6 class="mb-0 fw-bold">{{ $r->user->name }}</h6>
+                                    <small class="text-muted">{{ $r->created_at }}</small>
                                 </div>
                                 <div class="stars-display ms-auto text-warning">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star text-muted"></i>
-                                    <i class="bi bi-star text-muted"></i>
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        @if ($i <= $r->rating)
+                                            <i class="bi bi-star-fill"></i>
+                                        @else
+                                            <i class="bi bi-star text-muted"></i>
+                                        @endif
+                                    @endfor
                                 </div>
-                            </div>
-                            <p class="mb-0 small">
-                                BookNest sangat memudahkan tugas kuliah. Cari jurnal dan e-book jadi cepat, fitur rekomendasinya juga sering kasih bacaan relevan.
-                            </p>
-                        </div>
-    
-                        {{-- Review 2 --}}
-                        <div class="card p-3 mb-3 feedback-card">
-                            <div class="d-flex align-items-center mb-2">
-                                <img src="https://placehold.co/50x50" alt="Avatar Reviewer" class="avatar-sm">
-                                <div class="ms-3">
-                                    <h6 class="mb-0 fw-bold">Salsabila</h6>
-                                    <small class="text-muted">28 September 2025</small>
-                                </div>
-                                <div class="stars-display ms-auto text-warning">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star text-muted"></i>
-                                </div>
-                            </div>
-                            <p class="mb-0 small">
-                                Dashboard adminnya rapi dan mempermudah manajemen koleksi digital. Hanya berharap ada fitur laporan lebih detail.
-                            </p>
-                        </div>
 
-                        {{-- Review 3 --}}
-                        <div class="card p-3 mb-3 feedback-card">
-                            <div class="d-flex align-items-center mb-2">
-                                <img src="https://placehold.co/50x50" alt="Avatar Reviewer" class="avatar-sm">
-                                <div class="ms-3">
-                                    <h6 class="mb-0 fw-bold">Rizky</h6>
-                                    <small class="text-muted">25 September 2025</small>
-                                </div>
-                                <div class="stars-display ms-auto text-warning">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                </div>
                             </div>
-                            <p class="mb-0 small">
-                                Aplikasi yang sangat membantu! Interface-nya user friendly dan loading-nya cepat. Recommended banget buat perpustakaan digital!
-                            </p>
+                            <p class="mb-0 small">{{ $r->comment }}</p>
                         </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
