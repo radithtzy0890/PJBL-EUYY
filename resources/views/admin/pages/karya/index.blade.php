@@ -21,11 +21,11 @@
 
   <div class="container">
     <div class="sidebar">
-      <a href="" class="active">Kelola Karya</a>
-      <a href="">Dashboard</a>
-      <a href="">InfoProdi</a>
+      <a href="{{ route('dashboard') }}">Dashboard</a>
+      <a href="{{ route('karya.index') }}" class="active">Kelola Karya</a>
+      <a href="{{ route('info-prodi.index') }}">InfoProdi</a>
       <a href="{{ route('karya.validasi') }}">Validasi Konten</a>
-      <a href="">Dosen</a>
+      <a href="{{ route('dosen') }} }}">Dosen</a>
     </div>
 
     <div class="content">

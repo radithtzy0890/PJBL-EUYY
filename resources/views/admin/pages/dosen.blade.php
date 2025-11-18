@@ -22,8 +22,8 @@
   <div class="container">
     <aside class="sidebar">
       <a href="{{ route('dashboard') }}" class="active">Dashboard</a>
-      <a href="{{ route('kelolakarya') }}">Kelola Karya</a>
-      <a href="{{ route('infoprodi') }}">Edit Info Profil</a>
+      <a href="{{ route('karya.index') }}">Kelola Karya</a>
+      <a href="{{ route('info-prodi.index') }}">Edit Info Profil</a>
       <a href="{{ route('validasikonten') }}">Validasi Konten</a>
       <a href="{{ route('dosen') }}" class="active">Dosen</a>
     </aside>

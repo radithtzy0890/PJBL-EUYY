@@ -30,18 +30,36 @@
                             <div class="d-flex align-items-center">
                                 <img src="https://placehold.co/80x80" alt="Avatar Penulis" class="avatar">
                                 <div class="ms-3">
-                                    <h5 class="mb-0 fw-bold">Misoel Dandi</h5>
-                                    <small class="text-muted">pembuat@gmail.com</small>
+                                    <h5 class="mb-0 fw-bold">{{$karya->tim_pembuat}}</h5>
+                                    {{-- <small class="text-muted">pembuat@gmail.com</small>--}}
                                 </div>
                                 <div class="rating-box text-end ms-auto">
-                                    <h1 class="display-5 fw-bold mb-0">4.7</h1>
+                                    {{-- <h1 class="display-5 fw-bold mb-0">4.7</h1>
                                     <div class="text-warning">
                                         <i class="bi bi-star-fill"></i>
                                         <i class="bi bi-star-fill"></i>
                                         <i class="bi bi-star-fill"></i>
                                         <i class="bi bi-star-fill"></i>
                                         <i class="bi bi-star-half"></i>
-                                    </div>
+                                    </div> --}}
+                                    @php
+                                        $avgRating = $karya->reviews->avg('rating') ?? 0;
+                                        $reviewCount = $karya->reviews->count();
+                                    @endphp
+                                    
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        @if ($i <= floor($avgRating))
+                                            <i class="bi bi-star-fill"></i>
+                                        @elseif ($i <= ceil($avgRating) && $avgRating - floor($avgRating) >= 0.5)
+                                            <i class="bi bi-star-half"></i>
+                                        @else
+                                            <i class="bi bi-star"></i>
+                                        @endif
+                                    @endfor
+                                    
+                                    <h6 class="mt-2 text-muted">
+                                        {{ number_format($avgRating, 1) }} ({{ $reviewCount }} ulasan)
+                                    </h6>
                                 </div>
                             </div>
                         </div>
@@ -49,7 +67,7 @@
                         {{-- Project Card --}}
                         <div class="card p-4 project-card">
                             <h2 class="h4 fw-bold">{{ $karya->judul }}</h2>
-                            <img src="https://placehold.co/800x400/333/fff?text=Screenshot+Kode" alt="Screenshot Proyek" class="img-fluid rounded my-3">
+                            <img src="{{ asset('storage/' . $karya->preview_karya) }}" alt="Screenshot Proyek" class="img-fluid rounded my-3">
                             
                             <h5 class="fw-bold">{{ $karya->deskripsi }}</h5>
                         </div>

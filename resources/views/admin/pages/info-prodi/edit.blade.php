@@ -6,11 +6,11 @@
   <title>Portal TPL SVIPB - Dosen</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/feather-icons"></script>
-  <link rel="stylesheet" href="{{ asset('css/admin/validasikonten.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/admin/infoprodi1.css') }}">
 </head>
 
 <body>
-
+  <!-- NAVIGATION -->
   <div class="nav-container1">
     <img src="{{ asset('images/logo_TPL.png') }}" alt="Logo TPL SVIPB" class="logo-TPL">
   </div>
@@ -20,36 +20,41 @@
     <p>Syntax Error Compile Lagi</p>
   </div>
 
-
   <div class="container">
     <div class="sidebar">
-      <a href="{{ route('karya.index') }}">Kelola Karya</a>
       <a href="{{ route('dashboard') }}">Dashboard</a>
-      <a href="{{ route('info-prodi.index') }}">Info Prodi</a>
-      <a href="{{ route('karya.validasi') }}" class="active">Validasi Konten</a>
-      <a href="{{ route('dosen') }}">Dosen</a>
+      <a href="{{ route('karya.index') }}">Kelola Karya</a>
+      <a href="{{ route('info-prodi.index') }}" class="active">Info Profil</a>
+      <a href="{{ route('validasikonten') }}">Validasi Konten</a>
+      <a href ="{{ route('dosen') }}">Dosen</a>
     </div>
 
-    <div class="content">
-      <div class="row">
-        @foreach ($karyas as $karya)
-          <div style="margin-bottom: 5px;">
-            <div class="card">
-              <div class="info">
-                <i data-feather="file-text"></i>
-                <div>
-                  <strong>{{ $karya->judul }}</strong><br>
-                  <small>{{ $karya->tim_pembuat }}</small>
-                </div>
-              </div>
-              <a href="{{ route('karya.form', $karya->id) }}" class="edit-btn">Validasi</a>
-            </div>
-          </div>
-        @endforeach
-      </div>
+<div class="content">
+    <h2 class="title-halaman">Info Prodi</h2>
+    <div class="form-container">
+        <form action="{{ route('info-prodi.update', $profil->kode_prodi) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            @switch($type)
+                @case('video')
+                    <label>Video</label>
+                    <input type="file" name="video" accept="video/*">
+                    @break
+                @case('capaian')
+                    <label>Capaian</label>
+                    <input type="text" placeholder="Unggah Capaian baru" name="capaian" value={{ $profil->capaian }}>
+                    @break
+                @case('visi-misi')
+                    <label>Visi Misi</label>
+                    <input type="text" placeholder="Visi" value="{{ $profil->visi }}" name="visi">
+                    <input type="text" placeholder="Misi" value="{{ $profil->misi }}" name="misi">
+                    @break
+            @endswitch
+            <button class="btn-submit" type="submit">Perbarui</button>
+        </form>
     </div>
+</div>
   </div>
-
   <footer>
     <div class="footer-container">
       <div class="footer-left">

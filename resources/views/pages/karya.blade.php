@@ -29,13 +29,15 @@
                 <div class="row justify-content-center mb-4">
                     <div class="col-md-8 col-lg-6">
                         <form action="" method="GET">
+                            @csrf
+                            @method("GET")
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-search"></i></span>
                                 <input type="text" 
                                        class="form-control" 
-                                       name="search" 
+                                       name="judul" 
                                        placeholder="Cari karya..." 
-                                       value="{{ request('search') }}">
+                                       value="{{ request('judul') }}">
                                 <button class="btn btn-primary" type="submit">Cari</button>
                             </div>
                         </form>
@@ -45,27 +47,27 @@
                 {{-- Filter Kategori --}}
                 <div class="row justify-content-center mb-4">
                     <div class="col-md-10 text-center">
-                        <a href="" 
+                        <a href="/karya?kategori=" 
                            class="btn btn-sm {{ !request('kategori') ? 'btn-primary' : 'btn-outline-primary' }} me-2 mb-2">
                             Semua
                         </a>
-                        <a href="" 
+                        <a href="/karya?kategori=Web Development" 
                            class="btn btn-sm {{ request('kategori') == 'Web Development' ? 'btn-primary' : 'btn-outline-primary' }} me-2 mb-2">
                             Web Development
                         </a>
-                        <a href="" 
+                        <a href="/karya?kategori=Mobile Apps" 
                            class="btn btn-sm {{ request('kategori') == 'Mobile Apps' ? 'btn-primary' : 'btn-outline-primary' }} me-2 mb-2">
                             Mobile Apps
                         </a>
-                        <a href="" 
+                        <a href="/karya?kategori=Data Science" 
                            class="btn btn-sm {{ request('kategori') == 'Data Science' ? 'btn-primary' : 'btn-outline-primary' }} me-2 mb-2">
                             Data Science
                         </a>
-                        <a href="" 
+                        <a href="/karya?kategori=IoT" 
                            class="btn btn-sm {{ request('kategori') == 'IoT' ? 'btn-primary' : 'btn-outline-primary' }} me-2 mb-2">
                             IoT
                         </a>
-                        <a href="" 
+                        <a href="/karya?kategori=Game Development" 
                            class="btn btn-sm {{ request('kategori') == 'Game Development' ? 'btn-primary' : 'btn-outline-primary' }} me-2 mb-2">
                             Game Development
                         </a>

@@ -112,7 +112,7 @@ class KaryaController extends Controller
             'tahun' => $validated['tahun'],
             'preview_karya' => $gambarPath,
             'tim_pembuat' => $validated['tim_pembuat'],
-            'file_karya' => $validated['link'],
+            'link_pengumpulan' => $validated['link'],
             'status_validasi' => 'submission',
             'tanggal_upload' => now(),
         ]);

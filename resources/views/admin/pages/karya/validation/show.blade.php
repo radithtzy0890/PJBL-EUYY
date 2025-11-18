@@ -24,7 +24,7 @@
     <div class="sidebar">
       <a href="{{ route('karya.index') }}" class="active">Kelola Karya</a>
       <a href="{{ route('dashboard') }}">Dashboard</a>
-      <a href="{{ route('infoprodi') }}">Info Prodi</a>
+      <a href="{{ route('info-prodi.index') }}">Info Prodi</a>
       <a href="{{ route('karya.validasi') }}">Validasi Konten</a>
       <a href="{{ route('dosen') }}">Dosen</a>
     </div>
@@ -49,7 +49,7 @@
           <input type="text" name="tim_pembuat" value="{{ $karya->tim_pembuat }}">
 
           <label>Pengumpulan (Link/PDF)</label>
-          <input type="text" name="preview_karya" value="{{ $karya->file_karya }}">
+          <input type="text" name="link_pengumpulan" value="{{ $karya->link_pengumpulan }}">
 
           <label for="statusx">Status</label>
           <select id="status" name="status_validasi">

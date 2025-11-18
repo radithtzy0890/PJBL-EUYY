@@ -23,10 +23,10 @@ class BeritaController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'judul' => 'required|string|max:255',
-            'isi' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'tanggal_publikasi' => 'required|date',
+        'judul' => 'required|string|max:255',
+        'isi' => 'required|string',
+        'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        'tanggal_publikasi' => 'required|date',
         ]);
 
         $validated['user_id'] = auth()->id();
