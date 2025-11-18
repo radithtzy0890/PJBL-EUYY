@@ -4,17 +4,14 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\RatingController;
-use App\Http\Controllers\Admin\ProfilProdiController;
-use App\Http\Controllers\Admin\DosenController;
-use App\Http\Controllers\Admin\MatkulController;
-use App\Http\Controllers\Admin\BeritaController;
-use App\Http\Controllers\Admin\KontakController;
-use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\KaryaController;
+use App\Http\Controllers\Admin\ProfilProdiController;
+use App\Http\Controllers\Admin\ReviewController;
 use Illuminate\Support\Facades\Mail; // tambahkan ini
 use App\Mail\SendEmail; // tambahkan ini
+use App\Models\Karya;
+use App\Models\Review;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('welcome');
@@ -79,9 +76,9 @@ Route::get('/tentang', function () {
 })->name('tentang');
 
 // Dosen
-Route::get('/dosen', function () {
-    return view('pages.dosen');
-})->name('dosen');
+// Route::get('/dosen', function () {
+//     return view('pages.dosen');
+// })->name('dosen');
 
 
 // Mata Kuliah
@@ -122,14 +119,47 @@ Route::post('/reset-password/{token}', [AuthController::class, 'submitResetPassw
 
 
 // Karya
-Route::get('karya', [KaryaController::class, 'karyaUser'])->name('karya.user');
-Route::post('karya', [KaryaController::class, 'store'])->name('karya.store');
-Route::get('karya/{id}', [KaryaController::class, 'userShow'])->name('karya.show');
+// Route::get('karya', [KaryaController::class, 'karyaUser'])->name('karya.user');
+// Route::post('karya', [KaryaController::class, 'store'])->name('karya.store');
+// Route::get('karya/{id}', [KaryaController::class, 'userShow'])->name('karya.show');
+
+//cari karya lainnya
+Route::get('karya', function(Request $request){
+    $query = Karya::where('status_validasi', 'accepted');
+
+    if ($request->has('judul')) {
+        $query->where('judul', 'like', '%' . $request->judul . '%');
+    }
+    
+    if ($request->has('kategori')) {
+        $query->where('kategori', $request->kategori);
+    }
+
+    $karya = $query->get();
+
+    return view('pages.karya',compact('karya'));
+});
+
+//cari karya lainnya (2)
+Route::get('karya/{id}', function($id){
+    $karya=Karya::find($id);
+    $review = Review::with('user')->where('karya_id', $id)->get();
+    return view('pages.detailkarya',compact('karya','review'));
+});
 
 // Berita
 Route::get('/berita/{id}', function ($id) {
     return view('pages.berita', compact('id'));
 })->name('berita');
+
+// Admin routes
+// Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+//     Route::resource('berita', AdminBeritaController::class);
+// });
+
+// Public routes
+// Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
+// Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita.show');
 
 // Unggah Karya
 Route::get('/unggah-karya', function () {
@@ -150,7 +180,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('karya', [KaryaController::class, 'store'])->name('karya.store');
     
     // Rating & Review
-    Route::post('/review', [App\Http\Controllers\ReviewController::class, 'store'])->name('review.store');
+    Route::post('review', [ReviewController::class, 'store'])->name('review.store');
 });
 
 // ============================================
@@ -163,18 +193,18 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->group(fun
     return view('admin.pages.dashboard');
     })->name('dashboard');
     
-   // Kelola Karya masih salah masih error
-    Route::get('kelolakarya', function () {
-     return view('admin.pages.kelolakarya');
-     })->name('kelolakarya');
+    // Kelola Karya masih salah masih error
+    Route::get('karya/validasi', [KaryaController::class, 'validation'])->name("karya.validasi");
+    Route::get('karya/validasi/{id}', [KaryaController::class, 'validationForm'])->name("karya.form");
+    Route::resource('karya', KaryaController::class);
 
-    Route::get('kelolakarya1', function () {
-    Return view('admin.pages.kelolakarya1');
-     })->name('kelolakarya1');
+    // Info Prodi
+    Route::resource('info-prodi', ProfilProdiController::class);
 
-     Route::get('kelolakarya3', function () {
-     return view('admin.pages.kelolakarya3');
-    })->name('kelolakarya3');
+    // Dosen 
+    Route::get('dosen', function () {
+        return view('admin.pages.dosen');
+    })->name('dosen');
 
     //Route::get('kelola-karya', [KaryaController::class, 'index'])->name('kelolakarya');
     //Route::get('kelola-karya/create', [KaryaController::class, 'create'])->name('admin.karya.create'); // ✅ TAMBAHKAN
@@ -183,38 +213,12 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->group(fun
     //Route::patch('karya/{id}/reject', [KaryaController::class, 'reject'])->name('admin.karya.reject');
     
     // Validasi Konten Terbaru 
-    //Route::get('validasi-konten', [KaryaController::class, 'validationPage'])->name('validasikonten'); // ✅ UPDATE INI
+    // Route::get('validasi-konten', [KaryaController::class, 'validationPage'])->name('validasikonten'); // ✅ UPDATE INI
 
     // Validasi Konten yang lama
-    //Route::get('validasi-konten', function () {
+    //Route::get('validasi-konten', fun ction () {
         //return view('admin.pages.validasikonten');
     //})->name('validasikonten');
-    
-    // Info Prodi
-    Route::get('infoprodi', function () {
-    return view('admin.pages.infoprodi');
-    })->name('infoprodi');
-
-    Route::get('infoprodicapaian', function () {
-    return view('admin.pages.infoprodicapaian');
-    })->name('infoprodicapaian');
-
-    Route::get('infoproditujuan', function () {
-    return view('admin.pages.infoproditujuan');
-    })->name('infoproditujuan');
-
-    Route::get('infoprodividio', function () {
-    return view('admin.pages.infoprodividio');
-    })->name('infoprodividio');
-
-    Route::get('infoprodivisimisi', function () {
-    return view('admin.pages.infoprodivisimisi');
-    })->name('infoprodivisimisi');
-    
-    // Dosen 
-    Route::get('dosen', function () {
-    return view('admin.pages.dosen');
-    })->name('dosen');
 
     Route::get('dosen1', function () {
     return view('admin.pages.dosen1');

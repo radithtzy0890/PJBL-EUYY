@@ -12,47 +12,47 @@ class ProfilProdiController extends Controller
     public function index()
     {
         $profil = ProfilProdi::first();
-        
-        if (!$profil) {
-            $profil = ProfilProdi::create([
-                'nama_prodi' => 'Teknologi Rekayasa Perangkat Lunak',
-            ]);
-        }
-
-        return view('admin.pages.infoprodi', compact('profil'));
+        return view('admin.pages.info-prodi.index', compact('profil'));
     }
 
-    public function edit()
+    public function edit(string $type)
     {
         $profil = ProfilProdi::first();
-        return view('admin.pages.infoprodivisimisi', compact('profil'));
+        return view('admin.pages.info-prodi.edit', compact('profil', 'type'));
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $kodeProdi)
     {
-        $profil = ProfilProdi::first();
-
         $validated = $request->validate([
-            'nama_prodi' => 'required|string|max:100',
-            'visi' => 'nullable|string',
-            'misi' => 'nullable|string',
-            'deskripsi' => 'nullable|string',
-            'capaian' => 'nullable|string',
-            'tujuan' => 'nullable|string',
-            'kontak' => 'nullable|string|max:50',
-            'alamat' => 'nullable|string|max:200',
-            'gambar_header' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'visi'      => 'nullable|string',
+            'misi'      => 'nullable|string',
+            'capaian'   => 'nullable|string',
+            'video'     => 'nullable|file',
         ]);
 
-        if ($request->hasFile('gambar_header')) {
-            if ($profil->gambar_header) {
-                Storage::disk('public')->delete($profil->gambar_header);
+        // Ambil profil berdasarkan kode_prodi
+        $profil = ProfilProdi::where('kode_prodi', $kodeProdi)->firstOrFail();
+
+        // Handle upload video
+        if ($request->hasFile('video')) {
+
+            // Hapus video lama jika ada
+            if ($profil->video && file_exists(public_path('uploads/video/' . $profil->video))) {
+                unlink(public_path('uploads/video/' . $profil->video));
             }
-            $validated['gambar_header'] = $request->file('gambar_header')->store('profil', 'public');
+
+            // Simpan video baru
+            $videoName = time() . '_' . $request->video->getClientOriginalName();
+            $request->video->move(public_path('uploads/video'), $videoName);
+
+            $validated['gambar_header'] = $videoName;
         }
 
+        // Update profil
         $profil->update($validated);
 
-        return redirect()->route('admin.profil.index')->with('success', 'Profil prodi berhasil diperbarui!');
+        return redirect()->route('info-prodi.index')
+                        ->with('success', 'Profil prodi berhasil diperbarui!');
     }
+
 }

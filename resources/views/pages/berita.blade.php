@@ -21,7 +21,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 
-                <h1 class="article-title mb-3">Agridation Festival</h1>
+                <h1 class="article-title mb-3">National Bussiness Idea Competition</h1>
                 
                 <div class="article-meta mb-4">
                     <span class="text-muted"><i class="bi bi-person-fill me-1"></i> Admin Portal</span>
@@ -34,7 +34,7 @@
                     <p>Tim dari TPL SVIPB berhasil mempersembahkan aplikasi karya inovatif mereka dalam ajang bergengsi Agridation Festival. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                     
                     <p>Aplikasi yang diberi nama "AgriConnect" ini bertujuan untuk menjembatani komunikasi antara petani dengan pasar secara langsung. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    
+                        
                     <blockquote class="blockquote my-4">
                         <p>"Kami berharap AgriConnect dapat membantu meningkatkan kesejahteraan petani dan efisiensi rantai pasok pertanian," ujar ketua tim.</p>
                     </blockquote>

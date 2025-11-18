@@ -21,27 +21,34 @@
 
   <div class="container">
     <div class="sidebar">
-      <a href="{{ route('kelolakarya') }}" class="active">Kelola Karya</a>
+      <a href="{{ route('karya.index') }}" class="active">Kelola Karya</a>
       <a href="{{ route('dashboard') }}">Dashboard</a>
       <a href="{{ route('infoprodi') }}">Info Prodi</a>
-      <a href="{{ route('validasikonten') }}">Validasi Konten</a>
+      <a href="{{ route('karya.validasi') }}">Validasi Konten</a>
       <a href="{{ route('dosen') }}">Dosen</a>
     </div>
 
 <div class="content">
     <h2 class="title-halaman">Lihat Karya</h2>
     <div class="form-container">
-        <form>
-            <label>Judul Karya</label>
-            <input type="text" placeholder="Masukkan judul karya">
-            <label>Deskripsi</label>
-            <textarea placeholder="Masukkan deskripsi karya"></textarea>
-            <label>Tim Pembuat</label>
-            <input type="text" placeholder="Masukkan nama tim pembuat">
-            <label>(Link/PDF)</label>
-            <input type="text" placeholder="Masukkan link atau PDF">
-            <button class="delete-btn" type="button" onclick="window.location.href='{{ route('kelolakarya') }}'"> Hapus</button>
-        </form>
+      <label>Judul Karya</label>
+      <input type="text" placeholder="Masukkan judul karya" value="{{ $karya->judul }}">
+
+      <label>Deskripsi</label>
+      <textarea name="deskripsi">{{ $karya->deskripsi }}</textarea>
+
+      <label>Tim Pembuat</label>
+      <input type="text" name="tim_pembuat" value="{{ $karya->tim_pembuat }}">
+      
+      <label>(Link/PDF)</label>
+      <input type="text" placeholder="Masukkan link atau PDF" value="{{ $karya->file_karya }}">
+      
+      {{-- Delete Karya --}}
+      <form action="{{ route('karya.destroy', $karya->id) }}" method="post">
+        @csrf
+        @method("delete")
+        <button style="background: red; color: white; border: none; padding: 10px" type="submit">Hapus</button>
+      </form>
     </div>
 </div>
   </div>

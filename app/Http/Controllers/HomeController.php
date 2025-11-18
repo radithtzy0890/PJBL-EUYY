@@ -13,7 +13,7 @@ class HomeController extends Controller
         $karyas = Karya::where('status_validasi', 'accepted')
                       ->with('reviews')
                       ->orderBy('created_at', 'desc')
-                      ->limit(6)
+                      ->limit(3)
                       ->get();
         
         return view('pages.homepages', compact('karyas'));

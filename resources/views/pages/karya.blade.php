@@ -28,14 +28,16 @@
                 {{-- Search Bar --}}
                 <div class="row justify-content-center mb-4">
                     <div class="col-md-8 col-lg-6">
-                        <form action="{{ route('karya.user') }}" method="GET">
+                        <form action="" method="GET">
+                            @csrf
+                            @method("GET")
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-search"></i></span>
                                 <input type="text" 
                                        class="form-control" 
-                                       name="search" 
+                                       name="judul" 
                                        placeholder="Cari karya..." 
-                                       value="{{ request('search') }}">
+                                       value="{{ request('judul') }}">
                                 <button class="btn btn-primary" type="submit">Cari</button>
                             </div>
                         </form>
@@ -45,27 +47,27 @@
                 {{-- Filter Kategori --}}
                 <div class="row justify-content-center mb-4">
                     <div class="col-md-10 text-center">
-                        <a href="{{ route('karya.user') }}" 
+                        <a href="/karya?kategori=" 
                            class="btn btn-sm {{ !request('kategori') ? 'btn-primary' : 'btn-outline-primary' }} me-2 mb-2">
                             Semua
                         </a>
-                        <a href="{{ route('karya.user', ['kategori' => 'Web Development']) }}" 
+                        <a href="/karya?kategori=Web Development" 
                            class="btn btn-sm {{ request('kategori') == 'Web Development' ? 'btn-primary' : 'btn-outline-primary' }} me-2 mb-2">
                             Web Development
                         </a>
-                        <a href="{{ route('karya.user', ['kategori' => 'Mobile Apps']) }}" 
+                        <a href="/karya?kategori=Mobile Apps" 
                            class="btn btn-sm {{ request('kategori') == 'Mobile Apps' ? 'btn-primary' : 'btn-outline-primary' }} me-2 mb-2">
                             Mobile Apps
                         </a>
-                        <a href="{{ route('karya.user', ['kategori' => 'Data Science']) }}" 
+                        <a href="/karya?kategori=Data Science" 
                            class="btn btn-sm {{ request('kategori') == 'Data Science' ? 'btn-primary' : 'btn-outline-primary' }} me-2 mb-2">
                             Data Science
                         </a>
-                        <a href="{{ route('karya.user', ['kategori' => 'IoT']) }}" 
+                        <a href="/karya?kategori=IoT" 
                            class="btn btn-sm {{ request('kategori') == 'IoT' ? 'btn-primary' : 'btn-outline-primary' }} me-2 mb-2">
                             IoT
                         </a>
-                        <a href="{{ route('karya.user', ['kategori' => 'Game Development']) }}" 
+                        <a href="/karya?kategori=Game Development" 
                            class="btn btn-sm {{ request('kategori') == 'Game Development' ? 'btn-primary' : 'btn-outline-primary' }} me-2 mb-2">
                             Game Development
                         </a>
@@ -74,31 +76,31 @@
                     
                 {{-- Grid Karya --}}
                 <div class="row">
-                    @forelse ($karyas as $karya)
+                    @forelse ($karya as $k)
                         <div class="col-12 col-md-6 col-lg-4 mb-4">
                             <div class="card h-100 shadow-sm border-0">
-                                @if($karya->preview_karya)
-                                    <img src="{{ asset('storage/' . $karya->preview_karya) }}" 
+                                @if($k->preview_karya)
+                                    <img src="{{ asset('storage/' . $k->preview_karya) }}" 
                                          class="card-img-top" 
-                                         alt="{{ $karya->judul }}"
+                                         alt="{{ $k->judul }}"
                                          style="height: 250px; object-fit: cover;">
                                 @else
                                     <div style="height: 250px; background: #333; color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
-                                        {{ $karya->judul }}
+                                        {{ $k->judul }}
                                     </div>
                                 @endif
                                 
                                 <div class="card-body d-flex flex-column">
                                     <span class="badge text-white mb-2" style="background-color: var(--warna-utama);">
-                                        {{ $karya->kategori }}
+                                        {{ $k->kategori }}
                                     </span>
-                                    <h5 class="card-title">{{ Str::limit($karya->judul, 50) }}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">Oleh: {{ $karya->tim_pembuat }}</h6>
+                                    <h5 class="card-title">{{ Str::limit($k->judul, 50) }}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Oleh: {{ $k->tim_pembuat }}</h6>
                                     
                                     <div class="text-warning mb-2">
                                         @php
-                                            $avgRating = $karya->reviews->avg('rating') ?? 0;
-                                            $reviewCount = $karya->reviews->count();
+                                            $avgRating = $k->reviews->avg('rating') ?? 0;
+                                            $reviewCount = $k->reviews->count();
                                         @endphp
                                         
                                         @for ($i = 1; $i <= 5; $i++)
@@ -116,7 +118,7 @@
                                         </h6>
                                     </div>
                                     
-                                    <a href="{{ route('karya.show', $karya->id) }}" 
+                                    <a href="/karya/{{ $k->id }}" 
                                        class="btn btn-tpl btn-sm mt-auto">
                                         Selengkapnya
                                     </a>

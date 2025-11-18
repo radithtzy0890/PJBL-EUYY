@@ -16,8 +16,8 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->string('kategori');
             $table->integer('tahun');
-            $table->string('file_karya')->nullable();
-            $table->string('preview_karya')->nullable();
+            $table->string('file_karya')->nullable(); // link
+            $table->string('preview_karya')->nullable(); // file (gambar)
             $table->string('tim_pembuat');
             $table->enum('status_validasi', ['submission', 'accepted', 'rejected'])->default('submission');
             $table->timestamp('tanggal_upload')->nullable();
