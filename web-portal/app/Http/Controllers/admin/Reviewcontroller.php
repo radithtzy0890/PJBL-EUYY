@@ -1,85 +1,38 @@
 <?php
 
-namespace App\Models;
+namespace App\Http\Controllers\Admin;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Http\Controllers\Controller;
+use App\Models\Review;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
-    // Store review (DPPL.FR12)
     public function store(Request $request)
     {
-        $request->validate([
-            'id_karya' => 'required|exists:karyas,id_karya',
-            'isi_review' => 'required|string|max:1000',
+        $validated = $request->validate([
+            'karya_id' => 'required|exists:karyas,id',
+            'rating' => 'required|integer|min:1|max:5',
+            'comment' => 'nullable|string|max:1000',
         ]);
 
-        $karya = Karya::findOrFail($request->id_karya);
+        // Cek apakah user sudah pernah review
+        $existingReview = Review::where('karya_id', $validated['karya_id'])
+                               ->where('user_id', Auth::id())
+                               ->first();
 
-        // Check if karya is approved
-        if (!$karya->isApproved()) {
-            return back()->withErrors(['message' => 'Karya belum divalidasi']);
+        if ($existingReview) {
+            return back()->with('error', 'Anda sudah memberikan review untuk karya ini.');
         }
 
         Review::create([
-            'id_review' => 'RVW' . time(),
-            'id_karya' => $request->id_karya,
-            'id_user' => auth()->user()->id_user,
-            'isi_review' => $request->isi_review,
-            'status_moderasi' => 'pending',
-            'tanggal_review' => now(),
+            'karya_id' => $validated['karya_id'],
+            'user_id' => Auth::id(),
+            'rating' => $validated['rating'],
+            'comment' => $validated['comment'],
         ]);
 
-        return back()->with('success', 'Review berhasil dikirim dan menunggu moderasi');
-    }
-
-    // Moderate review - Admin only (DPPL.FR14)
-    public function moderate(Request $request, $id)
-    {
-        if (!auth()->user()->isAdmin()) {
-            abort(403, 'Unauthorized action.');
-        }
-
-        $review = Review::findOrFail($id);
-
-        $request->validate([
-            'status_moderasi' => 'required|in:approved,rejected',
-        ]);
-
-        $review->update([
-            'status_moderasi' => $request->status_moderasi
-        ]);
-
-        return back()->with('success', 'Status review berhasil diperbarui');
-    }
-
-    // Delete review
-    public function destroy($id)
-    {
-        $review = Review::findOrFail($id);
-
-        // Only admin or review owner can delete
-        if (!auth()->user()->isAdmin() && $review->id_user != auth()->user()->id_user) {
-            abort(403, 'Unauthorized action.');
-        }
-
-        $review->delete();
-
-        return back()->with('success', 'Review berhasil dihapus');
-    }
-
-    // Admin: View all reviews for moderation
-    public function moderationPage()
-    {
-        if (!auth()->user()->isAdmin()) {
-            abort(403, 'Unauthorized action.');
-        }
-
-        $reviews = Review::with(['user', 'karya'])
-            ->where('status_moderasi', 'pending')
-            ->orderBy('created_at', 'desc')
-            ->paginate(20);
-
-        return view('admin.review.moderation', compact('reviews'));
+        return back()->with('success', 'Review berhasil ditambahkan! Terima kasih atas feedback Anda.');
     }
 }

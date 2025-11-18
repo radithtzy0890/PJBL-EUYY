@@ -23,54 +23,152 @@
                 <div class="card p-4">
                     <h3 class="mb-4">Form Unggah Karya</h3>
                     
+                    {{-- Pesan Error --}}
+                    @if ($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Oops!</strong> Ada beberapa masalah:
+                            <ul class="mb-0 mt-2">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    @endif
+
+                    {{-- Pesan Sukses --}}
+                    @if (session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Berhasil!</strong> {{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    @endif
+                    
                     <form action="{{ route('karya.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         
-                        {{-- Judul Karya --}}
+                        {{-- 1. Judul Karya --}}
                         <div class="mb-3">
                             <label for="judul" class="form-label">Judul Karya <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="judul" name="judul" required placeholder="Masukkan judul karya">
+                            <input type="text" 
+                                   class="form-control @error('judul') is-invalid @enderror" 
+                                   id="judul" 
+                                   name="judul" 
+                                   value="{{ old('judul') }}" 
+                                   required 
+                                   placeholder="Masukkan judul karya">
+                            @error('judul')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
-                        {{-- Kategori --}}
+                        {{-- 2. Kategori --}}
                         <div class="mb-3">
                             <label for="kategori" class="form-label">Kategori <span class="text-danger">*</span></label>
-                            <select class="form-select" id="kategori" name="kategori" required>
+                            <select class="form-select @error('kategori') is-invalid @enderror" 
+                                    id="kategori" 
+                                    name="kategori" 
+                                    required>
                                 <option value="">Pilih Kategori</option>
-                                <option value="Web Development">Web Development</option>
-                                <option value="Mobile Apps">Mobile Apps</option>
-                                <option value="Data Science">Data Science</option>
-                                <option value="IoT">Internet of Things</option>
-                                <option value="Game Development">Game Development</option>
-                                <option value="Lainnya">Lainnya</option>
+                                <option value="Web Development" {{ old('kategori') == 'Web Development' ? 'selected' : '' }}>Web Development</option>
+                                <option value="Mobile Apps" {{ old('kategori') == 'Mobile Apps' ? 'selected' : '' }}>Mobile Apps</option>
+                                <option value="Data Science" {{ old('kategori') == 'Data Science' ? 'selected' : '' }}>Data Science</option>
+                                <option value="IoT" {{ old('kategori') == 'IoT' ? 'selected' : '' }}>Internet of Things</option>
+                                <option value="Game Development" {{ old('kategori') == 'Game Development' ? 'selected' : '' }}>Game Development</option>
+                                <option value="Lainnya" {{ old('kategori') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
                             </select>
+                            @error('kategori')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
-                        {{-- Nama Tim/Pembuat --}}
+                        {{-- 3. Nama Tim/Pembuat --}}
                         <div class="mb-3">
-                            <label for="pembuat" class="form-label">Nama Tim/Pembuat <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="pembuat" name="pembuat" required placeholder="Contoh: Tim StockNest">
+                            <label for="tim_pembuat" class="form-label">Nama Tim/Pembuat <span class="text-danger">*</span></label>
+                            <input type="text" 
+                                   class="form-control @error('tim_pembuat') is-invalid @enderror" 
+                                   id="tim_pembuat" 
+                                   name="tim_pembuat" 
+                                   value="{{ old('tim_pembuat') }}" 
+                                   required 
+                                   placeholder="Contoh: Tim StockNest">
+                            @error('tim_pembuat')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
-                        {{-- Email --}}
+                        {{-- 4. Tahun --}}
+                        <div class="mb-3">
+                            <label for="tahun" class="form-label">Tahun <span class="text-danger">*</span></label>
+                            <select class="form-select @error('tahun') is-invalid @enderror" 
+                                    id="tahun" 
+                                    name="tahun" 
+                                    required>
+                                <option value="">Pilih Tahun</option>
+                                @for ($year = date('Y'); $year >= 2020; $year--)
+                                    <option value="{{ $year }}" {{ old('tahun', date('Y')) == $year ? 'selected' : '' }}>
+                                        {{ $year }}
+                                    </option>
+                                @endfor
+                            </select>
+                            @error('tahun')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        {{-- 5. Email --}}
                         <div class="mb-3">
                             <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control" id="email" name="email" required placeholder="pembuat@gmail.com">
+                            <input type="email" 
+                                   class="form-control @error('email') is-invalid @enderror" 
+                                   id="email" 
+                                   name="email" 
+                                   value="{{ old('email', Auth::user()->email ?? '') }}" 
+                                   required 
+                                   placeholder="pembuat@gmail.com">
+                            @error('email')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
-                        {{-- Deskripsi --}}
+                        {{-- 6. Deskripsi --}}
                         <div class="mb-3">
                             <label for="deskripsi" class="form-label">Deskripsi Karya <span class="text-danger">*</span></label>
-                            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="5" required placeholder="Jelaskan detail tentang karyamu..."></textarea>
+                            <textarea class="form-control @error('deskripsi') is-invalid @enderror" 
+                                      id="deskripsi" 
+                                      name="deskripsi" 
+                                      rows="5" 
+                                      required 
+                                      placeholder="Jelaskan detail tentang karyamu...">{{ old('deskripsi') }}</textarea>
+                            @error('deskripsi')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
-                        {{-- Upload Gambar --}}
+                        <div class="form-group">
+                            <label for="link">Pengumpulan (Link)</label>
+                            <input type="url" id="link" name="link" value="{{ old('link') }}" 
+                                placeholder="https://drive.google.com/karya123">
+                            <small style="color: #666;">Link Google Drive, GitHub, atau URL lainnya</small>
+                            @error('link')
+                                <div class="error">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        {{-- 7. Upload Gambar --}}
                         <div class="mb-3">
                             <label for="gambar" class="form-label">Screenshot/Gambar Karya <span class="text-danger">*</span></label>
-                            <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*" required>
+                            <input type="file" 
+                                   class="form-control @error('gambar') is-invalid @enderror" 
+                                   id="gambar" 
+                                   name="preview_karya" 
+                                   accept="image/*" 
+                                   required>
                             <small class="text-muted">Format: JPG, PNG, max 2MB</small>
+                            @error('gambar')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
-
 
                         {{-- Buttons --}}
                         <div class="d-flex gap-2">

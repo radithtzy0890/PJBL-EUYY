@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Karya;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,10 +16,10 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->string('kategori');
             $table->integer('tahun');
-            $table->string('file_karya')->nullable();
-            $table->string('preview_karya')->nullable();
+            $table->string('file_karya')->nullable(); // link
+            $table->string('preview_karya')->nullable(); // file (gambar)
             $table->string('tim_pembuat');
-            $table->string('status_validasi')->default('menunggu');
+            $table->enum('status_validasi', ['submission', 'accepted', 'rejected'])->default('submission');
             $table->timestamp('tanggal_upload')->nullable();
             $table->timestamps();
         });
@@ -28,6 +27,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('karya');
+        Schema::dropIfExists('karyas');
     }
 };

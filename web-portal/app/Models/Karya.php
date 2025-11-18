@@ -2,29 +2,37 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Karya extends Model
 {
-    public $incrementing = false;
+    use HasFactory;
 
     protected $fillable = [
         'user_id',
-        'judul_karya',
+        'judul',
         'deskripsi',
         'kategori',
         'tahun',
         'file_karya',
+        'preview_karya',
+        'link_pengumpulan', // ✅ TAMBAHKAN INI
         'tim_pembuat',
-        'preview',
         'status_validasi',
         'tanggal_upload',
     ];
 
-    protected $casts = [
-        'tanggal_upload' => 'date',
-    ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+}
     // Relationships
     // public function user()
     // {
@@ -56,4 +64,3 @@ class Karya extends Model
     // {
     //     return $this->status_validasi === 'disetujui';
     // }
-}

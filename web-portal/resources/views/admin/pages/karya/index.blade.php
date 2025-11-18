@@ -21,11 +21,11 @@
 
   <div class="container">
     <div class="sidebar">
-      <a href="{{ route('kelolakarya') }}" class="active">Kelola Karya</a>
       <a href="{{ route('dashboard') }}">Dashboard</a>
-      <a href="{{ route('infoprodi') }}">Info Prodi</a>
-      <a href="{{ route('validasikonten') }}">Validasi Konten</a>
-      <a href="{{ route('dosen') }}">Dosen</a>
+      <a href="{{ route('karya.index') }}" class="active">Kelola Karya</a>
+      <a href="{{ route('info-prodi.index') }}">InfoProdi</a>
+      <a href="{{ route('karya.validasi') }}">Validasi Konten</a>
+      <a href="{{ route('dosen') }} }}">Dosen</a>
     </div>
 
     <div class="content">
@@ -34,22 +34,20 @@
         <div class="column sukses">
           <h3>Karya Disetujui</h3>
 
-          /@forelse($karya->where('status_validasi', 'disetujui') as $item)
+          @forelse($accepted as $a)
             <div class="card">
               <div class="info">
                 <i data-feather="file-text"></i>
                 <div>
-                  <strong>{{ $item->judul }}</strong><br>
-                  <small>{{ $item->user->name ?? 'Anonim' }}</small>
+                  <strong>{{ $a->judul }}</strong><br>
+                  <small>{{ $a->user->name ?? 'Anonim' }}</small>
                 </div>
               </div>
               <div class="right-side">
                 <span class="status sukses">Disetujui</span>
-                <button class="edit-btn" 
-                        type="button" 
-                        onclick="window.location.href='{{ route('kelolakarya3', $item->id) }}'">
-                        Lihat
-                </button>
+                <a href="{{ route('karya.show', $a->id) }}" class="edit-btn"  type="button">
+                  Lihat
+                </a>
               </div>
             </div>
           @empty
@@ -61,22 +59,20 @@
         <div class="column ditolak">
           <h3>Karya Ditolak</h3>
 
-          @forelse($karya->where('status_validasi', 'ditolak') as $item)
+          @forelse($rejected as $r)
             <div class="card">
               <div class="info">
                 <i data-feather="file-text"></i>
                 <div>
-                  <strong>{{ $item->judul }}</strong><br>
-                  <small>{{ $item->user->name ?? 'Anonim' }}</small>
+                  <strong>{{ $r->judul }}</strong><br>
+                  <small>{{ $r->user->name ?? 'Anonim' }}</small>
                 </div>
               </div>
               <div class="right-side">
                 <span class="status ditolak">Ditolak</span>
-                <button class="edit-btn" 
-                        type="button" 
-                        onclick="window.location.href='{{ route('kelolakarya3', $item->id) }}'">
-                        Lihat
-                </button>
+                <a href="{{ route('karya.show', $r->id) }}" class="edit-btn"  type="button">
+                 Lihat
+                </a>
               </div>
             </div>
           @empty
@@ -85,8 +81,28 @@
         </div>
       </div>
 
-      <button class="btn-tambahkarya" type="button" onclick="window.location.href='{{ route('kelolakarya1') }}'">
-        + Tambah Karya
+      <button class="btn-tambahkarya" type="button">
+      <div class="content">
+  
+  {{-- Pesan Sukses --}}
+  @if (session('success'))
+    <div class="alert alert-success">
+      <strong>✓ Berhasil!</strong> {{ session('success') }}
+    </div>
+  @endif
+
+  {{-- ✅ TAMBAHKAN TOMBOL INI --}}
+  <div style="margin: 20px; text-align: right;">
+    <a href="{{ route("karya.create") }}" 
+       style="background: #007bff; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; display: inline-block;">
+      <i data-feather="plus"></i> Tambah Karya
+    </a>
+  </div>
+
+  <div class="grid-container">
+    {{-- ... kolom karya ... --}}
+  </div>
+</div>
       </button>
     </div>
   </div>
@@ -98,7 +114,7 @@
           <i data-feather="map-pin"></i>
           <div class="address">
             <p><strong>KAMPUS BOGOR</strong> — Jl. Raya Pajajaran, Kota Bogor, Jawa Barat 16128</p>
-            <p><strong>KAMPUS SUKABUMI</strong> — Jl. Sarasa No. 46, Babakan, Kec. Cibeureum, Kota Sukabumi, Jawa Barat 43142</p>
+            <p><strong>KAMPUS SUKABUMI</strong> — Jl. S arasa No. 46, Babakan, Kec. Cibeureum, Kota Sukabumi, Jawa Barat 43142</p>
           </div>
         </div>
       </div>

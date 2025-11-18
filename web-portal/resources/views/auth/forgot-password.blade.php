@@ -24,11 +24,13 @@
       <div class="login-box">
         <h2>Atur Ulang Kata Sandi</h2>
         <p>Masukkan alamat email terdaftar. Tautan akan terkirim untuk mengatur ulang kata sandi.</p>
-        <form action="dashboard.html" method="POST">
+        <form action="{{ route('forgot-password.submit') }}" method="POST">
+          @csrf
+          @method('post')
           <label for="email">Email</label>
           <input type="email" id="email" name="email" placeholder="Masukkan email" required>
 
-          <button class="login-btn" type="button" onclick="window.location.href='kirimtautan.html'"> Kirim Tautan</button>
+          <button class="login-btn" type="submit"> Kirim Tautan</button>
         </form>
       </div>
     </div>

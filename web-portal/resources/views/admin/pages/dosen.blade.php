@@ -22,10 +22,10 @@
   <div class="container">
     <aside class="sidebar">
       <a href="{{ route('dashboard') }}" class="active">Dashboard</a>
-      <a href="{{ route('kelolakarya') }}">Kelola Karya</a>
-      <a href="{{ route('infoprodi') }}">Edit Info Profil</a>
+      <a href="{{ route('karya.index') }}">Kelola Karya</a>
+      <a href="{{ route('info-prodi.index') }}">Edit Info Profil</a>
       <a href="{{ route('validasikonten') }}">Validasi Konten</a>
-      <a href="#" class="active">Dosen</a>
+      <a href="{{ route('dosen') }}" class="active">Dosen</a>
     </aside>
 
     <main class="content">
@@ -62,7 +62,7 @@
               <p>Teknologi Rekayasa Perangkat Lunak</p>
               <span class="status aktif">Aktif</span>
             </div>
-            <button class="edit-btn" type="button" onclick="window.location.href='{{ route('dosen1') }}'">Edit</button>
+            <button class="edit-btn" type="button" onclick="window.location.href='{{ route('dosen') }}'">Edit</button>
           </div>
 
             <div class="card">
@@ -73,7 +73,7 @@
               <p>Teknologi Rekayasa Perangkat Lunak</p>
               <span class="status aktif">Aktif</span>
             </div>
-            <button class="edit-btn" type="button" onclick="window.location.href='{{ route('dosen1') }}'">Edit</button>
+            <button class="edit-btn" type="button" onclick="window.location.href='{{ route('dosen') }}'">Edit</button>
           </div>
 
             <div class="card">

@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portal TPL SVIPB - Dosen</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/feather-icons"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('css/admin/infoprodi.css') }}">
 </head>
 
@@ -22,10 +22,10 @@
   <div class="container">
     <aside class="sidebar">
       <a href="{{ route('dashboard') }}">Dashboard</a>
-      <a href="{{ route('kelolakarya') }}">Kelola Karya</a>
-      <a href="#" class="active">Info Profil</a>
-      <a href="{{ route('validasikonten') }}">Validasi Konten</a>
-      <a href ="{{ route('dosen') }}">Dosen</a>
+      <a href="{{ route('karya.index') }}">Kelola Karya</a>
+      <a href="{{ route('info-prodi.index') }}" class="active">Info Profil</a>
+      <a href="{{ route('karya.validasi') }}">Validasi Konten</a>
+      <a href="{{ route('dosen') }}">Dosen</a>
     </aside>
 
     <main class="content">
@@ -39,7 +39,7 @@
           </div>
           <div class="right">
             <h3>Vidio</h3>
-            <button class="edit-btn" type="button" onclick="window.location.href='{{ route('infoprodividio') }}'">Edit</button>
+            <a href="{{ route('info-prodi.edit', 'video') }}" class="edit-btn" type="button">Edit</a>
           </div>
         </div>
 
@@ -51,19 +51,7 @@
           </div>
           <div class="right">
             <h3>Visi Misi</h3>
-              <button class="edit-btn" type="button" onclick="window.location.href='{{ route('infoprodivisimisi') }}'">Edit</button>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="left">
-            <div class="notif-icon">
-              <i data-feather="flag"></i>
-            </div>
-          </div>
-          <div class="right">
-            <h3>Tujuan</h3>           
-            <button class="edit-btn" type="button" onclick="window.location.href='{{ route('infoproditujuan') }}'">Edit</button>
+              <a href="{{ route('info-prodi.edit', 'visi-misi' ) }}" class="edit-btn" type="button">Edit</a>
           </div>
         </div>
 
@@ -75,7 +63,7 @@
           </div>
           <div class="right">
             <h3>Capaian</h3>
-              <button class="edit-btn" type="button" onclick="window.location.href='{{ route('infoprodicapaian') }}'">Edit</button>
+              <a href="{{ route('info-prodi.edit', 'capaian') }}" class="edit-btn" type="button">Edit</a>
           </div>
         </div>
       </div>

@@ -35,73 +35,45 @@
                 </header>
                 
                 <div class="row">
+                    @foreach ($karyas as $karya)
                     <div class="col-12 col-md-6 col-lg-4 mb-4">
                         <div class="card h-100 shadow-sm border-0">
                             <img src="https://placehold.co/600x400/333/white?text=Aplikasi+1" class="card-img-top" alt="Karya Mahasiswa">
                             <div class="card-body d-flex flex-column">
-                                <span class="badge text-white mb-2" style="background-color: var(--warna-utama);">Tersenggol-optim</span>
-                                <h5 class="card-title">Sistem Distribusi Obat Warso</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Oleh: Tim StockNest</h6>
+                                <span class="badge text-white mb-2" style="background-color: var(--warna-utama);">{{ $karya->kategori }}</span>
+                                <h5 class="card-title">{{ $karya->judul }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ $karya->tim_pembuat }}</h6>
                                 
                                 <div class="text-warning mb-2">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <h6 class="mt-2 text-muted">5.0 (150 ulasan)</h6>
-                                </div>
+                                    @php
+                                            $avgRating = $karya->reviews->avg('rating') ?? 0;
+                                            $reviewCount = $karya->reviews->count();
+                                        @endphp
+                                        
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            @if ($i <= floor($avgRating))
+                                                <i class="bi bi-star-fill"></i>
+                                            @elseif ($i <= ceil($avgRating) && $avgRating - floor($avgRating) >= 0.5)
+                                                <i class="bi bi-star-half"></i>
+                                            @else
+                                                <i class="bi bi-star"></i>
+                                            @endif
+                                        @endfor
+                                        
+                                        <h6 class="mt-2 text-muted">
+                                            {{ number_format($avgRating, 1) }} ({{ $reviewCount }} ulasan)
+                                        </h6>
+                                    </div>
                                 
-                                <a href="#" class="btn btn-tpl btn-sm mt-auto align-self-end">Selengkapnya</a>
+                                <a href="/karya/{{$karya->id}}" class="btn btn-tpl btn-sm mt-auto align-self-end">Selengkapnya</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-4 mb-4">
-                        <div class="card h-100 shadow-sm border-0">
-                            <img src="https://placehold.co/600x400/333/white?text=Aplikasi+2" class="card-img-top" alt="Karya Mahasiswa">
-                            <div class="card-body d-flex flex-column">
-                                <span class="badge text-white mb-2" style="background-color: var(--warna-utama);">Tersenggol-optim</span>
-                                <h5 class="card-title">Aplikasi Manajemen Data</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Oleh: Tim DataPro</h6>
-                                
-                                <div class="text-warning mb-2">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-half"></i>
-                                    <h6 class="mt-2 text-muted">4.5 (85 ulasan)</h6>
-                                </div>
-
-                                <a href="#" class="btn btn-tpl btn-sm mt-auto align-self-end">Selengkapnya</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 mb-4">
-                        <div class="card h-100 shadow-sm border-0">
-                            <img src="https://placehold.co/600x400/333/white?text=Aplikasi+3" class="card-img-top" alt="Karya Mahasiswa">
-                            <div class="card-body d-flex flex-column">
-                                <span class="badge text-white mb-2" style="background-color: var(--warna-utama);">Tersenggol-optim</span>
-                                <h5 class="card-title">StockNest - Aplikasi Perpustakaan</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Oleh: Tim BookWorms</h6>
-                                
-                                <div class="text-warning mb-2">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star"></i>
-                                    <h6 class="mt-2 text-muted">4.0 (120 ulasan)</h6>
-                                </div>
-                                
-                                <a href="#" class="btn btn-tpl btn-sm mt-auto align-self-end">Selengkapnya</a>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
 
                 <div class="text-center mt-3">
-                    <a href="{{ route('karya.user') }}" class="btn btn-tpl btn-lg px-5 py-3">Cari Karya Lainnya</a>
+                    <a href="/karya" class="btn btn-tpl btn-lg px-5 py-3">Cari Karya Lainnya</a>
                     <a href="{{ route('unggah') }}" class="btn btn-tpl btn-lg px-5 py-3 ms-2">Unggah Karya</a>
                 </div>
             </div>
@@ -171,27 +143,7 @@
                 </div>
             </div>
             
-            {{-- KARTU 3: BERITA MENYUSUL (Placeholder) --}}
-            <div class="card mb-4 shadow-sm text-dark">
-                 <div class="row g-0">
-                    <div class="col-md-4">
-                         {{-- PLACEHOLDER --}}
-                         <img src="https://placehold.co/500x300/e0e0e0/555555?text=Berita+Baru" class="img-fluid rounded-top rounded-md-start" alt="Berita Menyusul">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title fw-bold">Berita Terbaru (Menyusul)</h5>
-                            <p class="card-text text-muted">
-                                Informasi mengenai kegiatan dan prestasi terbaru TPL SV IPB akan segera ditambahkan di sini.
-                            </p>
-                            <p class="card-text d-flex justify-content-between align-items-center">
-                                <small class="text-muted">Segera</small>
-                                <a href="#" class="text-muted"><i class="bi bi-share-fill"></i></a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {{-- KARTU 2: Agridation Festival --}}
         </div>
     </div>
     </div>

@@ -22,10 +22,10 @@
 
   <div class="container">
     <div class="sidebar">
-      <a href="{{ route('kelolakarya') }}" class="active">Kelola Karya</a>
+      <a href="{{ route('karya.index') }}" class="active">Kelola Karya</a>
       <a href="{{ route('dashboard') }}">Dashboard</a>
-      <a href="{{ route('infoprodi') }}">Info Prodi</a>
-      <a href="{{ route('validasikonten') }}">Validasi Konten</a>
+      <a href="{{ route('info-prodi.index') }}">Info Prodi</a>
+      <a href="{{ route('karya.validasi') }}">Validasi Konten</a>
       <a href="{{ route('dosen') }}">Dosen</a>
     </div>
 
@@ -33,22 +33,31 @@
       <h2 class="title-halaman">Validasi Karya</h2>
 
       <div class="form-container">
-        <form>
+        <form action="{{ route("karya.update", $karya->id) }}" method="POST">
+          @csrf
+          @method("PUT")
           <label>Judul Karya</label>
-          <input type="text" value="Sistem Informasi Pengelolaan Data Mahasiswa">
+          <input type="text" name="judul" value="{{ $karya->judul }}">
+
+          <label>Tahun</label>
+          <input type="number" name="tahun" value="{{ $karya->tahun }}">
+
           <label>Deskripsi</label>
-          <textarea>Sistem ini membantu pengelolaan data mahasiswa agar lebih terorganisir dan efisien.</textarea>
+          <textarea name="deskripsi">{{ $karya->deskripsi }}</textarea>
+
           <label>Tim Pembuat</label>
-          <input type="text" value="Salsabila dan Tim Syntax Error">
+          <input type="text" name="tim_pembuat" value="{{ $karya->tim_pembuat }}">
+
           <label>Pengumpulan (Link/PDF)</label>
-          <input type="text" value="https://drive.google.com/karya123">
-          <label for="status">Status</label>
-          <select id="status" name="status">
-            <option value="sukses">Sukses</option>
-            <option value="tolak">Tolak</option>
+          <input type="text" name="link_pengumpulan" value="{{ $karya->link_pengumpulan }}">
+
+          <label for="statusx">Status</label>
+          <select id="status" name="status_validasi">
+            <option value="accepted">Terima</option>
+            <option value="rejected">Tolak</option>
           </select>
 
-          <button class="btn-submit" type="button" onclick="window.location.href='{{ route('kelolakarya') }}'">Unggah</button>
+          <button class="btn-submit" type="submit">Validasi</button>
         </form>
       </div>
     </div>

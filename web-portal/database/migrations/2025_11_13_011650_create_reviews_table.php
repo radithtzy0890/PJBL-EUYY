@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Karya;
-use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,11 +10,10 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Karya::class)->constrained()->onDelete('cascade');
-            $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
-            $table->text('isi_review');
-            $table->enum('status_moderasi', ['pending', 'approved', 'rejected'])->default('pending');
-            $table->date('tanggal_review');
+            $table->foreignId('karya_id')->constrained('karyas')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->integer('rating'); // 1 - 5
+            $table->text('comment')->nullable();
             $table->timestamps();
         });
     }

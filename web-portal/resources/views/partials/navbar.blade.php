@@ -35,6 +35,9 @@
                     <li class="nav-item">
                         <a class="nav-link nav-tpl-link" href="">{{ Auth::user()->name }}</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-tpl-link" href="{{ route("logout") }}">Logout</a>
+                    </li>
                 @else
                     <li class="nav-item">
                         <a class="btn btn-light me-3 {{ request()->routeIs('login') ? 'active' : '' }}" href="{{ route('login') }}">Login</a>

@@ -6,10 +6,11 @@
   <title>Portal TPL SVIPB - Dosen</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/feather-icons"></script>
-  <link rel="stylesheet" href="{{ asset('css/admin/kelolakarya3.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/admin/validasikonten.css') }}">
 </head>
 
 <body>
+
   <div class="nav-container1">
     <img src="{{ asset('images/logo_TPL.png') }}" alt="Logo TPL SVIPB" class="logo-TPL">
   </div>
@@ -19,31 +20,34 @@
     <p>Syntax Error Compile Lagi</p>
   </div>
 
+
   <div class="container">
     <div class="sidebar">
-      <a href="{{ route('kelolakarya') }}" class="active">Kelola Karya</a>
+      <a href="{{ route('karya.index') }}">Kelola Karya</a>
       <a href="{{ route('dashboard') }}">Dashboard</a>
-      <a href="{{ route('infoprodi') }}">Info Prodi</a>
-      <a href="{{ route('validasikonten') }}">Validasi Konten</a>
+      <a href="{{ route('info-prodi.index') }}">Info Prodi</a>
+      <a href="{{ route('karya.validasi') }}" class="active">Validasi Konten</a>
       <a href="{{ route('dosen') }}">Dosen</a>
     </div>
 
-<div class="content">
-    <h2 class="title-halaman">Lihat Karya</h2>
-    <div class="form-container">
-        <form>
-            <label>Judul Karya</label>
-            <input type="text" placeholder="Masukkan judul karya">
-            <label>Deskripsi</label>
-            <textarea placeholder="Masukkan deskripsi karya"></textarea>
-            <label>Tim Pembuat</label>
-            <input type="text" placeholder="Masukkan nama tim pembuat">
-            <label>(Link/PDF)</label>
-            <input type="text" placeholder="Masukkan link atau PDF">
-            <button class="delete-btn" type="button" onclick="window.location.href='{{ route('kelolakarya') }}'"> Hapus</button>
-        </form>
+    <div class="content">
+      <div class="row">
+        @foreach ($karyas as $karya)
+          <div style="margin-bottom: 5px;">
+            <div class="card">
+              <div class="info">
+                <i data-feather="file-text"></i>
+                <div>
+                  <strong>{{ $karya->judul }}</strong><br>
+                  <small>{{ $karya->tim_pembuat }}</small>
+                </div>
+              </div>
+              <a href="{{ route('karya.form', $karya->id) }}" class="edit-btn">Validasi</a>
+            </div>
+          </div>
+        @endforeach
+      </div>
     </div>
-</div>
   </div>
 
   <footer>
