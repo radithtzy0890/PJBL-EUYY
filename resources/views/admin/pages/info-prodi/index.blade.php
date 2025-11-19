@@ -25,7 +25,7 @@
       <a href="{{ route('karya.index') }}">Kelola Karya</a>
       <a href="{{ route('info-prodi.index') }}" class="active">Info Profil</a>
       <a href="{{ route('karya.validasi') }}">Validasi Konten</a>
-      <a href="{{ route('dosen') }}">Dosen</a>
+      <a href="{{ route('dosen.index') }}">Dosen</a>
     </aside>
 
     <main class="content">
@@ -39,7 +39,7 @@
           </div>
           <div class="right">
             <h3>Vidio</h3>
-            <a href="{{ route('info-prodi.edit', 'video') }}" class="edit-btn" type="button">Edit</a>
+            <a href="{{ route('info-prodi.editType', ['kodeProdi' => $profil->kode_prodi, 'type' => 'video']) }}" class="edit-btn" type="button">Edit</a>
           </div>
         </div>
 
@@ -51,7 +51,7 @@
           </div>
           <div class="right">
             <h3>Visi Misi</h3>
-              <a href="{{ route('info-prodi.edit', 'visi-misi' ) }}" class="edit-btn" type="button">Edit</a>
+              <a href="{{ route('info-prodi.editType', ['kodeProdi' => $profil->kode_prodi, 'type' => 'visi-misi']) }}" class="edit-btn" type="button">Edit</a>
           </div>
         </div>
 
@@ -63,7 +63,7 @@
           </div>
           <div class="right">
             <h3>Capaian</h3>
-              <a href="{{ route('info-prodi.edit', 'capaian') }}" class="edit-btn" type="button">Edit</a>
+              <a href="{{ route('info-prodi.editType', ['kodeProdi' => $profil->kode_prodi, 'type' => 'capaian']) }}" class="edit-btn" type="button">Edit</a>
           </div>
         </div>
       </div>

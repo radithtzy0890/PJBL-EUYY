@@ -21,6 +21,20 @@ class ProfilProdiController extends Controller
         return view('admin.pages.info-prodi.edit', compact('profil', 'type'));
     }
 
+    public function editWithType($kodeProdi, $type)
+    {
+        $profil = ProfilProdi::where('kode_prodi', $kodeProdi)->first();
+
+        if (!$profil) {
+            abort(404, 'Data tidak ditemukan');
+        }
+        return view('admin.pages.info-prodi.edit', [
+            'profil' => $profil,
+            'type' => $type,
+        ]);
+    }
+
+
     public function update(Request $request, $kodeProdi)
     {
         $validated = $request->validate([
@@ -31,12 +45,16 @@ class ProfilProdiController extends Controller
         ]);
 
         // Ambil profil berdasarkan kode_prodi
-        $profil = ProfilProdi::where('kode_prodi', $kodeProdi)->firstOrFail();
+        $profil = ProfilProdi::where('kode_prodi', $kodeProdi)->first();
+
+        if (!$profil) {
+            return back()->with('error', 'Data profil tidak ditemukan.');
+        }
 
         // Handle upload video
         if ($request->hasFile('video')) {
 
-            // Hapus video lama jika ada
+            // Hapus video lama
             if ($profil->video && file_exists(public_path('uploads/video/' . $profil->video))) {
                 unlink(public_path('uploads/video/' . $profil->video));
             }
@@ -45,7 +63,7 @@ class ProfilProdiController extends Controller
             $videoName = time() . '_' . $request->video->getClientOriginalName();
             $request->video->move(public_path('uploads/video'), $videoName);
 
-            $validated['gambar_header'] = $videoName;
+            $validated['video'] = $videoName;
         }
 
         // Update profil
@@ -54,5 +72,6 @@ class ProfilProdiController extends Controller
         return redirect()->route('info-prodi.index')
                         ->with('success', 'Profil prodi berhasil diperbarui!');
     }
+
 
 }

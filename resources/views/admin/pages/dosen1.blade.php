@@ -23,24 +23,58 @@
       <a href="{{ route('dashboard') }}">Dashboard</a>
       <a href="{{ route('karya.index') }}"> Kelola Karya</a>
       <a href="{{ route('info-prodi.index') }}">Info Prodi</a>
-      <a href="{{ route('validasikonten') }}">Validasi Konten</a>
-      <a href ="{{ route('dosen') }}" class="active">  Dosen</a>
+      <a href="{{ route('karya.validasi') }}">Validasi Konten</a>
+      <a href ="{{ route('dosen.index') }}" class="active">  Dosen</a>
     </div>
 
 <div class="content">
     <h2 class="title-halaman">Edit Dosen</h2>
     <div class="form-container">
-        <form>
+        <form action="{{ route('dosen.update', $dosen->id) }}"
+              method="POST"
+              enctype="multipart/form-data">
+
+            @csrf
+            @method('PUT')
+
+            <!-- Nama Dosen -->
             <label>Nama Dosen</label>
-            <input type="text" placeholder="Masukkan Nama Dosen">
+            <input type="text"
+                   name="nama"
+                   value="{{ old('nama', $dosen->nama) }}"
+                   placeholder="Masukkan Nama Dosen">
+
+            <!-- Prodi -->
+            <label>Program Studi</label>
+            <input type="text"
+                   name="prodi"
+                   value="{{ old('prodi', $dosen->prodi) }}"
+                   placeholder="Contoh: Teknologi Rekayasa Perangkat Lunak">
+
+            <!-- Research Interest -->
+            <label>Research Interest</label>
+            <input type="text"
+                   name="research_interest"
+                   value="{{ old('research_interest', $dosen->research_interest) }}"
+                   placeholder="Masukkan Research Interest">
+
+            <!-- Foto -->
             <label>Foto Dosen</label>
-            <input type="text" placeholder="Masukkan Foto Dosen">
-            <label for="status">Status</label>
-            <select id="status" name="status">
-              <option value="sukses">Aktif </option>
-              <option value="tolak">TIdak Aktif</option>
-            </select>
-            <button class="btn-submit" type="button" onclick="window.location.href='{{ route('dosen') }}'"> Simpan</button>
+            <div class="upload-box">
+                <img id="preview"
+                     src="{{ $dosen->foto ? asset('storage/'.$dosen->foto) : asset('images/default-user.png') }}"
+                     class="preview-img">
+
+                <input type="file"
+                       name="foto"
+                       accept="image/*"
+                       onchange="previewImage(event)">
+            </div>
+            <!-- Tombol -->
+            <button class="btn-submit" type="submit">
+                Simpan Perubahan
+            </button>
+
         </form>
     </div>
 </div>

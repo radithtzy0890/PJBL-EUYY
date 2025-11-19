@@ -24,86 +24,29 @@
       <a href="{{ route('karya.index') }}" class="active">Kelola Karya</a>
       <a href="{{ route('dashboard') }}">Dashboard</a>
       <a href="{{ route('info-prodi.index') }}">Info Prodi</a>
-      <a href="{{ route('validasikonten') }}">Validasi Konten</a>
-      <a href="{{ route('dosen') }}">Dosen</a>
+      <a href="{{ route('karya.validasi') }}">Validasi Konten</a>
+      <a href="{{ route('dosen.index') }}">Dosen</a>
     </div>
 
     <div class="content">
       <h2 class="page-title"> Karya Terunggah</h2>
-
       <div class="card-list">
+        @foreach ($karyas as $karya)
+        <div class="card-item">
+            <h3>
+                {{ $karya->judul }}
+            </h3>
 
-        <div class="validated-card">
-          <h4 class="judul-karya">Sistem Informasi Pengelolaan Data Mahasiswa</h4>
-          <p class="pembuat">Oleh: <strong>Salsabila</strong></p>
-          <p class="tanggal">Tanggal unggah: 12 Oktober 2025</p>
-        </div>
+            <p>
+                Oleh: <span class="font-semibold">{{ $karya->nama_pembuat }}</span>
+            </p>
 
-        <div class="validated-card">
-          <h4 class="judul-karya">Aplikasi Manajemen Inventori Laboratorium Komputer</h4>
-          <p class="pembuat">Oleh: <strong>Andika Saputra</strong></p>
-          <p class="tanggal">Tanggal unggah: 19 Mei 2025</p>
+            <!-- Tanggal Unggah -->
+            <p class="text-sm mt-1">
+                Tanggal unggah: {{ $karya->created_at }}
+            </p>
         </div>
-
-        <div class="validated-card">
-          <h4 class="judul-karya">Aplikasi Manajemen Inventori Laboratorium Komputer</h4>
-          <p class="pembuat">Oleh: <strong>Andika Saputra</strong></p>
-          <p class="tanggal">Tanggal unggah: 19 Mei 2025</p>
-        </div>
-
-        <div class="validated-card">
-          <h4 class="judul-karya">Website Katalog Produk Lokal Berbasis Laravel</h4>
-          <p class="pembuat">Oleh: <strong>Raditya Budia</strong></p>
-          <p class="tanggal">Tanggal unggah: 5 Agustus 2025</p>
-        </div>
-
-        <div class="validated-card">
-          <h4 class="judul-karya">Pengembangan Aplikasi Absensi Mahasiswa Online</h4>
-          <p class="pembuat">Dibuat oleh: <strong>Dandi</strong></p>
-          <p class="tanggal">Tanggal unggah: 10 Juli 2025</p>
-        </div>
-
-        <div class="validated-card">
-          <h4 class="judul-karya">Rancang Bangun Sistem E-Learning Interaktif untuk Sekolah Vokasi</h4>
-          <p class="pembuat">Oleh: <strong>Fitri Rahmawati</strong></p>
-          <p class="tanggal">Tanggal unggah: 2 Juni 2025</p>
-        </div>
-
-        <div class="validated-card">
-          <h4 class="judul-karya">Aplikasi Manajemen Inventori Laboratorium Komputer</h4>
-          <p class="pembuat">Oleh: <strong>Andika Saputra</strong></p>
-          <p class="tanggal">Tanggal unggah: 19 Mei 2025</p>
-        </div>
-
-        <div class="validated-card">
-          <h4 class="judul-karya">Aplikasi Manajemen Inventori Laboratorium Komputer</h4>
-          <p class="pembuat">Oleh: <strong>Andika Saputra</strong></p>
-          <p class="tanggal">Tanggal unggah: 19 Mei 2025</p>
-        </div>
-
-        <div class="validated-card">
-          <h4 class="judul-karya">Dashboard Analisis Data Akademik Menggunakan Power BI</h4>
-          <p class="pembuat">Oleh: <strong>Nadira Fathya</strong></p>
-          <p class="tanggal">Tanggal unggah: 27 April 2025</p>
-        </div>
-
-        <div class="validated-card">
-          <h4 class="judul-karya">Website Peminjaman Ruangan dan Fasilitas Kampus</h4>
-          <p class="pembuat">Oleh: <strong>Rizky Maulana</strong></p>
-          <p class="tanggal">Tanggal unggah: 13 Maret 2025</p>
-        </div>
-
-        <div class="validated-card">
-          <h4 class="judul-karya">Aplikasi Mobile Jadwal Kuliah dan Notifikasi Otomatis</h4>
-          <p class="pembuat">Oleh: <strong>Putri Amanda</strong></p>
-          <p class="tanggal">Tanggal unggah: 25 Februari 2025</p>
-        </div>
-
-        <div class="validated-card">
-          <h4 class="judul-karya">Sistem Informasi Pengarsipan Dokumen Berbasis Web</h4>
-          <p class="pembuat">Oleh: <strong>Yoga Pratama</strong></p>
-          <p class="tanggal">Tanggal unggah: 10 Januari 2025</p>
-        </div>
+    @endforeach
       </div>
     </div>
   </div>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portal TPL SVIPB - Dosen</title>
+  <title>Portal TPL SVIPB - Admin/Dosen</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}">
@@ -25,8 +25,8 @@
       <a href="{{ 'dashboard' }}" class="active">Dashboard</a>
       <a href="{{ route('karya.index') }}">Kelola Karya</a>
      <a href="{{ route('info-prodi.index') }}">Edit Info Profil</a>
-      <a href="{{ route('validasikonten') }}">Validasi Konten</a>
-      <a href ="{{ route('dosen') }}">Dosen</a>
+      <a href="{{ route('karya.validasi') }}">Validasi Konten</a>
+      <a href ="{{ route('dosen.index') }}">Dosen</a>
       {{--<a href ="{{ route('berita') }}">Berita</a>--}}
     </aside>
 
@@ -36,7 +36,7 @@
           <div class="left">
             <div class="notif-icon">
               <i data-feather="bell"></i>
-              <span class="notif-count">5</span>
+              <span class="notif-count"></span>
             </div>
           </div>
           <div class="right">
@@ -44,25 +44,11 @@
             <button class="btn-lihat" type="button" onclick="window.location.href='{{ route('ajuankarya') }}'"> Lihat</button>
           </div>
         </div>
-
         <div class="card">
           <div class="left">
             <div class="notif-icon">
               <i data-feather="bell"></i>
-              <span class="notif-count">8</span>
-            </div>
-          </div>
-          <div class="right">
-            <h3>Validasi Karya</h3>
-            <button class="btn-lihat" type="button" onclick="window.location.href='{{ route('lihatvalidasi') }}'"> Lihat</button>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="left">
-            <div class="notif-icon">
-              <i data-feather="bell"></i>
-              <span class="notif-count">12</span>
+              <span class="notif-count"></span>
             </div>
           </div>
           <div class="right">
@@ -75,7 +61,7 @@
           <div class="left">
             <div class="notif-icon">
               <i data-feather="bell"></i>
-              <span class="notif-count">10</span>
+              <span class="notif-count"></span>
             </div>
           </div>
           <div class="right">

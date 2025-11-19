@@ -7,12 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Dosen extends Model
 {
     protected $fillable = [
-        'prodi_id',
-        'nama_dosen',
-        'email',
-        'bidang_keahlian',
+        'nama',
+        'research_interest',
+        'prodi',
         'foto',
-        'status',
     ];
 
     // Relationships

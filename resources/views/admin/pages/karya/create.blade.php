@@ -188,6 +188,36 @@
     </form>
   </div>
 
+   <footer>
+    <div class="footer-container">
+      <div class="footer-left">
+        <div class="location">
+          <i data-feather="map-pin"></i>
+          <div class="address">
+            <p><strong>KAMPUS BOGOR</strong> — Jl. Raya Pajajaran, Kota Bogor, Jawa Barat 16128</p>
+            <p><strong>KAMPUS SUKABUMI</strong> — Jl. Sarasa No. 46, Babakan, Kec. Cibeureum, Kota Sukabumi, Jawa Barat 43142</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-right">
+        <div class="contact-item">
+          <i data-feather="phone"></i>
+          <span>(0251) 8348007</span>
+        </div>
+        <div class="contact-item">
+          <i data-feather="mail"></i>
+          <span>sv@apps.ipb.ac.id</span>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="footer-bottom">
+      <p>© 2025 IPB University — Sekolah Vokasi</p>
+    </div>
+    <script>feather.replace();</script>
+  </footer>
+
   <script>feather.replace();</script>
 </body>
 </html>

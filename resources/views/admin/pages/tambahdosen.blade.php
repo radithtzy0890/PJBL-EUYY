@@ -25,27 +25,46 @@
       <a href="{{ route('karya.index') }}" class="active">Kelola Karya</a>
       <a href="{{ route('dashboard') }}">Dashboard</a>
       <a href="{{ route('info-prodi.index') }}">Info Prodi</a>
-      <a href="{{ route('validasikonten') }}">Validasi Konten</a>
-      <a href="{{ route('dosen') }}">Dosen</a>
+      <a href="{{ route('karya.validasi') }}">Validasi Konten</a>
+      <a href="{{ route('dosen.index') }}">Dosen</a>
     </div>
 
 <div class="content">
     <h2 class="title-halaman">Tambah Dosen</h2>
+
     <div class="form-container">
-        <form>
-            <label>Unggah Foto </label>
-            <input type="text" placeholder="Unggah Foto">
-            <label>Nama Dosen</label>
-            <input type="text" placeholder="Masukkan Nama">
+        <form action="{{ route('dosen.store') }}" method="POST" enctype="multipart/form-data">
+          @csrf
+          @method("POST")
+
+          <label>Unggah Foto</label>
+          <div class="upload-box">
+              <input type="file" id="foto" name="foto" accept="image/*" onchange="previewImage(event)">
+          </div>
+
+          <label>Nama Dosen</label>
+          <input type="text" name="nama" placeholder="Masukkan Nama" required>
+
+          <label>Bidang Keahlian</label>
+          <input type="text" name="research_interest" placeholder="Contoh: Pemrograman, AI, Jaringan">
+          
+          <label>Prodi</label>
+          <input type="text" name="prodi" placeholder="Contoh: Teknologi Rekayasa Perangkat Lunak">
+
           <label for="status">Status</label>
-            <select id="status" name="status">
-                <option value="aktif">Aktif</option>
-                <option value="tidakaktif">Tidak Aktif</option>
-            </select>
-            <button class="btn-submit" type="button" onclick="window.location.href='{{ route('dosen') }'"> Unggah</button>
+          <select id="status" name="status" required>
+              <option value="aktif">Aktif</option>
+              <option value="non-aktif">Non-Aktif</option>
+          </select>
+
+          <!-- Tombol -->
+          <button class="btn-submit" type="submit">
+              Unggah
+          </button>
         </form>
     </div>
 </div>
+
   </div>
 
   <footer>

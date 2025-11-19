@@ -23,11 +23,10 @@ class DosenController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nama_dosen' => 'required|string|max:100',
-            'email' => 'nullable|email|max:50',
-            'bidang_keahlian' => 'nullable|string|max:100',
+            'nama' => 'required|string|max:100',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'status' => 'required|in:aktif,tidak_aktif',
+            'prodi' => 'required|string|max:100',
+            'research_interest' => 'nullable|string|max:200',
         ]);
 
         if ($request->hasFile('foto')) {
@@ -36,8 +35,11 @@ class DosenController extends Controller
 
         Dosen::create($validated);
 
-        return redirect()->route('admin.dosen.index')->with('success', 'Data dosen berhasil ditambahkan!');
+        return redirect()
+            ->route('dosen.index')
+            ->with('success', 'Data dosen berhasil ditambahkan!');
     }
+
 
     public function show(string $id)
     {
@@ -56,24 +58,28 @@ class DosenController extends Controller
         $dosen = Dosen::findOrFail($id);
 
         $validated = $request->validate([
-            'nama_dosen' => 'required|string|max:100',
-            'email' => 'nullable|email|max:50',
-            'bidang_keahlian' => 'nullable|string|max:100',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'status' => 'required|in:aktif,tidak_aktif',
-        ]);
+        'nama' => 'required|string|max:100',
+        'prodi' => 'required|string|max:100',
+        'research_interest' => 'nullable|string|max:100',
+        'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+    ]);
 
         if ($request->hasFile('foto')) {
-            if ($dosen->foto) {
-                Storage::disk('public')->delete($dosen->foto);
-            }
-            $validated['foto'] = $request->file('foto')->store('dosen', 'public');
+
+        // Hapus foto lama jika ada
+        if ($dosen->foto) {
+            Storage::disk('public')->delete($dosen->foto);
         }
 
-        $dosen->update($validated);
-
-        return redirect()->route('admin.dosen.index')->with('success', 'Data dosen berhasil diupdate!');
+        $validated['foto'] = $request->file('foto')->store('dosen', 'public');
     }
+
+    $dosen->update($validated);
+
+    return redirect()->route('dosen.index')
+                     ->with('success', 'Data dosen berhasil diperbarui!');
+}
+
 
     public function destroy(string $id)
     {

@@ -24,58 +24,28 @@
       <a href="{{ route('dashboard') }}" class="active">Dashboard</a>
       <a href="{{ route('karya.index') }}">Kelola Karya</a>
       <a href="{{ route('info-prodi.index') }}">Info Prodi</a>
-      <a href="{{ route('ajuankarya') }}">Validasi Konten</a>
-      <a href="{{ route('dosen') }}">Dosen</a>
+      <a href="{{ route('karya.validasi') }}">Validasi Konten</a>
+      <a href="{{ route('dosen.index') }}">Dosen</a>
     </div>
 
     <div class="content">
       <h2 class="page-title">Daftar Ajuan Karya</h2>
 
       <div class="card-list">
-        <div class="validated-card">
-          <h4 class="judul-karya">Sistem Informasi Pengelolaan Data Mahasiswa</h4>
-          <p class="pembuat">Oleh: <strong>Salsabila</strong></p>
-            <div class="button-group">
-              <button class="btn-hapus" type="button" onclick="window.location.href='{{ route('ajuankarya') }}'">Hapus</button>
-              <button class="btn-lihat" type="button" onclick="window.location.href='{{ route('ajuankarya1') }}'">Lihat</button> 
-            </div>
-        </div>
-
-        <div class="validated-card">
-          <h4 class="judul-karya">Website Katalog Produk Lokal Berbasis Laravel</h4>
-          <p class="pembuat">Oleh: <strong>Raditya Budia</strong></p>
-            <div class="button-group">
-              <button class="btn-hapus" type="button" onclick="window.location.href='{{ route('ajuankarya') }}'">Hapus</button>
-              <button class="btn-lihat" type="button" onclick="window.location.href='{{ route('ajuankarya1') }}'">Lihat</button> 
-            </div>
-        </div>
-
-        <div class="validated-card">
-          <h4 class="judul-karya">Pengembangan Aplikasi Absensi Mahasiswa Online</h4>
-          <p class="pembuat">Dibuat oleh: <strong>Dandi</strong></p> 
-          <div class="button-group">
-               <button class="btn-hapus" type="button" onclick="window.location.href='{{ route('ajuankarya') }}'">Hapus</button>
-              <button class="btn-lihat" type="button" onclick="window.location.href='{{ route('ajuankarya1') }}'">Lihat</button> 
-            </div>
-        </div>
-
-        <div class="validated-card">
-          <h4 class="judul-karya">Rancang Bangun Sistem E-Learning Interaktif untuk Sekolah Vokasi</h4>
-          <p class="pembuat">Oleh: <strong>Fitri Rahmawati</strong></p>
-          <div class="button-group">
-               <button class="btn-hapus" type="button" onclick="window.location.href='{{ route('ajuankarya') }}'">Hapus</button>
-              <button class="btn-lihat" type="button" onclick="window.location.href='{{ route('ajuankarya1') }}'">Lihat</button> 
-            </div>
-        </div>
-
-        <div class="validated-card">
-          <h4 class="judul-karya">Sistem Informasi Pengarsipan Dokumen Berbasis Web</h4>
-          <p class="pembuat">Oleh: <strong>Yoga Pratama</strong></p>
-           <div class="button-group">
-               <button class="btn-hapus" type="button" onclick="window.location.href='{{ route('ajuankarya') }}'">Hapus</button>
-              <button class="btn-lihat" type="button" onclick="window.location.href='{{ route('ajuankarya1') }}'">Lihat</button> 
-            </div>
-        </div>
+        @foreach ($karyas as $karya)
+          <div class="validated-card">
+            <h4 class="judul-karya">{{ $karya->judul }}</h4>
+            <p class="pembuat">Oleh: <strong>{{ $karya->tim_pembuat }}</strong></p>
+              <div classp">
+                <form action="{{ route('karya.destroy', $karya->id) }}" method="post">
+                  @csrf
+                  @method("delete")
+                  <button style="background: red; color: white; border: none; padding: 10px" type="submit">Hapus</button>
+                </form>
+                <a href="{{ route("karya.show", $karya->id) }}" class="btn-lihat" type="button">Lihat</a> 
+              </div>
+          </div>
+        @endforeach
       </div>
     </div>
   </div>

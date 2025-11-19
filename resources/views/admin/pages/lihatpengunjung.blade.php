@@ -24,150 +24,36 @@
       <a href="{{ route('karya.index') }}" class="active">Kelola Karya</a>
       <a href="{{ route('dashboard') }}">Dashboard</a>
       <a href="{{ route('info-prodi.index') }}">Info Prodi</a>
-      <a href="{{ route('validasikonten') }}">Validasi Konten</a>
-      <a href="{{ route('dosen') }}">Dosen</a>
+      <a href="{{ route('karya.validasi') }}">Validasi Konten</a>
+      <a href="{{ route('dosen.index') }}">Dosen</a>
     </div>
 {{-- cek --}}
     <div class="content">
       <h2 class="page-title">Daftar Pengunjung </h2>
+       
+      <div class="card-list">
+        @foreach ($users as $user)
+            <div class="card-item">
 
-      <div class="visitor-grid">
+                <!-- Foto Profil -->
+                <img src="{{ asset('images/Icons.png') }}"
+                     class="w-16 h-16 rounded-full shadow-lg object-cover">
 
-        <div class="visitor-card">
-          <img src="https://i.pravatar.cc/80?img=1" class="visitor-photo">
-          <div class="visitor-info">
-            <h4>Rizky Saputra</h4>
-            <p>rizky.saputra@email.com</p>
-            <p class="visitor-time">09:32 • 8 Nov 2025</p>
-          </div>
-        </div>
+                <!-- Info User -->
+                <div>
+                    <h3 class="">{{ $user->name }}</h3>
+                    <p class="">{{ $user->email }}</p>
+                    <p class="">
+                        {{ $user->created_at->format('H:i • d M Y') }}
+                    </p>
+                </div>
 
-        <div class="visitor-card">
-          <img src="https://i.pravatar.cc/80?img=2" class="visitor-photo">
-          <div class="visitor-info">
-            <h4>Siti Rahma</h4>
-            <p>siti.rahma@email.com</p>
-            <p class="visitor-time">11:47 • 8 Nov 2025</p>
-          </div>
-        </div>
+            </div>
+        @endforeach
+      </div>
+</div>
 
-        <div class="visitor-card">
-          <img src="https://i.pravatar.cc/80?img=3" class="visitor-photo">
-          <div class="visitor-info">
-            <h4>Dewi Lestari</h4>
-            <p>dewi.lestari@email.com</p>
-            <p class="visitor-time">15:22 • 7 Nov 2025</p>
-          </div>
-        </div>
-
-        <div class="visitor-card">
-          <img src="https://i.pravatar.cc/80?img=4" class="visitor-photo">
-          <div class="visitor-info">
-            <h4>Ahmad Fauzi</h4>
-            <p>ahmad.fauzi@email.com</p>
-            <p class="visitor-time">18:05 • 6 Nov 2025</p>
-          </div>
-        </div>
-
-        <div class="visitor-card">
-          <img src="https://i.pravatar.cc/80?img=5" class="visitor-photo">
-          <div class="visitor-info">
-            <h4>Nadia Pratiwi</h4>
-            <p>nadia.pratiwi@email.com</p>
-            <p class="visitor-time">20:10 • 5 Nov 2025</p>
-          </div>
-        </div>
-
-        <div class="visitor-card">
-          <img src="https://i.pravatar.cc/80?img=6" class="visitor-photo">
-          <div class="visitor-info">
-            <h4>Bagus Permana</h4>
-            <p>bagus.permana@email.com</p>
-            <p class="visitor-time">13:15 • 5 Nov 2025</p>
-          </div>
-        </div>
-
-        <div class="visitor-card">
-          <img src="https://i.pravatar.cc/80?img=7" class="visitor-photo">
-          <div class="visitor-info">
-            <h4>Lia Puspita</h4>
-            <p>lia.puspita@email.com</p>
-            <p class="visitor-time">16:40 • 4 Nov 2025</p>
-          </div>
-        </div>
-
-        <div class="visitor-card">
-          <img src="https://i.pravatar.cc/80?img=8" class="visitor-photo">
-          <div class="visitor-info">
-            <h4>Rama Wijaya</h4>
-            <p>rama.wijaya@email.com</p>
-            <p class="visitor-time">19:25 • 3 Nov 2025</p>
-          </div>
-        </div>
-
-        <div class="visitor-card">
-          <img src="https://i.pravatar.cc/80?img=9" class="visitor-photo">
-          <div class="visitor-info">
-            <h4>Vina Kartika</h4>
-            <p>vina.kartika@email.com</p>
-            <p class="visitor-time">08:55 • 3 Nov 2025</p>
-          </div>
-        </div>
-
-        <div class="visitor-card">
-          <img src="https://i.pravatar.cc/80?img=10" class="visitor-photo">
-          <div class="visitor-info">
-            <h4>Hendra Wijanarko</h4>
-            <p>hendra.wijanarko@email.com</p>
-            <p class="visitor-time">10:10 • 2 Nov 2025</p>
-          </div>
-        </div>
-
-        <div class="visitor-card">
-          <img src="https://i.pravatar.cc/80?img=11" class="visitor-photo">
-          <div class="visitor-info">
-            <h4>Farah Nuraini</h4>
-            <p>farah.nuraini@email.com</p>
-            <p class="visitor-time">11:55 • 2 Nov 2025</p>
-          </div>
-        </div>
-
-        <div class="visitor-card">
-          <img src="https://i.pravatar.cc/80?img=12" class="visitor-photo">
-          <div class="visitor-info">
-            <h4>Yoga Prasetyo</h4>
-            <p>yoga.prasetyo@email.com</p>
-            <p class="visitor-time">14:30 • 1 Nov 2025</p>
-          </div>
-        </div>
-
-        <div class="visitor-card">
-          <img src="https://i.pravatar.cc/80?img=13" class="visitor-photo">
-          <div class="visitor-info">
-            <h4>Putri Anggraeni</h4>
-            <p>putri.anggraeni@email.com</p>
-            <p class="visitor-time">17:00 • 1 Nov 2025</p>
-          </div>
-        </div>
-
-        <div class="visitor-card">
-          <img src="https://i.pravatar.cc/80?img=14" class="visitor-photo">
-          <div class="visitor-info">
-            <h4>Rahmat Hidayat</h4>
-            <p>rahmat.hidayat@email.com</p>
-            <p class="visitor-time">18:40 • 31 Okt 2025</p>
-          </div>
-        </div>
-
-        <div class="visitor-card">
-          <img src="https://i.pravatar.cc/80?img=15" class="visitor-photo">
-          <div class="visitor-info">
-            <h4>Melani Dwi Putri</h4>
-            <p>melani.dwi@email.com</p>
-            <p class="visitor-time">19:55 • 31 Okt 2025</p>
-          </div>
-        </div>
-
+      </div>
       </div>
     </div>
   </div>

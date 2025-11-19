@@ -24,84 +24,48 @@
       <a href="{{ route('dashboard') }}" class="active">Dashboard</a>
       <a href="{{ route('karya.index') }}">Kelola Karya</a>
       <a href="{{ route('info-prodi.index') }}">Edit Info Profil</a>
-      <a href="{{ route('validasikonten') }}">Validasi Konten</a>
-      <a href="{{ route('dosen') }}" class="active">Dosen</a>
+      <a href="{{ route('karya.validasi') }}">Validasi Konten</a>
+      <a href="{{ route('dosen.index') }}" class="active">Dosen</a>
     </aside>
 
     <main class="content">
       <div class="content-wrapper">
 
         <div class="grid-dosen">
-          <div class="card">
-            <div class="blue-strip"></div>
-            <div class="profile-placeholder"></div>
-            <div class="info">
-              <h3>Nama Dosen</h3>
-              <p>Teknologi Rekayasa Perangkat Lunak</p>
-              <span class="status aktif">Aktif</span>
-            </div>
-            <button class="edit-btn" type="button" onclick="window.location.href='{{ route('dosen1') }}'">Edit</button>
-          </div>
 
-          <div class="card">
+    @foreach ($dosens as $dosen)
+        <div class="card">
             <div class="blue-strip"></div>
-            <div class="profile-placeholder"></div>
-            <div class="info">
-              <h3>Nama Dosen</h3>
-              <p>Teknologi Rekayasa Perangkat Lunak</p>
-              <span class="status aktif">Aktif</span>
-            </div>
-            <button class="edit-btn" type="button" onclick="window.location.href='{{ route('dosen1') }}'">Edit</button>
-          </div>
 
-          <div class="card">
-            <div class="blue-strip"></div>
-            <div class="profile-placeholder"></div>
-            <div class="info">
-              <h3>Nama Dosen</h3>
-              <p>Teknologi Rekayasa Perangkat Lunak</p>
-              <span class="status aktif">Aktif</span>
-            </div>
-            <button class="edit-btn" type="button" onclick="window.location.href='{{ route('dosen1') }}'">Edit</button>
-          </div>
+            {{-- Foto Dosen --}}
+            @if ($dosen->foto)
+                <img src="{{ asset('storage/' . $dosen->foto) }}" class="profile-placeholder">
+            @else
+                <div class="profile-placeholder"></div>
+            @endif
 
-            <div class="card">
-            <div class="blue-strip"></div>
-            <div class="profile-placeholder"></div>
             <div class="info">
-              <h3>Nama Dosen</h3>
-              <p>Teknologi Rekayasa Perangkat Lunak</p>
-              <span class="status aktif">Aktif</span>
-            </div>
-            <button class="edit-btn" type="button" onclick="window.location.href='{{ route('dosen1') }}'">Edit</button>
-          </div>
+                <h3>{{ $dosen->nama }}</h3>
+                <p>{{ $dosen->prodi }}</p>
 
-            <div class="card">
-            <div class="blue-strip"></div>
-            <div class="profile-placeholder"></div>
-            <div class="info">
-              <h3>Nama Dosen</h3>
-              <p>Teknologi Rekayasa Perangkat Lunak</p>
-              <span class="status aktif">Aktif</span>
+                <span class="status aktif">Aktif</span>
             </div>
-            <button class="edit-btn" type="button" onclick="window.location.href={{ route('dosen1') }}'">Edit</button>
-          </div>
 
-            <div class="card">
-            <div class="blue-strip"></div>
-            <div class="profile-placeholder"></div>
-            <div class="info">
-              <h3>Nama Dosen</h3>
-              <p>Teknologi Rekayasa Perangkat Lunak</p>
-              <span class="status aktif">Aktif</span>
-            </div>
-            <button class="edit-btn" type="button" onclick="window.location.href='{{ route('dosen1') }}'">Edit</button>
-          </div>
-          <button class="btn-tambahdosen" type="button" onclick="window.location.href='{{ route('tambahdosen') }}'"> + Tambah Dosen</button>
+            <a href="{{ route('dosen.edit', $dosen->id) }}" class="edit-btn" type="button">
+                Edit
+            </a>
         </div>
-      </div>
-    </main>
+    @endforeach
+
+    {{-- Tombol Tambah Dosen --}}
+    <button class="btn-tambahdosen" type="button"
+        onclick="window.location.href='{{ route('dosen.create') }}'">
+        + Tambah Dosen
+    </button>
   </div>
+</div>
+</main>
+</div>
 
   <footer>
     <div class="footer-container">

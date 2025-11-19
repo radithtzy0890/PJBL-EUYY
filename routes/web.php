@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DosenController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
@@ -7,10 +8,12 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\KaryaController;
 use App\Http\Controllers\Admin\ProfilProdiController;
 use App\Http\Controllers\Admin\ReviewController;
-use Illuminate\Support\Facades\Mail; // tambahkan ini
-use App\Mail\SendEmail; // tambahkan ini
+use Illuminate\Support\Facades\Mail; // 
+use App\Mail\SendEmail; // 
+use App\Models\Dosen;
 use App\Models\Karya;
 use App\Models\Review;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
@@ -76,10 +79,9 @@ Route::get('/tentang', function () {
 })->name('tentang');
 
 // Dosen
-// Route::get('/dosen', function () {
-//     return view('pages.dosen');
-// })->name('dosen');
-
+Route::get('/dosen', function () {
+     return view('pages.dosen');
+ })->name('dosen');
 
 // Mata Kuliah
 Route::get('/mata-kuliah', function () {
@@ -200,37 +202,27 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->group(fun
 
     // Info Prodi
     Route::resource('info-prodi', ProfilProdiController::class);
+    Route::get('/info-prodi/{kodeProdi}/edit/{type}', 
+        [ProfilProdiController::class, 'editWithType']
+    )->name('info-prodi.editType');
 
     // Dosen 
     Route::get('dosen', function () {
-        return view('admin.pages.dosen');
-    })->name('dosen');
+        $dosens = Dosen::all();
+        return view('admin.pages.dosen', compact('dosens'));
+    })->name('dosen.index');
+    Route::get('dosen/create', function () {
+        return view('admin.pages.tambahdosen');
+    })->name('dosen.create');
+    Route::post('dosen', [DosenController::class, 'store'])->name('dosen.store');
+    Route::get('dosen/{id}/edit', [DosenController::class, 'edit'])->name('dosen.edit');
+    Route::put('dosen/{id}', [DosenController::class, 'update'])->name('dosen.update');
 
-    //Route::get('kelola-karya', [KaryaController::class, 'index'])->name('kelolakarya');
-    //Route::get('kelola-karya/create', [KaryaController::class, 'create'])->name('admin.karya.create'); // ✅ TAMBAHKAN
-    //Route::post('kelola-karya/store', [KaryaController::class, 'storeAdmin'])->name('admin.karya.store'); // ✅ TAMBAHKAN
-   // Route::patch('karya/{id}/approve', [KaryaController::class, 'approve'])->name('admin.karya.approve');
-    //Route::patch('karya/{id}/reject', [KaryaController::class, 'reject'])->name('admin.karya.reject');
-    
-    // Validasi Konten Terbaru 
-    // Route::get('validasi-konten', [KaryaController::class, 'validationPage'])->name('validasikonten'); // ✅ UPDATE INI
-
-    // Validasi Konten yang lama
-    //Route::get('validasi-konten', fun ction () {
-        //return view('admin.pages.validasikonten');
-    //})->name('validasikonten');
-
-    Route::get('dosen1', function () {
-    return view('admin.pages.dosen1');
-    })->name('dosen1');
-
-     Route::get('tambahdosen', function () {
-     return view('admin.pages.tambahdosen');
-    })->name('tambahdosen');
-    
     // Ajuan Karya
-     Route::get('ajuankarya', function () {
-    return view('admin.pages.ajuankarya');
+    Route::get('ajuankarya', function () {
+        // karya yang statusnya submission
+        $karyas = Karya::where('status_validasi', 'submission')->get();
+        return view('admin.pages.ajuankarya', compact('karyas'));
     })->name('ajuankarya');
 
     Route::get('ajuankarya1', function () {
@@ -239,7 +231,8 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->group(fun
 
     // Lihat Karya
     Route::get('lihatkarya', function () {
-    return view('admin.pages.lihatkarya');
+        $karyas = Karya::where('status_validasi', 'accepted')->get();        
+        return view('admin.pages.lihatkarya', compact('karyas'));
     })->name('lihatkarya');
     
     // Lihat Validasi
@@ -247,9 +240,9 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->group(fun
     return view('admin.pages.lihatvalidasi');
     })->name('lihatvalidasi');
 
-    Route::get('validasikonten', function () {
-    return view('admin.pages.validasikonten');
-    })->name('validasikonten');
+    // Route::get('validasikonten', function () {
+    // return view('admin.pages.validasikonten');
+    // })->name('validasikonten');
 
     Route::get('validasikonten1', function () {
     return view('admin.pages.validasikonten1');
@@ -257,7 +250,9 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->group(fun
 
     // Lihat Pengunjung
     Route::get('lihat-pengunjung', function () {
-        return view('admin.pages.lihatpengunjung');
+        // ambli semua user
+        $users = User::get();
+        return view('admin.pages.lihatpengunjung', compact('users'));
     })->name('lihatpengunjung');
     
     // Daftar Admin (CRUD Admin) - Nanti kita bikin controller-nya

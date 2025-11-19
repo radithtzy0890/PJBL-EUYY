@@ -1,4 +1,4 @@
-@extends('layouts.app')
+w   @extends('layouts.app')
 
 @section('title', 'Unggah Karya')
 
