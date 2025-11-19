@@ -21,7 +21,7 @@
 
   <div class="container">
     <div class="sidebar">
-      <a href="{{ route('kelolakarya') }}" class="active">Kelola Karya</a>
+      <a href="{{ route('karya.index') }}" class="active">Kelola Karya</a>
       <a href="{{ route('dashboard') }}">Dashboard</a>
       <a href="{{ route('info-prodi.index') }}">Info Prodi</a>
       <a href="{{ route('validasikonten') }}">Validasi Konten</a>

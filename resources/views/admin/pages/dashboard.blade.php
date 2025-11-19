@@ -27,6 +27,7 @@
      <a href="{{ route('info-prodi.index') }}">Edit Info Profil</a>
       <a href="{{ route('validasikonten') }}">Validasi Konten</a>
       <a href ="{{ route('dosen') }}">Dosen</a>
+      {{--<a href ="{{ route('berita') }}">Berita</a>--}}
     </aside>
 
     <main class="content">
@@ -74,7 +75,7 @@
           <div class="left">
             <div class="notif-icon">
               <i data-feather="bell"></i>
-              <span class="notif-count">15</span>
+              <span class="notif-count">10</span>
             </div>
           </div>
           <div class="right">
