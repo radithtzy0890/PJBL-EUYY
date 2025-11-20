@@ -86,7 +86,7 @@
             <div class="card mb-4 shadow-sm text-dark">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <a href="{{ route('berita', ['id' => 2]) }}">
+                        <a href="{{ route('admin.berita.index', ['id' => 2]) }}">
                             {{-- GAMBAR: Berita tpl.png (Gambar Pioneers 4.0) --}}
                             <img src="{{ asset('images/Berita tpl.png') }}" 
                                  class="img-fluid rounded-top rounded-md-start" 
@@ -96,7 +96,7 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title fw-bold">
-                                <a href="{{ route('berita', ['id' => 2]) }}" class="text-decoration-none text-dark">
+                                <a href="{{ route('admin.berita.index', ['id' => 2]) }}" class="text-decoration-none text-dark">
                                     National Business Idea Competition
                                 </a>
                             </h5>
@@ -116,7 +116,7 @@
             <div class="card mb-4 shadow-sm text-dark">
                  <div class="row g-0">
                     <div class="col-md-4">
-                        <a href="{{ route('berita', ['id' => 1]) }}">
+                        <a href="{{ route('admin.berita.index', ['id' => 1]) }}">
                             {{-- GAMBAR: Agridation Team --}}
                             <img src="{{ asset('images/Berita tpl.png') }}" 
                                  class="img-fluid rounded-top rounded-md-start" 
@@ -126,7 +126,7 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title fw-bold">
-                                <a href="{{ route('berita', ['id' => 1]) }}" class="text-decoration-none text-dark">
+                                <a href="{{ route('admin.berita.index', ['id' => 1]) }}" class="text-decoration-none text-dark">
                                     Agridation Festival
                                 </a>
                             </h5>

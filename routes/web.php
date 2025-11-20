@@ -8,6 +8,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\KaryaController;
 use App\Http\Controllers\Admin\ProfilProdiController;
 use App\Http\Controllers\Admin\ReviewController;
+use App\Http\Controllers\Admin\BeritaController;
+use App\Http\Controllers\BeritaUserController;
 use Illuminate\Support\Facades\Mail; // 
 use App\Mail\SendEmail; // 
 use App\Models\Dosen;
@@ -149,18 +151,16 @@ Route::get('karya/{id}', function($id){
 });
 
 // Berita
-Route::get('/berita/{id}', function ($id) {
-    return view('pages.berita', compact('id'));
-})->name('berita');
+
 
 // Admin routes
-// Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
-//     Route::resource('berita', AdminBeritaController::class);
-// });
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('berita', BeritaController::class);
+});
 
-// Public routes
-// Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
-// Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita.show');
+
+Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
+Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita.show');
 
 // Unggah Karya
 Route::get('/unggah-karya', function () {
@@ -259,8 +259,13 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->group(fun
         return view('admin.pages.daftaradmin');
     })->name('daftaradmin');
 });
- 
-    // Nanti di sini kamu bisa tambah route kelola admin
+    //berita 
+    Route::get('/berita', [BeritaController::class, 'indexUser'])->name('berita.user');
+    Route::get('/berita/{id}', [BeritaUserController::class, 'show'])->name('berita.show');
+    Route::get('/berita/create',[BeritaController::class, 'create'])->name('berita.create');
+    Route::delete('/berita/{id}/delete',[BeritaController::class, 'destroy'])->name('berita.destroy');
+    
+        // Nanti di sini kamu bisa tambah route kelola admin
     // Route::get('kelola-admin', [AdminController::class, 'index'])->name('kelola.admin');
     // Route::post('kelola-admin', [AdminController::class, 'store'])->name('kelola.admin.store');
     // dst...

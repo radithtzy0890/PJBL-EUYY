@@ -1,54 +1,67 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portal TPL SVIPB - Dosen</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Berita - Portal TPL SVIPB</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/feather-icons"></script>
-  <link rel="stylesheet" href="{{ asset('css/admin/lihatkarya.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/admin/validasikonten1.css') }}">
 </head>
 
 <body>
+
   <div class="nav-container1">
-    <img src="{{ asset('images/logo_TPL.png') }}" alt="Logo TPL SVIPB" class="logo-TPL">
+    <img src="{{ asset('images/logo_TPL.png') }}" alt="Logo TPL" class="logo-TPL">
   </div>
 
   <div class="nav-container2">
-    <h2>Selamat Datang Di Portal Karya Teknologi Rekayasa Perangkat Lunak SV IPB</h2>
+    <h2>Selamat Datang Di Portal Berita Teknologi Rekayasa Perangkat Lunak SV IPB</h2>
     <p>Syntax Error Compile Lagi</p>
   </div>
 
   <div class="container">
     <div class="sidebar">
-      <a href="{{ route('karya.index') }}" class="active">Kelola Karya</a>
       <a href="{{ route('dashboard') }}">Dashboard</a>
+      <a href="{{ route('karya.index') }}">Kelola Karya</a>
       <a href="{{ route('info-prodi.index') }}">Info Prodi</a>
       <a href="{{ route('karya.validasi') }}">Validasi Konten</a>
       <a href="{{ route('dosen.index') }}">Dosen</a>
-       <a href ="{{ route('admin.berita.index') }}">Berita</a>
+      <a class="active" href="{{ route('admin.berita.index') }}">Berita</a>
     </div>
-    
 
     <div class="content">
-      <h2 class="page-title"> Karya Terunggah</h2>
-      <div class="card-list">
-        @foreach ($karyas as $karya)
-        <div class="card-item">
-            <h3>
-                {{ $karya->judul }}
-            </h3>
+      <h2 class="title-halaman">Detail Berita</h2>
 
-            <p>
-                Oleh: <span class="font-semibold">{{ $karya->nama_pembuat }}</span>
-            </p>
+      <div class="form-container">
 
-            <!-- Tanggal Unggah -->
-            <p class="text-sm mt-1">
-                Tanggal unggah: {{ $karya->created_at }}
-            </p>
-        </div>
-    @endforeach
+        <label>Judul Berita</label>
+        <input type="text" value="{{ $berita->judul }}" disabled>
+
+        <label>Tanggal Publikasi</label>
+        <input type="text" 
+          value="{{ \Carbon\Carbon::parse($berita->tanggal_publikasi)->translatedFormat('d F Y') }}" 
+          disabled>
+
+        <label>Gambar</label>
+        @if($berita->gambar)
+          <img src="{{ asset('storage/' . $berita->gambar) }}" 
+               style="width:250px; border-radius:10px; margin-bottom:15px;">
+        @else
+          <p><i>Tidak ada gambar</i></p>
+        @endif
+
+        <label>Isi Berita</label>
+        <textarea disabled rows="8">{{ $berita->isi }}</textarea>
+
+        <label>Penulis</label>
+        <input type="text" value="User ID: {{ $berita->user_id }}" disabled>
+
+        <a href="{{ route('admin.berita.index') }}" class="btn-submit" 
+           style="text-align:center; display:block; margin-top:20px;">
+           Kembali
+        </a>
       </div>
     </div>
   </div>

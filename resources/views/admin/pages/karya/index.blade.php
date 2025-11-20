@@ -11,7 +11,9 @@
 
 <body>
   <div class="nav-container1">
-    <img src="{{ asset('images/logo_TPL.png') }}" alt="Logo TPL SVIPB" class="logo-TPL">
+      <a href="/">
+      <img src="{{ asset('images/logo_TPL.png') }}" alt="Logo TPL SVIPB" class="logo-TPL">
+    </a>
   </div>
   
   <div class="nav-container2">
@@ -26,6 +28,7 @@
       <a href="{{ route('info-prodi.index') }}">InfoProdi</a>
       <a href="{{ route('karya.validasi') }}">Validasi Konten</a>
       <a href="{{ route('dosen.index') }} }}">Dosen</a>
+       <a href ="{{ route('admin.berita.index') }}">Berita</a>
     </div>
 
     <div class="content">

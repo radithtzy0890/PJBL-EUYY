@@ -12,7 +12,9 @@
 <body>
   <!-- NAVIGATION -->
   <div class="nav-container1">
-    <img src="{{ asset('images/logo_TPL.png') }}" alt="Logo TPL SVIPB" class="logo-TPL">
+      <a href="/">
+      <img src="{{ asset('images/logo_TPL.png') }}" alt="Logo TPL SVIPB" class="logo-TPL">
+    </a>
   </div>
 
   <div class="nav-container2">

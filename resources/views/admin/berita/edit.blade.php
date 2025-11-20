@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portal TPL SVIPB - Dosen</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Berita - Portal TPL SVIPB</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="stylesheet" href="{{ asset('css/admin/validasikonten1.css') }}">
@@ -12,57 +13,69 @@
 <body>
 
   <div class="nav-container1">
-    <img src="{{ asset('images/logo_TPL.png') }}" alt="Logo TPL SVIPB" class="logo-TPL">
+    <img src="{{ asset('images/logo_TPL.png') }}" alt="Logo TPL" class="logo-TPL">
   </div>
 
   <div class="nav-container2">
-    <h2>Selamat Datang Di Portal Karya Teknologi Rekayasa Perangkat Lunak SV IPB</h2>
+    <h2>Selamat Datang Di Portal Berita Teknologi Rekayasa Perangkat Lunak SV IPB</h2>
     <p>Syntax Error Compile Lagi</p>
   </div>
 
   <div class="container">
     <div class="sidebar">
-      <a href="{{ route('karya.index') }}" class="active">Kelola Karya</a>
       <a href="{{ route('dashboard') }}">Dashboard</a>
+      <a href="{{ route('karya.index') }}">Kelola Karya</a>
       <a href="{{ route('info-prodi.index') }}">Info Prodi</a>
       <a href="{{ route('karya.validasi') }}">Validasi Konten</a>
       <a href="{{ route('dosen.index') }}">Dosen</a>
-       <a href ="{{ route('admin.berita.index') }}">Berita</a>
+      <a class="active" href="{{ route('admin.berita.index') }}">Berita</a>
     </div>
 
     <div class="content">
-      <h2 class="title-halaman">Validasi Karya</h2>
+      <h2 class="title-halaman">Edit Berita</h2>
 
       <div class="form-container">
-        <form action="{{ route("karya.update", $karya->id) }}" method="POST">
+
+        <form action="{{ route('admin.berita.update', $berita->id) }}" method="POST" enctype="multipart/form-data">
           @csrf
-          @method("PUT")
-          <label>Judul Karya</label>
-          <input type="text" name="judul" value="{{ $karya->judul }}">
+          @method('PUT')
 
-          <label>Tahun</label>
-          <input type="number" name="tahun" value="{{ $karya->tahun }}">
+          <label>Judul Berita</label>
+          <input type="text" name="judul" value="{{ $berita->judul }}" required>
 
-          <label>Deskripsi</label>
-          <textarea name="deskripsi">{{ $karya->deskripsi }}</textarea>
+          <label>Tanggal Publikasi</label>
+          <input type="date" 
+            name="tanggal_publikasi" 
+            value="{{ \Carbon\Carbon::parse($berita->tanggal_publikasi)->format('Y-m-d') }}" 
+            required>
 
-          <label>Tim Pembuat</label>
-          <input type="text" name="tim_pembuat" value="{{ $karya->tim_pembuat }}">
+          <label>Gambar Saat Ini</label>
+          @if($berita->gambar)
+            <img src="{{ asset('storage/' . $berita->gambar) }}" 
+                 style="width:250px; border-radius:10px; margin-bottom:15px;">
+          @else
+            <p><i>Tidak ada gambar</i></p>
+          @endif
 
-          <label>Pengumpulan (Link/PDF)</label>
-          <input type="text" name="link_pengumpulan" value="{{ $karya->link_pengumpulan }}">
+          <label>Upload Gambar Baru (optional)</label>
+          <input type="file" name="gambar">
 
-          <label for="statusx">Status</label>
-          <select id="status" name="status_validasi">
-            <option value="accepted">Terima</option>
-            <option value="rejected">Tolak</option>
-          </select>
+          <label>Isi Berita</label>
+          <textarea name="isi" rows="8" required>{{ $berita->isi }}</textarea>
 
-          <button class="btn-submit" type="submit">Validasi</button>
+          <button type="submit" class="btn-submit">Update Berita</button>
+
+          <a href="{{ route('admin.berita.index') }}" class="btn-cancel" 
+             style="text-align:center; display:block; margin-top:15px;">
+            Batal
+          </a>
+
         </form>
+
       </div>
     </div>
   </div>
+
 
   <footer>
     <div class="footer-container">

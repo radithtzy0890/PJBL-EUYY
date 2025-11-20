@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Berita;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class BeritaController extends Controller
@@ -13,7 +14,14 @@ class BeritaController extends Controller
     {
         $berita = Berita::with('user')->latest()->get();
         return view('admin.berita.index', compact('berita'));
+
     }
+    public function indexUser($id)
+{
+    $berita = Berita::findOrFail($id);
+    return view('pages.berita', compact('berita'));
+}
+
 
     public function create()
     {
@@ -23,13 +31,13 @@ class BeritaController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-        'judul' => 'required|string|max:255',
-        'isi' => 'required|string',
-        'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-        'tanggal_publikasi' => 'required|date',
+            'judul' => 'required|string|max:255',
+            'isi' => 'required|string',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'tanggal_publikasi' => 'required|date',
         ]);
 
-        $validated['user_id'] = auth()->id();
+        $validated['user_id'] = Auth::user()->id;
 
         if ($request->hasFile('gambar')) {
             $validated['gambar'] = $request->file('gambar')->store('berita', 'public');
