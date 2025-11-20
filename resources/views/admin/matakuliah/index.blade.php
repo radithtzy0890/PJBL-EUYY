@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal TPL SVIPB - Admin/Super Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://unpkg.com/feather-icons"></script>
+  <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}">
+  <style>
+    /* Styling untuk tabel biru yang bagus */
+    .table-card {
+      background: linear-gradient(135deg, #2d5aa8 0%, #3b6fd4 100%);
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      margin: 2rem auto;
+      max-width: 1200px;
+    }
+    
+    .table-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .table-header h3 {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 0;
+    }
+    
+    .btn-tambah {
+      background: white;
+      color: #2d5aa8;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn-tambah:hover {
+      background: #f0f7ff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .table-container {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0;
+    }
+    
+    .data-table thead {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    }
+    
+    .data-table thead th {
+      color: white;
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: none;
+    }
+    
+    .data-table tbody td {
+      padding: 1rem;
+      border-bottom: 1px solid #e5e7eb;
+      color: #1e293b;
+      vertical-align: middle;
+    }
+    
+    .data-table tbody tr:hover {
+      background: #f8fafc;
+    }
+    
+    .data-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .badge-semester {
+      background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: inline-block;
+    }
+    
+        .btn-action {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 6px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-right: 0.75rem;  
+        }
+    
+    .btn-edit {
+      background: #f59e0b;
+      color: white;
+    }
+    
+    .btn-edit:hover {
+      background: #d97706;
+      transform: translateY(-1px);
+    }
+    
+    .btn-hapus {
+      background: #ef4444;
+      color: white;
+    }
+    
+    .btn-hapus:hover {
+      background: #dc2626;
+      transform: translateY(-1px);
+    }
+    
+    /* Modal Styling */
+    .modal-header {
+      background: linear-gradient(135deg, #2d5aa8 0%, #3b6fd4 100%);
+      color: white;
+      border: none;
+      border-radius: 10px 10px 0 0;
+    }
+    
+    .modal-header .btn-close {
+      filter: brightness(0) invert(1);
+    }
+    
+    .modal-content {
+      border-radius: 10px;
+      border: none;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    
+    .modal-title {
+      font-weight: 600;
+      font-size: 1.25rem;
+    }
+    
+    .form-label {
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: #1e293b;
+    }
+    
+    .form-control, .form-select {
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 0.625rem 0.875rem;
+    }
+    
+    .form-control:focus, .form-select:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
+    }
+    
+    .modal-footer .btn {
+      padding: 0.6rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 500;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #2d5aa8 0%, #3b6fd4 100%);
+      border: none;
+    }
+    
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    }
+    
+    .btn-warning {
+      background: #f59e0b;
+      border: none;
+      color: white;
+    }
+    
+    .btn-warning:hover {
+      background: #d97706;
+    }
+    
+    .btn-secondary {
+      background: #64748b;
+      border: none;
+    }
+    
+    .btn-secondary:hover {
+      background: #475569;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #94a3b8;
+    }
+    
+    .empty-state i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #cbd5e1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="nav-container1">
+    <a href="/">
+      <img src="{{ asset('images/logo_TPL.png') }}" alt="Logo TPL SVIPB" class="logo-TPL">
+    </a>
+  </div>
+
+  <div class="nav-container2">
+    <h2>Selamat Datang Di Portal Karya Teknologi Rekayasa Perangkat Lunak SV IPB</h2>
+    <p>Syntax Error Compile Lagi</p>
+  </div>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <a href="{{ route('dashboard') }}">Dashboard</a>
+      <a href="{{ route('karya.index') }}">Kelola Karya</a>
+      <a href="{{ route('info-prodi.index') }}">Edit Info Profil</a>
+      <a href="{{ route('karya.validasi') }}">Validasi Konten</a>
+      <a href="{{ route('dosen.index') }}">Dosen</a>
+      <a href="{{ route('admin.berita.index') }}">Berita</a>
+      <a href="{{ route('admin.matakuliah.index') }}" class="active">Mata Kuliah</a>
+    </aside>
+
+    <main class="content">
+      <!-- Success Message -->
+      @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <i class="fas fa-check-circle"></i> {{ session('success') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      @endif
+
+      <!-- Card Table Mata Kuliah -->
+      <div class="table-card">
+        <div class="table-header">
+          <h3><i class="fas fa-book"></i> Kelola Mata Kuliah</h3>
+          <button type="button" class="btn-tambah" data-bs-toggle="modal" data-bs-target="#modalTambah">
+            <i class="fas fa-plus"></i> Tambah Mata Kuliah
+          </button>
+        </div>
+
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 5%;">No</th>
+                <th style="width: 12%;">Kode</th>
+                <th style="width: 35%;">Mata Kuliah</th>
+                <th style="width: 10%;">SKS</th>
+                <th style="width: 15%;">Semester</th>
+                <th style="width: 23%;">Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              @forelse($matakuliahs as $index => $mk)
+              <tr>
+                <td style="text-align: center;">{{ $index + 1 }}</td>
+                <td><strong>{{ $mk->kode_matkul }}</strong></td>
+                <td>{{ $mk->nama_matkul }}</td>
+                <td>{{ $mk->sks_teori }}-{{ $mk->sks_praktik }}</td>
+                <td style="text-align: center;">
+                  <span class="badge-semester">Semester {{ $mk->semester }}</span>
+                </td>
+                <td>
+                  <button type="button" class="btn-action btn-edit" 
+                          data-bs-toggle="modal" 
+                          data-bs-target="#modalEdit{{ $mk->id }}">
+                    <i class="fas fa-edit"></i> Edit
+                  </button>
+                  
+                  <form action="{{ route('admin.matakuliah.destroy', $mk->id) }}" 
+                        method="POST" 
+                        style="display:inline;"
+                        onsubmit="return confirm('Yakin ingin menghapus mata kuliah ini?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn-action btn-hapus">
+                      <i class="fas fa-trash"></i> Hapus
+                    </button>
+                  </form>
+                </td>
+              </tr>
+
+              <!-- MODAL EDIT -->
+              <div class="modal fade" id="modalEdit{{ $mk->id }}" tabindex="-1">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title"><i class="fas fa-edit"></i> Edit Mata Kuliah</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <form action="{{ route('admin.matakuliah.update', $mk->id) }}" method="POST">
+                      @csrf
+                      @method('PUT')
+                      <div class="modal-body">
+                        <div class="mb-3">
+                          <label class="form-label">Kode Mata Kuliah <span class="text-danger">*</span></label>
+                          <input type="text" class="form-control" name="kode_matkul" value="{{ $mk->kode_matkul }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Nama Mata Kuliah <span class="text-danger">*</span></label>
+                          <input type="text" class="form-control" name="nama_matkul" value="{{ $mk->nama_matkul }}" required>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6 mb-3">
+                            <label class="form-label">SKS Teori <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" name="sks_teori" value="{{ $mk->sks_teori }}" min="0" required>
+                          </div>
+                          <div class="col-md-6 mb-3">
+                            <label class="form-label">SKS Praktik <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" name="sks_praktik" value="{{ $mk->sks_praktik }}" min="0" required>
+                          </div>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Semester <span class="text-danger">*</span></label>
+                          <select class="form-select" name="semester" required>
+                            @for($i = 1; $i <= 8; $i++)
+                              <option value="{{ $i }}" {{ $mk->semester == $i ? 'selected' : '' }}>Semester {{ $i }}</option>
+                            @endfor
+                          </select>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                          <i class="fas fa-times"></i> Batal
+                        </button>
+                        <button type="submit" class="btn btn-warning">
+                          <i class="fas fa-save"></i> Update Data
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              @empty
+              <tr>
+                <td colspan="6">
+                  <div class="empty-state">
+                    <i class="fas fa-inbox"></i>
+                    <p>Belum ada data mata kuliah</p>
+                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalTambah">
+                      <i class="fas fa-plus"></i> Tambah Sekarang
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              @endforelse
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- MODAL TAMBAH -->
+  <div class="modal fade" id="modalTambah" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="fas fa-plus-circle"></i> Tambah Mata Kuliah Baru</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form action="{{ route('admin.matakuliah.store') }}" method="POST">
+          @csrf
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Kode Mata Kuliah <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" name="kode_matkul" placeholder="Contoh: TPL1101" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Nama Mata Kuliah <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" name="nama_matkul" placeholder="Contoh: Berpikir Komputasional" required>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">SKS Teori <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" name="sks_teori" placeholder="Contoh: 2" min="0" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">SKS Praktik <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" name="sks_praktik" placeholder="Contoh: 1" min="0" required>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Semester <span class="text-danger">*</span></label>
+              <select class="form-select" name="semester" required>
+                <option value="">-- Pilih Semester --</option>
+                @for($i = 1; $i <= 8; $i++)
+                  <option value="{{ $i }}">Semester {{ $i }}</option>
+                @endfor
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              <i class="fas fa-times"></i> Batal
+            </button>
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-save"></i> Simpan Data
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-left">
+        <div class="location">
+          <i data-feather="map-pin"></i>
+          <div class="address">
+            <p><strong>KAMPUS BOGOR</strong> — Jl. Raya Pajajaran, Kota Bogor, Jawa Barat 16128</p>
+            <p><strong>KAMPUS SUKABUMI</strong> — Jl. Sarasa No. 46, Babakan, Kec. Cibeureum, Kota Sukabumi, Jawa Barat 43142</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-right">
+        <div class="contact-item">
+          <i data-feather="phone"></i>
+          <span>(0251) 8348007</span>
+        </div>
+        <div class="contact-item">
+          <i data-feather="mail"></i>
+          <span>sv@apps.ipb.ac.id</span>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="footer-bottom">
+      <p>© 2025 IPB University — Sekolah Vokasi</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>feather.replace();</script>
+</body>
+</html>

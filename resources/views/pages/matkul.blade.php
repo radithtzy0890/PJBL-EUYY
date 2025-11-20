@@ -43,18 +43,25 @@
                                         <tr><th>Kode</th><th>Mata Kuliah</th><th>SKS</th></tr>
                                     </thead>
                                     <tbody>
-                                        <tr><td>TPL1101</td><td>Berpikir Komputasional</td><td>3(1-2)</td></tr>
-                                        <tr><td>TPL1102</td><td>Dasar Pemrograman</td><td>3(1-2)</td></tr>
-                                        <tr><td>TPL2101</td><td>Logika Informatika</td><td>3(1-2)</td></tr>
-                                        <tr><td>SVI110</td><td>Bahasa Inggris</td><td>2(1-1)</td></tr>
-                                        <tr><td>SVI1101</td><td>Pendidikan Agama Islam</td><td>3(2-1)</td></tr>
-                                        <tr><td>SVI1102</td><td>Pendidikan Agama Katolik</td><td>3(2-1)</td></tr>
-                                        <tr><td>SVI1103</td><td>Pendidikan Agama Protestan</td><td>3(2-1)</td></tr>
-                                        <tr><td>SVI1104</td><td>Pendidikan Agama Hindu</td><td>3(2-1)</td></tr>
-                                        <tr><td>SVI1105</td><td>Pendidikan Agama Budha</td><td>3(2-1)</td></tr>
-                                        <tr><td>SVI1106</td><td>Pendidikan Agama Konghucu Kepercayaan Kepada Tuhan Yang Maha Esa</td><td>3(2-1)</td></tr>
-                                        <tr><td>SVI1109</td><td>Bahasa Indonesia</td><td>2(1-1)</td></tr>
-                                        <tr class="table-total"><td>Total</td><td></td><td>16(7-9)</td></tr>
+                                        @forelse($semester1 as $mk)
+                                        <tr>
+                                            <td>{{ $mk->kode_matkul }}</td>
+                                            <td>{{ $mk->nama_matkul }}</td>
+                                            <td>{{ $mk->sks_teori }}({{ $mk->sks_teori }}-{{ $mk->sks_praktik }})</td>
+                                        </tr>
+                                        @empty
+                                        <tr><td colspan="3" class="text-center text-muted">Belum ada data</td></tr>
+                                        @endforelse
+                                        <tr class="table-total">
+                                            <td>Total</td>
+                                            <td></td>
+                                            <td>
+                                                {{ $semester1->sum(function($mk) { 
+                                                    return (int)$mk->sks_teori + (int)$mk->sks_praktik; 
+                                                }) }}
+                                                ({{ $semester1->sum('sks_teori') }}-{{ $semester1->sum('sks_praktik') }})
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -72,15 +79,25 @@
                                         <tr><th>Kode</th><th>Mata Kuliah</th><th>SKS</th></tr>
                                     </thead>
                                     <tbody>
-                                        <tr><td>TPL1107</td><td>Matematika Terapan</td><td>3(2-1)</td></tr>
-                                        <tr><td>TPL1109</td><td>Algoritma dan Struktur Data</td><td>3(1-2)</td></tr>
-                                        <tr><td>TPL1105</td><td>Teknologi Multimedia</td><td>3(1-2)</td></tr>
-                                        <tr><td>TPL2102</td><td>Perancangan Web</td><td>3(1-2)</td></tr>
-                                        <tr><td>TPL1207</td><td>Probabilitas dan Statistika</td><td>2(1-1)</td></tr>
-                                        <tr><td>SVI1107</td><td>Pendidikan Pancasila</td><td>2(1-0)</td></tr>
-                                        <tr><td>SVI1108</td><td>Pendidikan Kewarganegaraan</td><td>2(1-1)</td></tr>
-                                        <tr><td>MNI1101</td><td>Pertanian Inovatif</td><td>2(2-0)</td></tr>
-                                        <tr class="table-total"><td>Total</td><td></td><td>19(10-9)</td></tr>
+                                        @forelse($semester2 as $mk)
+                                        <tr>
+                                            <td>{{ $mk->kode_matkul }}</td>
+                                            <td>{{ $mk->nama_matkul }}</td>
+                                            <td>{{ $mk->sks_teori + $mk->sks_praktik }}({{ $mk->sks_teori }}-{{ $mk->sks_praktik }})</td>
+                                        </tr>
+                                        @empty
+                                        <tr><td colspan="3" class="text-center text-muted">Belum ada data</td></tr>
+                                        @endforelse
+                                        <tr class="table-total">
+                                            <td>Total</td>
+                                            <td></td>
+                                            <td>
+                                                {{ $semester2->sum(function($mk) { 
+                                                    return (int)$mk->sks_teori + (int)$mk->sks_praktik; 
+                                                }) }}
+                                                ({{ $semester2->sum('sks_teori') }}-{{ $semester2->sum('sks_praktik') }})
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -101,15 +118,25 @@
                                         <tr><th>Kode</th><th>Mata Kuliah</th><th>SKS</th></tr>
                                     </thead>
                                     <tbody>
-                                        <tr><td>TPL1112</td><td>Rekayasa Kebutuhan Perangkat Lunak</td><td>3(1-2)</td></tr>
-                                        <tr><td>TPL1202</td><td>Matematika Informatika</td><td>3(1-2)</td></tr>
-                                        <tr><td>TPL1103</td><td>Komunikasi Data dan Jaringan</td><td>3(1-2)</td></tr>
-                                        <tr><td>TPL2201</td><td>Pengalaman Pengguna</td><td>3(1-2)</td></tr>
-                                        <tr><td>TPL1206</td><td>Analisis dan Perancangan Perangkat Lunak</td><td>3(1-2)</td></tr>
-                                        <tr><td>TPL1111</td><td>Sistem Basis Data</td><td>3(1-2)</td></tr>
-                                        <tr><td>TPL2202</td><td>Keamanan Perangkat Lunak</td><td>3(1-2)</td></tr>
-                                        <tr><td>TPL1110</td><td>Pemrograman Berorientasi Objek</td><td>3(1-2)</td></tr>
-                                        <tr class="table-total"><td>Total</td><td></td><td>24(9-15)</td></tr>
+                                        @forelse($semester3 as $mk)
+                                        <tr>
+                                            <td>{{ $mk->kode_matkul }}</td>
+                                            <td>{{ $mk->nama_matkul }}</td>
+                                            <td>{{ $mk->sks_teori + $mk->sks_praktik }}({{ $mk->sks_teori }}-{{ $mk->sks_praktik }})</td>
+                                        </tr>
+                                        @empty
+                                        <tr><td colspan="3" class="text-center text-muted">Belum ada data</td></tr>
+                                        @endforelse
+                                        <tr class="table-total">
+                                            <td>Total</td>
+                                            <td></td>
+                                            <td>
+                                                {{ $semester3->sum(function($mk) { 
+                                                    return (int)$mk->sks_teori + (int)$mk->sks_praktik; 
+                                                }) }}
+                                                ({{ $semester3->sum('sks_teori') }}-{{ $semester3->sum('sks_praktik') }})
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -127,16 +154,25 @@
                                         <tr><th>Kode</th><th>Mata Kuliah</th><th>SKS</th></tr>
                                     </thead>
                                     <tbody>
-                                        <tr><td>TPL1209</td><td>Sistem Informasi</td><td>2(1-1)</td></tr>
-                                        <tr><td>TPL1205</td><td>Komputasi Awan</td><td>3(1-2)</td></tr>
-                                        <tr><td>TPL1210</td><td>Teknologi Virtual</td><td>3(1-2)</td></tr>
-                                        <tr><td>TPL1212</td><td>Pengembangan Karakter dan Etika Profesional</td><td>2(1-1)</td></tr>
-                                        <tr><td>TPL2306</td><td>Technopreneurship</td><td>2(1-1)</td></tr>
-                                        <tr><td>TPL1203</td><td>Pemrograman Web</td><td>3(1-2)</td></tr>
-                                        <tr><td>TPL1204</td><td>Pemrograman Mobile</td><td>3(1-2)</td></tr>
-                                        <tr><td>TPL1301</td><td>Analisis dan Visualisasi Data</td><td>3(1-2)</td></tr>
-                                        <tr><td>TPL1304</td><td>Teknik Penambangan data</td><td>3(1-2)</td></tr>
-                                        <tr class="table-total"><td>Total</td><td></td><td>24(9-15)</td></tr>
+                                        @forelse($semester4 as $mk)
+                                        <tr>
+                                            <td>{{ $mk->kode_matkul }}</td>
+                                            <td>{{ $mk->nama_matkul }}</td>
+                                            <td>{{ $mk->sks_teori + $mk->sks_praktik }}({{ $mk->sks_teori }}-{{ $mk->sks_praktik }})</td>
+                                        </tr>
+                                        @empty
+                                        <tr><td colspan="3" class="text-center text-muted">Belum ada data</td></tr>
+                                        @endforelse
+                                        <tr class="table-total">
+                                            <td>Total</td>
+                                            <td></td>
+                                            <td>
+                                                {{ $semester4->sum(function($mk) { 
+                                                    return (int)$mk->sks_teori + (int)$mk->sks_praktik; 
+                                                }) }}
+                                                ({{ $semester4->sum('sks_teori') }}-{{ $semester4->sum('sks_praktik') }})
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -157,13 +193,25 @@
                                         <tr><th>Kode</th><th>Mata Kuliah</th><th>SKS</th></tr>
                                     </thead>
                                     <tbody>
-                                        <tr><td>TPL1303</td><td>Manajemen Proyek Teknologi Informasi</td><td>3(1-2)</td></tr>
-                                        <tr><td>TPL1302</td><td>Pemrosesan Citra Terapan</td><td>3(1-2)</td></tr>
-                                        <tr><td>TPL1309</td><td>Teknologi Big Data</td><td>3(1-2)</td></tr>
-                                        <tr><td>TPL1211</td><td>Sistem Informasi Geografis</td><td>3(1-2)</td></tr>
-                                        <tr><td>TPL2310</td><td>Visual Komputer Cerdas</td><td>2(1-1)</td></tr>
-                                        <tr><td>TPL1305</td><td>Pengujian dan Penjaminan Kualitas Perangkat Lunak</td><td>3(1-2)</td></tr>
-                                        <tr class="table-total"><td>Total</td><td></td><td>17(6-11)</td></tr>
+                                        @forelse($semester5 as $mk)
+                                        <tr>
+                                            <td>{{ $mk->kode_matkul }}</td>
+                                            <td>{{ $mk->nama_matkul }}</td>
+                                            <td>{{ $mk->sks_teori + $mk->sks_praktik }}({{ $mk->sks_teori }}-{{ $mk->sks_praktik }})</td>
+                                        </tr>
+                                        @empty
+                                        <tr><td colspan="3" class="text-center text-muted">Belum ada data</td></tr>
+                                        @endforelse
+                                        <tr class="table-total">
+                                            <td>Total</td>
+                                            <td></td>
+                                            <td>
+                                                {{ $semester5->sum(function($mk) { 
+                                                    return (int)$mk->sks_teori + (int)$mk->sks_praktik; 
+                                                }) }}
+                                                ({{ $semester5->sum('sks_teori') }}-{{ $semester5->sum('sks_praktik') }})
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -181,8 +229,25 @@
                                         <tr><th>Kode</th><th>Mata Kuliah</th><th>SKS</th></tr>
                                     </thead>
                                     <tbody>
-                                        <tr><td>-</td><td>Enrichment Course</td><td>22(0-22)</td></tr>
-                                        <tr class="table-total"><td>Total</td><td></td><td>22(0-22)</td></tr>
+                                        @forelse($semester6 as $mk)
+                                        <tr>
+                                            <td>{{ $mk->kode_matkul }}</td>
+                                            <td>{{ $mk->nama_matkul }}</td>
+                                            <td>{{ $mk->sks_teori + $mk->sks_praktik }}({{ $mk->sks_teori }}-{{ $mk->sks_praktik }})</td>
+                                        </tr>
+                                        @empty
+                                        <tr><td colspan="3" class="text-center text-muted">Belum ada data</td></tr>
+                                        @endforelse
+                                        <tr class="table-total">
+                                            <td>Total</td>
+                                            <td></td>
+                                            <td>
+                                                {{ $semester6->sum(function($mk) { 
+                                                    return (int)$mk->sks_teori + (int)$mk->sks_praktik; 
+                                                }) }}
+                                                ({{ $semester6->sum('sks_teori') }}-{{ $semester6->sum('sks_praktik') }})
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -203,9 +268,25 @@
                                         <tr><th>Kode</th><th>Mata Kuliah</th><th>SKS</th></tr>
                                     </thead>
                                     <tbody>
-                                        <tr><td>SVI2401</td><td>Immersive Program</td><td>14(0-14)</td></tr>
-                                        <tr><td>SVI2402</td><td>Work Plan</td><td>1(0-1)</td></tr>
-                                        <tr class="table-total"><td>Total</td><td></td><td>15(0-15)</td></tr>
+                                        @forelse($semester7 as $mk)
+                                        <tr>
+                                            <td>{{ $mk->kode_matkul }}</td>
+                                            <td>{{ $mk->nama_matkul }}</td>
+                                            <td>{{ $mk->sks_teori + $mk->sks_praktik }}({{ $mk->sks_teori }}-{{ $mk->sks_praktik }})</td>
+                                        </tr>
+                                        @empty
+                                        <tr><td colspan="3" class="text-center text-muted">Belum ada data</td></tr>
+                                        @endforelse
+                                        <tr class="table-total">
+                                            <td>Total</td>
+                                            <td></td>
+                                            <td>
+                                                {{ $semester7->sum(function($mk) { 
+                                                    return (int)$mk->sks_teori + (int)$mk->sks_praktik; 
+                                                }) }}
+                                                ({{ $semester7->sum('sks_teori') }}-{{ $semester7->sum('sks_praktik') }})
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -223,9 +304,25 @@
                                         <tr><th>Kode</th><th>Mata Kuliah</th><th>SKS</th></tr>
                                     </thead>
                                     <tbody>
-                                        <tr><td>SVI12403</td><td>Seminar</td><td>1(0-1)</td></tr>
-                                        <tr><td>SVI12404</td><td>Laporan Proyek Akhir</td><td>6(0-6)</td></tr>
-                                        <tr class="table-total"><td>Total</td><td></td><td>7(0-7)</td></tr>
+                                        @forelse($semester8 as $mk)
+                                        <tr>
+                                            <td>{{ $mk->kode_matkul }}</td>
+                                            <td>{{ $mk->nama_matkul }}</td>
+                                            <td>{{ $mk->sks_teori + $mk->sks_praktik }}({{ $mk->sks_teori }}-{{ $mk->sks_praktik }})</td>
+                                        </tr>
+                                        @empty
+                                        <tr><td colspan="3" class="text-center text-muted">Belum ada data</td></tr>
+                                        @endforelse
+                                        <tr class="table-total">
+                                            <td>Total</td>
+                                            <td></td>
+                                            <td>
+                                                {{ $semester8->sum(function($mk) { 
+                                                    return (int)$mk->sks_teori + (int)$mk->sks_praktik; 
+                                                }) }}
+                                                ({{ $semester8->sum('sks_teori') }}-{{ $semester8->sum('sks_praktik') }})
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

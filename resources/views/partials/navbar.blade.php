@@ -28,7 +28,7 @@
                     <a class="nav-link nav-tpl-link {{ request()->routeIs('dosen') ? 'active' : '' }}" href="{{ route('dosen') }}">Dosen</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-tpl-link {{ request()->routeIs('matkul') ? 'active' : '' }}" href="{{ route('matkul') }}">Mata Kuliah</a>
+                    <a class="nav-link nav-tpl-link {{ request()->routeIs('matkul') ? 'active' : '' }}" href="{{ route('matakuliah.user') }}">Mata Kuliah</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-tpl-link {{ request()->routeIs('faq') ? 'active' : '' }}" href="{{ route('faq') }}">FAQ</a>

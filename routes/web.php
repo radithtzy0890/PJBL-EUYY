@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\Admin\DosenController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -9,6 +8,7 @@ use App\Http\Controllers\Admin\KaryaController;
 use App\Http\Controllers\Admin\ProfilProdiController;
 use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\BeritaController;
+use App\Http\Controllers\Admin\MataKuliahController;
 use App\Http\Controllers\BeritaUserController;
 use Illuminate\Support\Facades\Mail; // 
 use App\Mail\SendEmail; // 
@@ -64,13 +64,12 @@ Route::get('/mail/send', function () {
     //Route::delete('/rating/{id}', [App\Http\Controllers\RatingController::class, 'destroy'])->name('rating.destroy');
 //});
 
-
-require __DIR__.'/auth.php';
-
 // Home
 //Route::get('/', function () {
     //return view('pages.homepages');
 //})->name('home');
+
+require __DIR__.'/auth.php';
 
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -85,10 +84,9 @@ Route::get('/dosen', function () {
      return view('pages.dosen');
  })->name('dosen');
 
-// Mata Kuliah
-Route::get('/mata-kuliah', function () {
-    return view('pages.matkul');
-})->name('matkul');
+
+// Route untuk USER (bisa lihat doang)
+Route::get('/matakuliah', [MataKuliahController::class, 'indexUser'])->name('matakuliah.user');
 
 // FAQ
 Route::get('/faq', function () {
@@ -126,8 +124,8 @@ Route::post('/reset-password/{token}', [AuthController::class, 'submitResetPassw
 // Route::post('karya', [KaryaController::class, 'store'])->name('karya.store');
 // Route::get('karya/{id}', [KaryaController::class, 'userShow'])->name('karya.show');
 
-//cari karya lainnya
-Route::get('karya', function(Request $request){
+    //cari karya lainnya
+    Route::get('karya', function(Request $request){
     $query = Karya::where('status_validasi', 'accepted');
 
     if ($request->has('judul')) {
@@ -141,34 +139,30 @@ Route::get('karya', function(Request $request){
     $karya = $query->get();
 
     return view('pages.karya',compact('karya'));
-});
+    });
 
-//cari karya lainnya (2)
-Route::get('karya/{id}', function($id){
-    $karya=Karya::find($id);
-    $review = Review::with('user')->where('karya_id', $id)->get();
-    return view('pages.detailkarya',compact('karya','review'));
-});
+    //cari karya lainnya (2)
+    Route::get('karya/{id}', function($id){
+        $karya=Karya::find($id);
+        $review = Review::with('user')->where('karya_id', $id)->get();
+        return view('pages.detailkarya',compact('karya','review'));
+    });
 
-// Berita
+    // Admin routes
+    Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+        Route::resource('berita', BeritaController::class);
+    });
 
+    Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
+    Route::get('/berita/{id}', [BeritaController::class, 'indexUser'])->name('berita.show');
 
-// Admin routes
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
-    Route::resource('berita', BeritaController::class);
-});
+    // Unggah Karya
+    Route::get('/unggah-karya', function () {
+        return view('pages.unggah');
+    })->name('unggah');
 
-
-Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
-Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita.show');
-
-// Unggah Karya
-Route::get('/unggah-karya', function () {
-    return view('pages.unggah');
-})->name('unggah');
-
-Route::middleware(['auth'])->group(function () {
-    
+    Route::middleware(['auth'])->group(function () {
+        
     // User Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -264,8 +258,16 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->group(fun
     Route::get('/berita/{id}', [BeritaUserController::class, 'show'])->name('berita.show');
     Route::get('/berita/create',[BeritaController::class, 'create'])->name('berita.create');
     Route::delete('/berita/{id}/delete',[BeritaController::class, 'destroy'])->name('berita.destroy');
+
+    Route::get('/berita', [BeritaUserController::class, 'index'])->name('berita.user');
+    Route::get('/berita/{id}', [BeritaUserController::class, 'show'])->name('berita.show');
+
+    // Route untuk ADMIN (bisa CRUD)
+    Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+        Route::resource('matakuliah', MataKuliahController::class);
+    });
     
-        // Nanti di sini kamu bisa tambah route kelola admin
+        // Nanti di sini kamu bisa tambah route kelola adminf
     // Route::get('kelola-admin', [AdminController::class, 'index'])->name('kelola.admin');
     // Route::post('kelola-admin', [AdminController::class, 'store'])->name('kelola.admin.store');
     // dst...

@@ -27,7 +27,8 @@
       <a href="{{ route('info-prodi.index') }}">Edit Info Profil</a>
       <a href="{{ route('karya.validasi') }}">Validasi Konten</a>
       <a href="{{ route('dosen.index') }}">Dosen</a>
-      <a class="active" href="{{ route('admin.berita.index') }}">Berita</a>
+      <a href="{{ route('admin.berita.index') }}">Berita</a>
+      <a href="{{ route('admin.matakuliah.index') }}" class="active">Mata Kuliah</a>
     </aside>
     <div class="content">
       <h2 class="title-halaman">Tambah Berita</h2>

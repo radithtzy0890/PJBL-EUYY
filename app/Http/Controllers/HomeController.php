@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Berita;
 use App\Models\Karya;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,8 @@ class HomeController extends Controller
                       ->limit(3)
                       ->get();
         
-        return view('pages.homepages', compact('karyas'));
+        $beritas = Berita::all();
+        
+        return view('pages.homepages', compact('karyas','beritas'));
     }
 }

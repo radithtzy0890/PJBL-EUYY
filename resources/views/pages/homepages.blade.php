@@ -81,14 +81,12 @@
     <h2 class="text-center mb-4">Berita TPL SVIPB</h2>
     <div class="row justify-content-center">
         <div class="col-lg-8">
-            
-            {{-- KARTU 1: National Business Idea Competition (Juara 3 Pioneers 4.0) --}}
+            @foreach ($beritas as $berita)
             <div class="card mb-4 shadow-sm text-dark">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <a href="{{ route('admin.berita.index', ['id' => 2]) }}">
-                            {{-- GAMBAR: Berita tpl.png (Gambar Pioneers 4.0) --}}
-                            <img src="{{ asset('images/Berita tpl.png') }}" 
+                        <a href="{{ route('berita.show', $berita->id) }}">
+                            <img src="{{ asset('storage/' . $berita->gambar ) }}" 
                                  class="img-fluid rounded-top rounded-md-start" 
                                  alt="National Business Idea Competition">
                         </a>
@@ -96,53 +94,21 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title fw-bold">
-                                <a href="{{ route('admin.berita.index', ['id' => 2]) }}" class="text-decoration-none text-dark">
-                                    National Business Idea Competition
+                                <a href="" class="text-decoration-none text-dark">
+                                    {{ $berita->judul }}
                                 </a>
                             </h5>
                             <p class="card-text text-muted">
-                                Mahasiswa TPL SV IPB berhasil meraih Juara 3 dalam ajang National Business Idea Competition pada Pioneers 4.0. Prestasi ini diraih melalui gagasan bisnis inovatif...
+                                {{ Str::limit($berita->isi) }}
                             </p>
                             <p class="card-text d-flex justify-content-between align-items-center">
-                                <small class="text-muted">27 September 2025</small>
-                                <a href="#" class="text-muted"><i class="bi bi-share-fill"></i></a>
+                                <small class="text-muted">{{ \Carbon\Carbon::parse($berita->created_at)->translatedFormat('d F Y') }}</small>
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
-
-            {{-- KARTU 2: Agridation Festival --}}
-            <div class="card mb-4 shadow-sm text-dark">
-                 <div class="row g-0">
-                    <div class="col-md-4">
-                        <a href="{{ route('admin.berita.index', ['id' => 1]) }}">
-                            {{-- GAMBAR: Agridation Team --}}
-                            <img src="{{ asset('images/Berita tpl.png') }}" 
-                                 class="img-fluid rounded-top rounded-md-start" 
-                                 alt="Agridation Festival">
-                        </a>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title fw-bold">
-                                <a href="{{ route('admin.berita.index', ['id' => 1]) }}" class="text-decoration-none text-dark">
-                                    Agridation Festival
-                                </a>
-                            </h5>
-                            <p class="card-text text-muted">
-                                Mahasiswa TPL SV IPB ikut meramaikan Agridation Festival lewat tenant spesial yang menampilkan karya inovatif...
-                            </p>
-                            <p class="card-text d-flex justify-content-between align-items-center">
-                                <small class="text-muted">5 hari yang lalu</small>
-                                <a href="#" class="text-muted"><i class="bi bi-share-fill"></i></a>
-                            </p>
-                        </div>  
-                    </div>
-                </div>
-            </div>
-            
-            {{-- KARTU 2: Agridation Festival --}}
+            @endforeach
         </div>
     </div>
     </div>

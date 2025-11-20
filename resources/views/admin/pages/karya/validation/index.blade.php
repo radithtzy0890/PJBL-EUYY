@@ -31,6 +31,7 @@
       <a href="{{ route('karya.validasi') }}" class="active">Validasi Konten</a>
       <a href="{{ route('dosen.index') }}">Dosen</a>
        <a href ="{{ route('admin.berita.index') }}">Berita</a>
+       <a href ="{{ route('admin.matakuliah.index') }}">Mata Kuliah</a>
     </div>
 
     <div class="content">
