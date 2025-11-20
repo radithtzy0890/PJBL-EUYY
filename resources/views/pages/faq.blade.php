@@ -4,6 +4,7 @@
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/faq.css') }}">
+<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 @endpush
 
 @section('hero')

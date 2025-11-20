@@ -121,6 +121,12 @@
                             <p class="mb-0 small">{{ $r->comment }}</p>
                         </div>
                         @endforeach
+
+                        <div class="text-center mt-4 mb-4">
+                    <a href="{{ route('home') }}" class="btn btn-secondary btn-lg">
+                        <i class="bi bi-arrow-left me-2"></i>Kembali ke Home
+                    </a>
+                        </div>
                     </div>
                 </div>
             </div>

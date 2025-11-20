@@ -33,12 +33,11 @@
                     <h2>Kumpulan Karya Mahasiswa Teknologi Rekayasa Perangkat Lunak SV IPB</h2>
                     <hr>
                 </header>
-                
                 <div class="row">
                     @foreach ($karyas as $karya)
                     <div class="col-12 col-md-6 col-lg-4 mb-4">
                         <div class="card h-100 shadow-sm border-0">
-                            <img src="https://placehold.co/600x400/333/white?text=Aplikasi+1" class="card-img-top" alt="Karya Mahasiswa">
+                            <img src="{{ $karya->preview_karya ? asset('storage/' . $karya->preview_karya) : 'https://placehold.co/600x400/333/white?text=Aplikasi+1' }}" class="card-img-top" alt="Karya Mahasiswa">
                             <div class="card-body d-flex flex-column">
                                 <span class="badge text-white mb-2" style="background-color: var(--warna-utama);">{{ $karya->kategori }}</span>
                                 <h5 class="card-title">{{ $karya->judul }}</h5>

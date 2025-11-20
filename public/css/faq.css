@@ -181,3 +181,16 @@ body {
     color: #333;
     line-height: 1.7;
 }
+
+
+/* **PERBAIKAN FAQ 1: Memaksa Teks Terlihat dan Tinggi Terbuka** */
+
+
+/* Menargetkan collapse body saat aktif (show class) */
+
+.accordion-collapse.show {
+    /* Pastikan visibility tidak disembunyikan oleh aturan lain */
+    visibility: visible !important;
+    /* Max-height fit-content memastikan elemen mengambil tinggi yang diperlukan */
+    max-height: fit-content !important;
+}

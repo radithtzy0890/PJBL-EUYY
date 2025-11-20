@@ -119,7 +119,6 @@ Route::post('/reset-password/{token}', [AuthController::class, 'submitResetPassw
 
 // Proses update password baru
 
-
 // Karya
 // Route::get('karya', [KaryaController::class, 'karyaUser'])->name('karya.user');
 // Route::post('karya', [KaryaController::class, 'store'])->name('karya.store');

@@ -17,7 +17,9 @@
             <ul class="navbar-nav ms-auto">
                 {{-- KOREKSI: Tambahkan kelas 'nav-tpl-link' --}}
                 <li class="nav-item">
-                    <a class="nav-link nav-tpl-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a>
+                    <a class="nav-link nav-tpl-link {{ request()->routeIs('home') ? 'active' : '' }}"
+                        href="{{ route('home') }}"
+                        style="{{ request()->routeIs('home') ? 'color: #ffffff !important;' : '' }}">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-tpl-link {{ request()->routeIs('tentang') ? 'active' : '' }}" href="{{ route('tentang') }}">Tentang</a>
