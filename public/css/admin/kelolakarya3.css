@@ -203,3 +203,87 @@ footer {
     align-items: flex-end;
     justify-content: center;
 }
+
+
+/* === WRAPPER === */
+
+.lihat-container {
+    max-width: 780px;
+    margin: 40px auto;
+}
+
+
+/* HEADER */
+
+.judul-halaman {
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+
+/* === CARD UTAMA === */
+
+.lihat-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.lihat-card label {
+    font-weight: 600;
+    margin-top: 12px;
+    display: block;
+}
+
+.lihat-card input,
+.lihat-card textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    background: #f8fafc;
+}
+
+.lihat-card textarea {
+    height: 130px;
+}
+
+
+/* FILE LINK */
+
+.lihat-file {
+    display: inline-block;
+    background: #1e3a8a;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 10px;
+    margin-top: 8px;
+}
+
+
+/* === BUTTON HAPUS === */
+
+.btn-hapus {
+    width: 100%;
+    background: #ef4444;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    margin-top: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    transition: .2s;
+}
+
+.btn-hapus:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+}

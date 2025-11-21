@@ -49,10 +49,10 @@
                     </div>
                     <div class="info-box-body">
                         <ol>
-                            <li>Menyelenggarakan pendidikan vokasi yang berkualitas untuk menyiapkan tenaga yang terampil dan terdidik di bidang Teknologi Rekayasa Perangkat Lunak yang profesional dan tanggap terhadap perkembangan zaman dengan berorientasi pada kebutuhan dunia kerja.</li>
-                            <li>Menyelenggarakan penelitian terapan di bidang informatika yang sesuai dengan kebutuhan, ilmu dan teknologi serta menyelesaikan permasalahan di masyarakat khususnya pertanian, kelautan, dan biosains tropika.</li>
-                            <li>Menyelenggarakan pengabdian kepada masyarakat dalam menyebarluaskan hasil pendidikan dan hasil penelitian terapan di bidang informatika.</li>
-                            <li>Menjalin kerjasama dengan lembaga pemerintahan dan/atau instansi terkait dengan pencapaian kompetensi mahasiswa, penelitian terapan, pengabdian kepada masyarakat, dan lapangan pekerjaan bagi lulusan.</li>
+                            <li>1. Menyelenggarakan pendidikan vokasi yang berkualitas untuk menyiapkan tenaga yang terampil dan terdidik di bidang Teknologi Rekayasa Perangkat Lunak yang profesional dan tanggap terhadap perkembangan zaman dengan berorientasi pada kebutuhan dunia kerja.</li>
+                            <li>1. Menyelenggarakan penelitian terapan di bidang informatika yang sesuai dengan kebutuhan, ilmu dan teknologi serta menyelesaikan permasalahan di masyarakat khususnya pertanian, kelautan, dan biosains tropika.</li>
+                            <li>3. Menyelenggarakan pengabdian kepada masyarakat dalam menyebarluaskan hasil pendidikan dan hasil penelitian terapan di bidang informatika.</li>
+                            <li>4. Menjalin kerjasama dengan lembaga pemerintahan dan/atau instansi terkait dengan pencapaian kompetensi mahasiswa, penelitian terapan, pengabdian kepada masyarakat, dan lapangan pekerjaan bagi lulusan.</li>
                         </ol>
                     </div>
                 </div>
