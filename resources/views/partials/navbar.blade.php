@@ -25,7 +25,7 @@
                     <a class="nav-link nav-tpl-link {{ request()->routeIs('tentang') ? 'active' : '' }}" href="{{ route('tentang') }}">Tentang</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-tpl-link {{ request()->routeIs('dosen') ? 'active' : '' }}" href="{{ route('dosen') }}">Dosen</a>
+                    <a class="nav-link nav-tpl-link {{ request()->routeIs('dosen') ? 'active' : '' }}" href="{{ route('homepage.dosen') }}">Dosen</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-tpl-link {{ request()->routeIs('matkul') ? 'active' : '' }}" href="{{ route('matakuliah.user') }}">Mata Kuliah</a>

@@ -75,14 +75,14 @@ require __DIR__.'/auth.php';
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Tentang
-Route::get('/tentang', function () {
-    return view('pages.tentang');
-})->name('tentang');
-
+// Halaman Tentang Prodi untuk user
+Route::get('/tentang', [ProfilProdiController::class, 'showUser'])
+    ->name('tentang');
 // Dosen
 Route::get('/dosen', function () {
-     return view('pages.dosen');
- })->name('dosen');
+    $dosens = Dosen::all();
+    return view('pages.dosen', compact('dosens'));
+})->name('homepage.dosen'); 
 
 
 // Route untuk USER (bisa lihat doang)
@@ -270,6 +270,7 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->group(fun
     Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
         Route::resource('matakuliah', MataKuliahController::class);
     });
+
     
         // Nanti di sini kamu bisa tambah route kelola adminf
     // Route::get('kelola-admin', [AdminController::class, 'index'])->name('kelola.admin');

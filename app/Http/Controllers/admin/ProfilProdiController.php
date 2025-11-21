@@ -71,7 +71,11 @@ class ProfilProdiController extends Controller
 
         return redirect()->route('info-prodi.index')
                         ->with('success', 'Profil prodi berhasil diperbarui!');
+    }   
+    // HALAMAN USER
+    public function showUser()
+    {
+        $profil = ProfilProdi::first();
+        return view('pages.tentang', compact('profil'));
     }
-
-
 }

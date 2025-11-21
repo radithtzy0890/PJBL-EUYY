@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Portal TPL SVIPB - Kelola Karya</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/feather-icons"></script>
 
@@ -77,9 +78,9 @@
             margin-bottom: 14px;
         }
 
-        /* CARD BIRU */
+        /* CARD */
         .card {
-            background: #1e3a8a;
+            background: #355c94;
             padding: 18px;
             border-radius: 14px;
             display: flex;
@@ -102,7 +103,6 @@
 
         .info i {
             width: 26px;
-            color: white;
         }
 
         .status {
@@ -135,7 +135,6 @@
             transform: scale(1.05);
         }
 
-        /* TAMBAH KARYA */
         .btn-tambahkarya {
             background: #1e3a8a;
             color: white;
@@ -158,6 +157,7 @@
 </head>
 
 <body>
+
     <div class="nav-container1">
         <a href="/"><img src="{{ asset('images/logo_TPL.png') }}" class="logo-TPL"></a>
     </div>
@@ -196,6 +196,7 @@
                                 <small>{{ $item->user->name ?? 'Anonim' }}</small>
                             </div>
                         </div>
+
                         <div class="right-side">
                             <span class="status sukses">Disetujui</span>
                             <button class="edit-btn"
@@ -205,6 +206,7 @@
                 @empty
                     <p>Tidak ada karya.</p>
                 @endforelse
+
             </div>
 
             {{-- Karya Ditolak --}}
@@ -230,6 +232,7 @@
                 @empty
                     <p>Tidak ada karya.</p>
                 @endforelse
+
             </div>
 
         </div>
