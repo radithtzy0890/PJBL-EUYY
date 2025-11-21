@@ -66,10 +66,11 @@
 
           <button type="submit" class="btn-submit">Update Berita</button>
 
-          <a href="{{ route('admin.berita.index') }}" class="btn-cancel" 
-             style="text-align:center; display:block; margin-top:15px;">
-            Batal
-          </a>
+          <div class="cancel-wrapper">
+              <a href="{{ route('admin.berita.index') }}" class="btn-cancel">
+                  Batal
+              </a>
+          </div>
 
         </form>
 

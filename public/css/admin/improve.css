@@ -1,0 +1,189 @@
+/* ========================================
+   DOSEN PAGE - IMPROVED STYLING
+   ======================================== */
+
+
+/* Override styling untuk card dosen */
+
+.grid-dosen {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.card {
+    position: relative;
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border-left: 5px solid #3b6fd4;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.blue-strip {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(135deg, #2d5aa8 0%, #3b6fd4 100%);
+    border-radius: 12px 0 0 12px;
+}
+
+.profile-placeholder {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 1rem;
+    display: block;
+    border: 3px solid #e2e8f0;
+    background: #e2e8f0;
+}
+
+.info {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.info h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.3rem;
+}
+
+.info p {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-bottom: 0.75rem;
+}
+
+.status {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.status.aktif {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+
+/* Tombol Aksi - Horizontal */
+
+.action-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    justify-content: center;
+}
+
+.btn-action {
+    padding: 0.6rem 0.8rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+    flex: 1;
+}
+
+.btn-lihat {
+    background: #4299e1;
+    color: white;
+}
+
+.btn-lihat:hover {
+    background: #3182ce;
+    transform: translateY(-1px);
+    color: white;
+}
+
+.btn-edit {
+    background: #f59e0b;
+    color: white;
+}
+
+.btn-edit:hover {
+    background: #d97706;
+    transform: translateY(-1px);
+    color: white;
+}
+
+.btn-hapus {
+    background: #ef4444;
+    color: white;
+}
+
+.btn-hapus:hover {
+    background: #dc2626;
+    transform: translateY(-1px);
+}
+
+
+/* Tombol Tambah Dosen */
+
+.btn-tambahdosen {
+    background: linear-gradient(135deg, #2d5aa8 0%, #3b6fd4 100%);
+    color: white;
+    border: none;
+    padding: 4rem 2rem;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(45, 90, 168, 0.3);
+    width: 100%;
+    height: 100%;
+    min-height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-tambahdosen:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(45, 90, 168, 0.4);
+}
+
+
+/* Responsive */
+
+@media (max-width: 968px) {
+    .grid-dosen {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .grid-dosen {
+        grid-template-columns: 1fr;
+    }
+    .btn-tambahdosen {
+        min-height: 200px;
+        padding: 2rem 1rem;
+    }
+    .action-buttons {
+        flex-direction: column;
+    }
+    .btn-action {
+        width: 100%;
+    }
+}

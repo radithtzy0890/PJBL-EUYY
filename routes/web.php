@@ -211,6 +211,10 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->group(fun
     Route::get('dosen/{id}/edit', [DosenController::class, 'edit'])->name('dosen.edit');
     Route::put('dosen/{id}', [DosenController::class, 'update'])->name('dosen.update');
 
+    //ini tebrau yaps
+    Route::delete('/dosen/{id}', [DosenController::class, 'destroy'])->name('dosen.destroy');
+    Route::get('/dosen/{id}', [DosenController::class, 'show'])->name('dosen.show');
+
     // Ajuan Karya
     Route::get('ajuankarya', function () {
         // karya yang statusnya submission

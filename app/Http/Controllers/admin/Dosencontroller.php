@@ -11,8 +11,9 @@ class DosenController extends Controller
 {
     public function index()
     {
-        $dosen = Dosen::orderBy('nama_dosen', 'asc')->get();
-        return view('admin.pages.dosen', compact('dosen'));
+        // Perbaiki: variable jadi plural, column name jadi 'nama'
+        $dosens = Dosen::orderBy('nama', 'asc')->get();
+        return view('admin.pages.dosen', compact('dosens'));
     }
 
     public function create()
@@ -40,11 +41,11 @@ class DosenController extends Controller
             ->with('success', 'Data dosen berhasil ditambahkan!');
     }
 
-
     public function show(string $id)
     {
         $dosen = Dosen::findOrFail($id);
-        return view('admin.dosen.show', compact('dosen'));
+        // Perbaiki: konsisten pakai admin.pages
+        return view('admin.pages.showdosen', compact('dosen'));
     }
 
     public function edit(string $id)
@@ -58,39 +59,40 @@ class DosenController extends Controller
         $dosen = Dosen::findOrFail($id);
 
         $validated = $request->validate([
-        'nama' => 'required|string|max:100',
-        'prodi' => 'required|string|max:100',
-        'research_interest' => 'nullable|string|max:100',
-        'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-    ]);
+            'nama' => 'required|string|max:100',
+            'prodi' => 'required|string|max:100',
+            'research_interest' => 'nullable|string|max:100',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
 
         if ($request->hasFile('foto')) {
+            // Hapus foto lama jika ada
+            if ($dosen->foto) {
+                Storage::disk('public')->delete($dosen->foto);
+            }
 
-        // Hapus foto lama jika ada
-        if ($dosen->foto) {
-            Storage::disk('public')->delete($dosen->foto);
+            $validated['foto'] = $request->file('foto')->store('dosen', 'public');
         }
 
-        $validated['foto'] = $request->file('foto')->store('dosen', 'public');
+        $dosen->update($validated);
+
+        return redirect()->route('dosen.index')
+                        ->with('success', 'Data dosen berhasil diperbarui!');
     }
-
-    $dosen->update($validated);
-
-    return redirect()->route('dosen.index')
-                     ->with('success', 'Data dosen berhasil diperbarui!');
-}
-
 
     public function destroy(string $id)
     {
         $dosen = Dosen::findOrFail($id);
 
+        // Hapus foto jika ada
         if ($dosen->foto) {
             Storage::disk('public')->delete($dosen->foto);
         }
 
         $dosen->delete();
 
-        return redirect()->route('admin.dosen.index')->with('success', 'Data dosen berhasil dihapus!');
+        // Perbaiki: route name yang benar
+        return redirect()->route('dosen.index')
+                        ->with('success', 'Data dosen berhasil dihapus!');
     }
 }

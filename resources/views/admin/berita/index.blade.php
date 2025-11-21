@@ -5,12 +5,222 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portal TPL SVIPB - Admin/Super Admin</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}">
+  <style>
+    .berita-card {
+      background: linear-gradient(135deg, #2d5aa8 0%, #3b6fd4 100%);
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      margin-bottom: 2rem;
+    }
+    
+    .berita-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .berita-header h3 {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 0;
+    }
+    
+    .btn-tambah-berita {
+      background: white;
+      color: #2d5aa8;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .btn-tambah-berita:hover {
+      background: #f0f7ff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      color: #2d5aa8;
+    }
+    
+    .berita-item {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s;
+    }
+    
+    .berita-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+    
+    .berita-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    .berita-image {
+      width: 260px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+    
+    .berita-content {
+      flex: 1;
+    }
+    
+    .berita-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+    
+    .berita-meta {
+      color: #64748b;
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .berita-excerpt {
+      color: #475569;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+    
+    .berita-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .btn-action {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .btn-lihat {
+      background: #4299e1;
+      color: white;
+    }
+    
+    .btn-lihat:hover {
+      background: #3182ce;
+      transform: translateY(-1px);
+      color: white;
+    }
+    
+    .btn-edit {
+      background: #f59e0b;
+      color: white;
+    }
+    
+    .btn-edit:hover {
+      background: #d97706;
+      transform: translateY(-1px);
+      color: white;
+    }
+    
+    .btn-hapus {
+      background: #ef4444;
+      color: white;
+    }
+    
+    .btn-hapus:hover {
+      background: #dc2626;
+      transform: translateY(-1px);
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: white;
+    }
+    
+    .empty-state i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.7;
+    }
+    
+    .empty-state p {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 968px) {
+      .berita-item {
+        flex-direction: column;
+      }
+      
+      .berita-image {
+        width: 100%;
+        height: 220px;
+      }
+    }
+    
+    @media (max-width: 640px) {
+      .berita-card {
+        padding: 1.5rem;
+      }
+      
+      .berita-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+      
+      .btn-tambah-berita {
+        width: 100%;
+        text-align: center;
+      }
+      
+      .berita-item {
+        padding: 1rem;
+      }
+      
+      .berita-title {
+        font-size: 1.1rem;
+      }
+      
+      .btn-action {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
-
   <div class="nav-container1">
     <a href="/">
       <img src="{{ asset('images/logo_TPL.png') }}" alt="Logo TPL SVIPB" class="logo-TPL">
@@ -24,64 +234,76 @@
 
   <div class="layout">
     <aside class="sidebar">
-      <a href="{{ 'dashboard' }}" class="active">Dashboard</a>
+      <a href="{{ route('dashboard') }}">Dashboard</a>
       <a href="{{ route('karya.index') }}">Kelola Karya</a>
-     <a href="{{ route('info-prodi.index') }}">Edit Info Profil</a>
+      <a href="{{ route('info-prodi.index') }}">Edit Info Profil</a>
       <a href="{{ route('karya.validasi') }}">Validasi Konten</a>
-      <a href ="{{ route('dosen.index') }}">Dosen</a>
-      <a href ="{{ route('admin.berita.index') }}">Berita</a>
-       <a href ="{{ route('admin.matakuliah.index') }}">Mata Kuliah</a>
+      <a href="{{ route('dosen.index') }}">Dosen</a>
+      <a href="{{ route('admin.berita.index') }}" class="active">Berita</a>
+      <a href="{{ route('admin.matakuliah.index') }}">Mata Kuliah</a>
     </aside>
 
     <main class="content">
-      <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Daftar Berita</h2>
-            <a href="{{ route('admin.berita.create') }}" class="btn btn-primary">Tambah Berita</a>
+      <!-- Card Berita -->
+      <div class="berita-card">
+        <div class="berita-header">
+          <h3><i class="fas fa-newspaper"></i> Daftar Berita</h3>
+          <a href="{{ route('admin.berita.create') }}" class="btn-tambah-berita">
+            <i class="fas fa-plus"></i> Tambah Berita
+          </a>
         </div>
 
         @if($berita->count() > 0)
-            @foreach ($berita as $item)
-                <div class="card mb-4 shadow-sm">
-                    <div style="display: flex; gap: 10px;">
-                        <img src="{{ asset('storage/' . $item->gambar) }}" class="img-fluid rounded mb-3" alt="{{ $item->judul }}">
-                        <div>
-                            {{-- Judul --}}
-                            <h4 class="mb-2">{{ $item->judul }}</h4>
-    
-                            {{-- Meta --}}
-                            <p class="text-muted mb-2">
-                                <i class="bi bi-person-fill"></i>
-                                {{ $item->user->name ?? 'Admin' }}
-                                &nbsp; | &nbsp;
-                                <i class="bi bi-calendar-event-fill"></i>
-                                {{ $item->tanggal_publikasi->translatedFormat('d F Y') }}
-                            </p>
-    
-                            {{-- Excerpt --}}
-                            <p>{{ $item->excerpt }}</p>
-    
-                            {{-- Aksi --}}
-                            <a href="{{ route('admin.berita.show', $item->id) }}" class="btn btn-info btn-sm">Lihat</a>
-                            <a href="{{ route('admin.berita.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
-    
-                            <form action="{{ route('admin.berita.destroy', $item->id) }}"
-                                  method="POST"
-                                  class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger btn-sm"
-                                        onclick="return confirm('Yakin ingin menghapus berita ini?')">
-                                    Hapus
-                                </button>
-                            </form>
-                        </div>
-
-                    </div>
+          @foreach ($berita as $item)
+            <div class="berita-item">
+              <img src="{{ asset('storage/' . $item->gambar) }}" 
+                   class="berita-image" 
+                   alt="{{ $item->judul }}">
+              
+              <div class="berita-content">
+                <h4 class="berita-title">{{ $item->judul }}</h4>
+                
+                <p class="berita-meta">
+                  <i class="fas fa-user"></i> {{ $item->user->name ?? 'Admin' }}
+                  &nbsp;|&nbsp;
+                  <i class="fas fa-calendar"></i> {{ $item->tanggal_publikasi->translatedFormat('d F Y') }}
+                </p>
+                
+                <p class="berita-excerpt">{{ $item->excerpt }}</p>
+                
+                <div class="berita-actions">
+                  <a href="{{ route('admin.berita.show', $item->id) }}" class="btn-action btn-lihat">
+                    <i class="fas fa-eye"></i> Lihat
+                  </a>
+                  
+                  <a href="{{ route('admin.berita.edit', $item->id) }}" class="btn-action btn-edit">
+                    <i class="fas fa-edit"></i> Edit
+                  </a>
+                  
+                  <form action="{{ route('admin.berita.destroy', $item->id) }}"
+                        method="POST"
+                        style="display:inline;"
+                        onsubmit="return confirm('Yakin ingin menghapus berita ini?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn-action btn-hapus">
+                      <i class="fas fa-trash"></i> Hapus
+                    </button>
+                  </form>
                 </div>
-            @endforeach
+              </div>
+            </div>
+          @endforeach
         @else
-            <p class="text-center text-muted">Tidak ada berita.</p>
+          <div class="empty-state">
+            <i class="fas fa-inbox"></i>
+            <p>Belum ada berita</p>
+            <a href="{{ route('admin.berita.create') }}" class="btn-tambah-berita">
+              <i class="fas fa-plus"></i> Tambah Berita Sekarang
+            </a>
+          </div>
         @endif
+      </div>
     </main>
   </div>
 
@@ -96,7 +318,6 @@
           </div>
         </div>
       </div>
-
       <div class="footer-right">
         <div class="contact-item">
           <i data-feather="phone"></i>
@@ -112,7 +333,9 @@
     <div class="footer-bottom">
       <p>© 2025 IPB University — Sekolah Vokasi</p>
     </div>
-    <script>feather.replace();</script>
   </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>feather.replace();</script>
 </body>
 </html>
