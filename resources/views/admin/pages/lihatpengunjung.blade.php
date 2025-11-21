@@ -21,11 +21,14 @@
 
   <div class="container">
     <div class="sidebar">
-      <a href="{{ route('karya.index') }}" class="active">Kelola Karya</a>
+    <aside class="sidebar">
       <a href="{{ route('dashboard') }}">Dashboard</a>
-      <a href="{{ route('info-prodi.index') }}">Info Prodi</a>
+      <a href="{{ route('karya.index') }}">Kelola Karya</a>
+      <a href="{{ route('info-prodi.index') }}">Edit Info Profil</a>
       <a href="{{ route('karya.validasi') }}">Validasi Konten</a>
-      <a href="{{ route('dosen.index') }}">Dosen</a>
+      <a href="{{ route('dosen.index') }}" class="active">Dosen</a>
+      <a href="{{ route('admin.berita.index') }}">Berita</a>
+      <a href="{{ route('admin.matakuliah.index') }}">Mata Kuliah</a>>
     </div>
 {{-- cek --}}
     <div class="content">

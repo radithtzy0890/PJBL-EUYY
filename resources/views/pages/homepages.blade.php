@@ -77,9 +77,13 @@
                 </div>
             </div>
         </div>
-    <div class="container my-5 py-4" style="background-color: #f8f9fa;">
-    <h2 class="text-center mb-4">Berita TPL SVIPB</h2>
-    <div class="row justify-content-center">
+    <div class="container my-5 py-4" style="background-color: #f8f9fa; padding-bottom: 80px;">
+
+    <h2 class="text-center mb-4 fw-bold" style="margin-top: -10px; margin-bottom: 20px; font-size: 32px;">
+        Berita TPL SV IPB
+    </h2>
+
+<div class="row justify-content-center">
         <div class="col-lg-8">
             @foreach ($beritas as $berita)
             <div class="card mb-4 shadow-sm text-dark">
@@ -91,6 +95,7 @@
                                  alt="National Business Idea Competition">
                         </a>
                     </div>
+
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title fw-bold">
@@ -98,19 +103,26 @@
                                     {{ $berita->judul }}
                                 </a>
                             </h5>
+
                             <p class="card-text text-muted">
                                 {{ Str::limit($berita->isi) }}
                             </p>
+
                             <p class="card-text d-flex justify-content-between align-items-center">
-                                <small class="text-muted">{{ \Carbon\Carbon::parse($berita->created_at)->translatedFormat('d F Y') }}</small>
+                                <small class="text-muted">
+                                    {{ \Carbon\Carbon::parse($berita->created_at)->translatedFormat('d F Y') }}
+                                </small>
                             </p>
                         </div>
                     </div>
+
                 </div>
             </div>
             @endforeach
         </div>
     </div>
+
+</div>
     </div>
 </section>
 @endsection

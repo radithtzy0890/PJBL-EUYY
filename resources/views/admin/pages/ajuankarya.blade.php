@@ -7,6 +7,90 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="stylesheet" href="{{ asset('css/admin/ajuankarya.css') }}">
+  <style>
+    /* Styling untuk card list */
+    .card-list {
+      display: grid;
+      gap: 20px;
+      margin-top: 24px;
+    }
+
+    .validated-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.2s;
+    }
+
+    .validated-card:hover {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .judul-karya {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 8px;
+    }
+
+    .pembuat {
+      color: #64748b;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .pembuat strong {
+      color: #3b82f6;
+    }
+
+    /* Styling untuk tombol aksi */
+    .action-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .btn-hapus {
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .btn-hapus:hover {
+      background: #dc2626;
+    }
+
+    .btn-lihat-detail {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: background 0.2s;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .btn-lihat-detail:hover {
+      background: #2563eb;
+      color: white;
+    }
+  </style>
 </head>
 
 <body>
@@ -18,16 +102,16 @@
     <h2>Selamat Datang Di Portal Karya Teknologi Rekayasa Perangkat Lunak SV IPB</h2>
     <p>Syntax Error Compile Lagi</p>
   </div>
-  <div class="container">
 
+  <div class="container">
     <div class="sidebar">
       <a href="{{ route('dashboard') }}" class="active">Dashboard</a>
       <a href="{{ route('karya.index') }}">Kelola Karya</a>
       <a href="{{ route('info-prodi.index') }}">Info Prodi</a>
       <a href="{{ route('karya.validasi') }}">Validasi Konten</a>
       <a href="{{ route('dosen.index') }}">Dosen</a>
-      <a href ="{{ route('admin.berita.index') }}">Berita</a>
-      <a href ="{{ route('admin.matakuliah.index') }}">Mata Kuliah</a>
+      <a href="{{ route('admin.berita.index') }}">Berita</a>
+      <a href="{{ route('admin.matakuliah.index') }}">Mata Kuliah</a>
     </div>
 
     <div class="content">
@@ -38,14 +122,21 @@
           <div class="validated-card">
             <h4 class="judul-karya">{{ $karya->judul }}</h4>
             <p class="pembuat">Oleh: <strong>{{ $karya->tim_pembuat }}</strong></p>
-              <div classp">
-                <form action="{{ route('karya.destroy', $karya->id) }}" method="post">
-                  @csrf
-                  @method("delete")
-                  <button style="background: red; color: white; border: none; padding: 10px" type="submit">Hapus</button>
-                </form>
-                <a href="{{ route("karya.show", $karya->id) }}" class="btn-lihat" type="button">Lihat</a> 
-              </div>
+            
+            <div class="action-buttons">
+              <form action="{{ route('karya.destroy', $karya->id) }}" method="post" style="margin: 0;">
+                @csrf
+                @method("delete")
+                <button class="btn-hapus" type="submit">
+                  <i data-feather="trash-2" style="width: 16px; height: 16px;"></i>
+                  Hapus
+                </button>
+              </form>
+              <a href="{{ route('karya.show', $karya->id) }}" class="btn-lihat-detail">
+                <i data-feather="eye" style="width: 16px; height: 16px;"></i>
+                Lihat
+              </a> 
+            </div>
           </div>
         @endforeach
       </div>
@@ -63,7 +154,6 @@
           </div>
         </div>
       </div>
-
       <div class="footer-right">
         <div class="contact-item">
           <i data-feather="phone"></i>

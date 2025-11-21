@@ -249,3 +249,13 @@ body {
     color: #ffffff !important;
     font-weight: 700;
 } */
+
+.judul-karya {
+    margin-top: 30px;
+    /* perbesar angkanya kalau mau turun lebih jauh */
+}
+
+.judul-berita {
+    margin-bottom: -20px;
+    /* angka minus untuk mengangkat ke atas */
+}

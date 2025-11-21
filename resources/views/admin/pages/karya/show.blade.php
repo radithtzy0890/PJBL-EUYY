@@ -47,11 +47,16 @@
       <input type="text" placeholder="Masukkan link atau PDF" value="{{ $karya->file_karya }}">
       
       {{-- Delete Karya --}}
-      <form action="{{ route('karya.destroy', $karya->id) }}" method="post">
-        @csrf
-        @method("delete")
-        <button style="background: red; color: white; border: none; padding: 10px" type="submit">Hapus</button>
-      </form>
+      <div class="form-actions">
+        <form action="{{ route('karya.destroy', $karya->id) }}" method="post" style="margin: 0;">
+          @csrf
+          @method("delete")
+          <button class="btn-delete" type="submit">
+            <i data-feather="trash-2" style="width: 18px; height: 18px;"></i>
+            Hapus Karya
+          </button>
+        </form>
+      </div>
     </div>
 </div>
   </div>
