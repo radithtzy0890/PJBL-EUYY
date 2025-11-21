@@ -94,7 +94,7 @@ class AuthController extends Controller
         $token = Crypt::encryptString(value: json_encode($user));
         $resetLink = route('reset-password', $token);
         Mail::to($email)->send(new SendEmail($resetLink));
-        echo "Email berhasil terkirim..";
+        return back()->with('success', 'Link reset password berhasil dikirim ke email kamu!');
     }
 
     public function resetPassword(Request $request)

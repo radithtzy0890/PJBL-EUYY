@@ -9,83 +9,42 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
+    // LIST ADMIN
     public function index()
     {
-        $admins = User::whereIn('role', ['admin', 'superadmin'])
-                     ->orderBy('created_at', 'desc')
-                     ->get();
-        
-        return view('admin.pages.daftaradmin', compact('admins'));
+        $admins = User::where('role', 'admin')->get();
+        return view('admin.pages.admin.list', compact('admins'));
     }
 
+    // FORM TAMBAH ADMIN
     public function create()
     {
-        return view('admin.pages.tambahadmin');
+        return view('admin.pages.admin.create');
     }
 
+    // SIMPAN ADMIN BARU
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8|confirmed',
-            'role' => 'required|in:admin,superadmin',
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required'
         ]);
 
         User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
-            'role' => $validated['role'],
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => 'admin',
+            'password' => Hash::make($request->password)
         ]);
 
-        return redirect()->route('admin.daftar')
-                         ->with('success', 'Admin berhasil ditambahkan!');
+        return redirect()->route('admin.list')->with('success', 'Admin berhasil ditambahkan!');
     }
 
-    public function edit($id)
-    {
-        $admin = User::findOrFail($id);
-        return view('admin.pages.editadmin', compact('admin'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $admin = User::findOrFail($id);
-
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $id,
-            'password' => 'nullable|min:8|confirmed',
-            'role' => 'required|in:admin,superadmin',
-        ]);
-
-        $admin->name = $validated['name'];
-        $admin->email = $validated['email'];
-        $admin->role = $validated['role'];
-
-        if ($request->filled('password')) {
-            $admin->password = Hash::make($validated['password']);
-        }
-
-        $admin->save();
-
-        return redirect()->route('admin.daftar')
-                         ->with('success', 'Data admin berhasil diupdate!');
-    }
-
+    // HAPUS ADMIN
     public function destroy($id)
     {
-        $admin = User::findOrFail($id);
-        
-        if ($admin->id === auth()->id()) {
-            return redirect()->route('  admin.daftar')
-                           ->with('error', 'Anda tidak bisa menghapus akun sendiri!');
-        }
-
-        $admin->delete();
-
-        return redirect()->route('admin.daftar')
-                         ->with('success', 'Admin berhasil dihapus!');
+        User::where('id', $id)->delete();
+        return back()->with('success', 'Admin dihapus.');
     }
 }

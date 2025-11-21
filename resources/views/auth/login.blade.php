@@ -7,6 +7,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('css/admin/login.css') }}">
 </head>
+
+<script>
+function togglePassword() {
+    const pass = document.getElementById("password");
+    const icon = document.getElementById("eyeIcon");
+
+    if (pass.type === "password") {
+        pass.type = "text";
+        icon.src = "https://cdn-icons-png.flaticon.com/512/159/159078.png"; // ikon mata tertutup
+    } else {
+        pass.type = "password";
+        icon.src = "https://cdn-icons-png.flaticon.com/512/709/709612.png"; // ikon mata terbuka
+    }
+}
+</script>
+
 <body>
   <div class="login-container">
 
@@ -31,7 +47,13 @@
           <input type="email" id="email" name="email" placeholder="Masukkan email" required>
 
           <label for="password">Kata Sandi</label>
-          <input type="password" id="password" name="password" placeholder="Masukkan kata sandi" required>
+          <div class="input-group">
+            <input type="password" id="password" name="password" placeholder="Masukkan kata sandi" required>
+            <span class="toggle-password" onclick="togglePassword()">
+              <img src="https://cdn-icons-png.flaticon.com/512/709/709612.png" id="eyeIcon">
+            </span>
+          </div>
+
 
           <button class="login-btn" type="submit">Masuk</button>
 

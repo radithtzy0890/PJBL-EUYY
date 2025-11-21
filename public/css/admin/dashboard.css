@@ -442,3 +442,259 @@ footer {
         text-align: center !important;
     }
 }
+
+.admin-wrapper {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.12);
+}
+
+.title-admin {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.btn-tambah-admin {
+    display: inline-block;
+    padding: 10px 16px;
+    background: #4c6398;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.btn-tambah-admin:hover {
+    background: #3c4f7f;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.admin-table thead th {
+    background: #4c6398;
+    color: white;
+    padding: 10px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.admin-table tbody td {
+    padding: 10px;
+    background: #f5f6fa;
+    border-bottom: 1px solid #e1e1e1;
+    font-size: 15px;
+}
+
+.btn-hapus-admin {
+    padding: 7px 12px;
+    background: #d9534f;
+    border: none;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-hapus-admin:hover {
+    background: #b64542;
+}
+
+
+/* =============================
+   TABEL ADMIN — STYLE GANTENG
+============================= */
+
+
+/* Heading */
+
+.mb-3 {
+    font-weight: 700;
+    color: #2b0e4e;
+}
+
+
+/* Tombol Tambah Admin */
+
+.btn-primary {
+    background: linear-gradient(135deg, #4c6398 0%, #5b75b4 100%);
+    border: none;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+}
+
+
+/* Tabel Admin */
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Header */
+
+.table thead th {
+    background: #4c6398;
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+
+/* Body */
+
+.table tbody td {
+    padding: 12px;
+    background: #f7f8fc;
+    border-bottom: 1px solid #e4e4e4;
+    font-size: 15px;
+}
+
+
+/* Row Hover */
+
+.table tbody tr:hover td {
+    background: #edf0f9;
+}
+
+
+/* Tombol Hapus */
+
+.table button {
+    background: #d9534f;
+    border: none;
+    padding: 7px 14px;
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.table button:hover {
+    background: #b64542;
+}
+
+
+/* ============================
+   MAIN CONTENT WRAPPER
+============================ */
+
+.content {
+    padding: 30px;
+}
+
+
+/* Title di halaman */
+
+.content h2 {
+    font-weight: 700;
+    color: #2b0e4e;
+    margin-bottom: 20px;
+}
+
+
+/* ============================
+   FORM STYLING
+============================ */
+
+.content form {
+    max-width: 500px;
+    background: #ffffff;
+    padding: 25px 30px;
+    border-radius: 16px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
+    animation: fadeIn 0.3s ease;
+    margin-top: 10px;
+}
+
+
+/* Label */
+
+.content label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #444;
+}
+
+
+/* Input */
+
+.content .form-control {
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-top: 6px;
+    transition: 0.25s ease;
+}
+
+.content .form-control:focus {
+    border-color: #5a6fb5;
+    box-shadow: 0 0 6px rgba(90, 111, 181, 0.35);
+    outline: none;
+}
+
+
+/* Spacing */
+
+.content .mb-3 {
+    margin-bottom: 18px;
+}
+
+
+/* BUTTON */
+
+.btn-success {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #4d63a5, #6377c5);
+    color: white;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.btn-success:hover {
+    opacity: 0.9;
+}
+
+
+/* Smooth appear */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

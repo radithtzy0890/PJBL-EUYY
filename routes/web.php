@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\Admin\DosenController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
@@ -251,11 +252,19 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->group(fun
         $users = User::get();
         return view('admin.pages.lihatpengunjung', compact('users'));
     })->name('lihatpengunjung');
-    
-    // Daftar Admin (CRUD Admin) - Nanti kita bikin controller-nya
-    Route::get('daftar-admin', function () {
-        return view('admin.pages.daftaradmin');
-    })->name('daftaradmin');
+
+    // ADMIN MANAGEMENT
+    Route::get('/list', [AdminController::class, 'index'])
+        ->name('admin.list');
+
+    Route::get('/create', [AdminController::class, 'create'])
+        ->name('admin.create');
+
+    Route::post('/store', [AdminController::class, 'store'])
+        ->name('admin.store');
+
+    Route::delete('/delete/{id}', [AdminController::class, 'destroy'])
+        ->name('admin.delete');
 });
     //berita 
     Route::get('/berita', [BeritaController::class, 'indexUser'])->name('berita.user');
@@ -269,9 +278,8 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->group(fun
     // Route untuk ADMIN (bisa CRUD)
     Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
         Route::resource('matakuliah', MataKuliahController::class);
-    });
+    });    
 
-    
         // Nanti di sini kamu bisa tambah route kelola adminf
     // Route::get('kelola-admin', [AdminController::class, 'index'])->name('kelola.admin');
     // Route::post('kelola-admin', [AdminController::class, 'store'])->name('kelola.admin.store');

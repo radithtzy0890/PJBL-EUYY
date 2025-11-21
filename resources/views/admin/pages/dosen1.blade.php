@@ -25,7 +25,7 @@
       <a href="{{ route('info-prodi.index') }}">Info Prodi</a>
       <a href="{{ route('karya.validasi') }}">Validasi Konten</a>
       <a href ="{{ route('dosen.index') }}" class="active">  Dosen</a>
-      <a href ="{{ route('admin.berita.index') }}">Mata Kuliah</a>
+      <a href ="{{ route('admin.berita.index') }}">Berita</a>
       <a href ="{{ route('admin.matakuliah.index') }}">Mata Kuliah</a>
     </div>
 

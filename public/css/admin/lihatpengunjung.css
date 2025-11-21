@@ -319,3 +319,99 @@ footer {
         text-align: center !important;
     }
 }
+
+
+/* ================================
+   AREA UTAMA (CONTENT)
+================================ */
+
+.content {
+    padding: 20px 40px;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 26px;
+    color: #2b3a8a;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+
+/* ================================
+   GRID LIST PENGUNJUNG
+================================ */
+
+.card-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* 3 kolom responsif */
+    gap: 25px;
+    padding: 10px 0;
+}
+
+
+/* ================================
+   KARTU PENGUNJUNG
+================================ */
+
+.card-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: linear-gradient(135deg, #001e80, #002ba9);
+    border-radius: 12px;
+    padding: 18px 20px;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.card-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+
+/* Foto user */
+
+.card-item img {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background: white;
+    padding: 4px;
+}
+
+
+/* Nama */
+
+.card-item h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+
+/* Email + tanggal */
+
+.card-item p {
+    margin: 1px 0;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+
+/* ================================
+   AGAR SIDEBAR TIDAK TERPENGARUH
+   (ANTI KENA WARNA KOTAK)
+================================ */
+
+.sidebar {
+    background: #200542 !important;
+}
+
+.sidebar a.active {
+    background: #ffffff !important;
+    color: #1a0640 !important;
+}

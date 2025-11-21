@@ -306,3 +306,69 @@ footer {
         text-align: center !important;
     }
 }
+
+
+/* ====== BODY BACKGROUND BIRU ====== */
+
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #e8ecff, #f4f6ff);
+    /* biru soft */
+}
+
+
+/* ====== CARD LIST (GRID) ====== */
+
+.card-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+
+/* ====== CARD DENGAN TEMA BIRU ====== */
+
+.card-item {
+    width: 280px;
+    background: white;
+    border-radius: 18px;
+    padding: 25px;
+    border: 2px solid #d3dbff;
+    /* BORDER BIRU */
+    box-shadow: 0 6px 16px rgba(44, 47, 117, 0.15);
+    /* SHADOW BIRU */
+    transition: 0.25s ease-in-out;
+}
+
+.card-item:hover {
+    transform: translateY(-6px);
+    border-color: #5160e4;
+    /* BORDER BIRU TUA SAAT HOVER */
+    box-shadow: 0 10px 24px rgba(44, 47, 117, 0.25);
+}
+
+
+/* ====== TEXT DI DALAM CARD ====== */
+
+.card-item h3 {
+    font-size: 20px;
+    color: #2c2f75;
+    /* BIRU IPB */
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.card-item p {
+    margin: 6px 0;
+    color: #4c4f6a;
+}
+
+.font-semibold {
+    font-weight: 600;
+}
+
+.text-sm {
+    font-size: 14px;
+    color: #6b6e90;
+}

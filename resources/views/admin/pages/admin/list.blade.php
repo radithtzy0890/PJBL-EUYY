@@ -24,57 +24,50 @@
 
   <div class="layout">
     <aside class="sidebar">
-      <a href="{{ 'dashboard' }}" class="active">Dashboard</a>
+      <a href="{{ 'dashboard' }}">Dashboard</a>
       <a href="{{ route('karya.index') }}">Kelola Karya</a>
      <a href="{{ route('info-prodi.index') }}">Edit Info Profil</a>
       <a href="{{ route('karya.validasi') }}">Validasi Konten</a>
       <a href ="{{ route('dosen.index') }}">Dosen</a>
       <a href ="{{ route('admin.berita.index') }}">Berita</a>
       <a href ="{{ route('admin.matakuliah.index') }}">Mata Kuliah</a>
-      @if (Auth::user()->role == "superadmin")
-      <a href ="{{ route('admin.list') }}">Admin</a>
-      @endif
+      <a href ="{{ route('admin.list') }}" class="active">Admin</a>
     </aside>
 
     <main class="content">
       <div class="card-container">
-        <div class="card">
-          <div class="left">
-            <div class="notif-icon">
-              <i data-feather="bell"></i>
-              <span class="notif-count"></span>
-            </div>
-          </div>
-          <div class="right">
-            <h3>Ajuan Karya</h3>
-            <button class="btn-lihat" type="button" onclick="window.location.href='{{ route('ajuankarya') }}'"> Lihat</button>
-          </div>
-        </div>
-        <div class="card">
-          <div class="left">
-            <div class="notif-icon">
-              <i data-feather="bell"></i>
-              <span class="notif-count"></span>
-            </div>
-          </div>
-          <div class="right">
-            <h3> Karya Terunggah</h3>
-            <button class="btn-lihat" type="button" onclick="window.location.href='{{ route('lihatkarya') }}'"> Lihat</button>
-          </div>
-        </div>
+         <h2 class="mb-3">Daftar Admin</h2>
 
-        <div class="card">
-          <div class="left">
-            <div class="notif-icon">
-              <i data-feather="bell"></i>
-              <span class="notif-count"></span>
-            </div>
-          </div>
-          <div class="right">
-            <h3>Pengunjung</h3>
-            <button class="btn-lihat" type="button" onclick="window.location.href='{{ route('lihatpengunjung') }}'"> Lihat</button>
-          </div>
-        </div>
+          <a href="{{ route('admin.create') }}" class="btn btn-primary mb-3">+ Tambah Admin</a>
+
+          <table class="table">
+              <thead>
+                  <tr>
+                      <th>No</th>
+                      <th>Nama</th>
+                      <th>Email</th>
+                      <th>Aksi</th>
+                  </tr>
+              </thead>
+
+              <tbody>
+                  @foreach($admins as $index => $admin)
+                      <tr>
+                          <td>{{ $index + 1 }}</td>
+                          <td>{{ $admin->name }}</td>
+                          <td>{{ $admin->email }}</td>
+                          <td>
+                              <form action="{{ route('admin.delete', $admin->id) }}" method="POST">
+                                  @csrf
+                                  @method('DELETE')
+                                  <button>Hapus</button>
+                              </form>
+                          </td>
+                      </tr>
+                  @endforeach
+              </tbody>
+
+          </table>
       </div>
     </main>
   </div>
