@@ -41,6 +41,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect(route('login',));
+        // 6. arahin ke login, dengan membawa pesan sukses
+        return redirect(route('login'))->with('status', 'Registrasi berhasil! Silakan masuk.');
     }
 }

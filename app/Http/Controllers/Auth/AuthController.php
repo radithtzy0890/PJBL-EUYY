@@ -29,14 +29,14 @@ class AuthController extends Controller
             
             if ($role === 'superadmin' || $role === 'admin') {
                 // ngarah dashboard
-                return redirect(route('dashboard'));
+                return redirect(route('dashboard'))->with('success', 'Login berhasil');
             } else {
                 // ngarah homepage
-                return redirect(route('home'));
+                return redirect(route('home'))->with('success', 'Login berhasil');
             }
         }
 
-        return back();
+        return back()->with('error', 'Email atau password salah');
     }
 
     public function register(Request $request)
@@ -70,7 +70,7 @@ class AuthController extends Controller
         ]);
 
         // 6. arahin ke login
-        return redirect(route('login'));
+        return redirect(route('login'))->with('success', 'Registrasi berhasil. Silakan login');
     }
 
     public function logout(Request $request)

@@ -1,26 +1,44 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portal Karya Teknologi RPL - SV IPB</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{{ asset('css/admin/login.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/admin/login.css') }}">
+  <style>
+    .alert-success {
+      background: #d4f8d4;
+      color: #136b13;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    .alert-error {
+      background: #ffd3d3;
+      color: #9e1c1c;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 
 <script>
-function togglePassword() {
+  function togglePassword() {
     const pass = document.getElementById("password");
     const icon = document.getElementById("eyeIcon");
 
     if (pass.type === "password") {
-        pass.type = "text";
-        icon.src = "https://cdn-icons-png.flaticon.com/512/159/159078.png"; // ikon mata tertutup
+      pass.type = "text";
+      icon.src = "https://cdn-icons-png.flaticon.com/512/159/159078.png"; // ikon mata tertutup
     } else {
-        pass.type = "password";
-        icon.src = "https://cdn-icons-png.flaticon.com/512/709/709612.png"; // ikon mata terbuka
+      pass.type = "password";
+      icon.src = "https://cdn-icons-png.flaticon.com/512/709/709612.png"; // ikon mata terbuka
     }
-}
+  }
 </script>
 
 <body>
@@ -38,9 +56,22 @@ function togglePassword() {
 
     <div class="right-panel">
       <div class="login-box">
+
+        @if(session('success'))
+          <div class="alert-success">
+            {{ session('success') }}
+          </div>
+        @endif
+
+        @if(session('error'))
+          <div class="alert-error">
+            {{ session('error') }}
+          </div>
+        @endif
+
         <h2>Masuk</h2>
         <p>Masuk untuk dapat mengeksplore karya!</p>
-        <form action="{{ route ('login.submit') }}" method="POST">
+        <form action="{{ route('login.submit') }}" method="POST">
           @csrf
           @method("POST")
           <label for="email">Email</label>
@@ -66,4 +97,5 @@ function togglePassword() {
     </div>
   </div>
 </body>
+
 </html>

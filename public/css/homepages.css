@@ -259,3 +259,21 @@ body {
     margin-bottom: -20px;
     /* angka minus untuk mengangkat ke atas */
 }
+
+/* FIX tombol tidak bisa diklik */
+.mb-4 {
+    animation: fadeIn 0.5s ease-out forwards;
+    opacity: 1 !important;
+    overflow: hidden !important;
+}
+
+.info-section,
+.info-section .row {
+    position: relative;
+    z-index: 5;
+}
+
+.hero-section {
+    position: relative;
+    z-index: 1;
+}
