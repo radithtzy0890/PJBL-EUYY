@@ -79,12 +79,18 @@
           @csrf
           @method('DELETE')
 
-          <div style="justify-content:center" <button class="btn-delete" type="submit"
-            style="background:#dc2626; color:white; padding:10px 20px; border:none; border-radius:8px;">
-            <i data-feather="trash-2" style="width: 18px; height: 18px;"></i>
+          <button class="btn-delete" type="submit" style="background:#dc2626; 
+               color:white; 
+               padding:10px 20px; 
+               border:none; 
+               border-radius:8px; 
+               width:100%; 
+               display:block;">
+            <i data-feather="trash-2" style="width:18px; height:18px;"></i>
             Hapus Karya
-            </button>
+          </button>
         </form>
+
       </div>
 
     </div>
@@ -99,7 +105,8 @@
           <i data-feather="map-pin"></i>
           <div class="address">
             <p><strong>KAMPUS BOGOR</strong> — Jl. Raya Pajajaran, Kota Bogor, Jawa Barat 16128</p>
-            <p><strong>KAMPUS SUKABUMI</strong> — Jl. Sarasa No. 46, Babakan, Cibeureum, Kota Sukabumi, Jawa Barat 43114</p>
+            <p><strong>KAMPUS SUKABUMI</strong> — Jl. Sarasa No. 46, Babakan, Cibeureum, Kota Sukabumi, Jawa Barat 43114
+            </p>
           </div>
         </div>
       </div>
