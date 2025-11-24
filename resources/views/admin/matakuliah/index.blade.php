@@ -10,6 +10,68 @@
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}">
   <style>
+    /* --- CSS PERBAIKAN TOMBOL KONSISTEN --- */
+    
+    /* 1. Wrapper agar tombol sejajar */
+    .table-actions {
+        display: flex;
+        gap: 8px; /* Jarak antar tombol */
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    /* 2. Reset style form agar tidak makan tempat */
+    .table-actions form {
+        margin: 0;
+        padding: 0;
+        display: flex; /* Penting biar tombol di dalamnya pas */
+    }
+
+    /* 3. Style tombol yang seragam */
+    .btn-action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        
+        height: 36px; /* Tinggi DIPAKSA SAMA */
+        padding: 0 1rem;
+        
+        border: none;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: white;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-decoration: none;
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    /* Warna Tombol */
+    .btn-edit {
+        background: #f59e0b; /* Kuning */
+    }
+    .btn-edit:hover {
+        background: #d97706;
+        color: white;
+        transform: translateY(-1px);
+    }
+
+    .btn-hapus {
+        background: #ef4444; /* Merah */
+    }
+    .btn-hapus:hover {
+        background: #dc2626;
+        color: white;
+        transform: translateY(-1px);
+    }
+    
+    /* --- END CSS PERBAIKAN --- */
+
+
+    /* --- CSS BAWAAN LAINNYA --- */
     .table-card {
       background: linear-gradient(135deg, #2d5aa8 0%, #3b6fd4 100%);
       border-radius: 15px;
@@ -170,37 +232,6 @@
       border-bottom: none;
     }
     
-    .btn-action {
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 6px;
-      font-size: 0.875rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.3s;
-      margin-right: 0.75rem;  
-    }
-    
-    .btn-edit {
-      background: #f59e0b;
-      color: white;
-    }
-    
-    .btn-edit:hover {
-      background: #d97706;
-      transform: translateY(-1px);
-    }
-    
-    .btn-hapus {
-      background: #ef4444;
-      color: white;
-    }
-    
-    .btn-hapus:hover {
-      background: #dc2626;
-      transform: translateY(-1px);
-    }
-    
     .modal-header {
       background: linear-gradient(135deg, #2d5aa8 0%, #3b6fd4 100%);
       color: white;
@@ -357,7 +388,6 @@
           </div>
         </div>
 
-        <!-- SEMESTER CONTENT -->
         @for($semester = 1; $semester <= 8; $semester++)
         <div class="semester-content {{ $semester == 1 ? 'active' : '' }}" id="semester{{ $semester }}">
           <div class="table-container">
@@ -384,22 +414,23 @@
                   <td>{{ $mk->nama_matkul }}</td>
                   <td>{{ $mk->sks_teori }}-{{ $mk->sks_praktik }}</td>
                   <td>
-                    <button type="button" class="btn-action btn-edit" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#modalEdit{{ $mk->id }}">
-                      <i class="fas fa-edit"></i> Edit
-                    </button>
-                    
-                    <form action="{{ route('admin.matakuliah.destroy', $mk->id) }}" 
-                          method="POST" 
-                          style="display:inline;"
-                          onsubmit="return confirm('Yakin ingin menghapus mata kuliah ini?');">
-                      @csrf
-                      @method('DELETE')
-                      <button type="submit" class="btn-action btn-hapus">
-                        <i class="fas fa-trash"></i> Hapus
-                      </button>
-                    </form>
+                    <div class="table-actions">
+                        <button type="button" class="btn-action btn-edit" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#modalEdit{{ $mk->id }}">
+                        <i class="fas fa-edit"></i> Edit
+                        </button>
+                        
+                        <form action="{{ route('admin.matakuliah.destroy', $mk->id) }}" 
+                            method="POST" 
+                            onsubmit="return confirm('Yakin ingin menghapus mata kuliah ini?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn-action btn-hapus">
+                            <i class="fas fa-trash"></i> Hapus
+                        </button>
+                        </form>
+                    </div>
                   </td>
                 </tr>
                 @empty
@@ -425,7 +456,6 @@
     </main>
   </div>
 
-  <!-- MODAL TAMBAH -->
   <div class="modal fade" id="modalTambah" tabindex="-1">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -480,7 +510,6 @@
     </div>
   </div>
 
-  <!-- MODAL EDIT (LOOP) -->
   @foreach($matakuliahs as $mk)
   <div class="modal fade" id="modalEdit{{ $mk->id }}" tabindex="-1">
     <div class="modal-dialog modal-lg">
@@ -608,7 +637,7 @@
 
     function updateSliderPosition() {
       const tabs = document.getElementById('semesterTabs');
-      tabs.style.transform = `translateX(-${currentSlide * tabWidth}px)`;
+      tabs.style.transform = translateX(-${currentSlide * tabWidth}px);
       
       // Update button states
       document.getElementById('prevBtn').disabled = currentSlide === 0;

@@ -101,66 +101,98 @@ body {
     color: #263C92;
 }
 
-.column.sukses {
-    border-top: 5px solid #3ab54a;
-}
-
-.column.ditolak {
-    border-top: 5px solid #d7263d;
-}
+/* === CARD STYLE === */
 
 .card {
-    width: 100%;
-    background-color: #263C92;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 10px;
-    padding: 18px 22px;
+    background: linear-gradient(135deg, #4c6398 0%, #5b75b4 100%) !important;
+    border-radius: 12px !important;
+    padding: 1.5rem 2rem !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
+    transition: all 0.3s ease !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 1.5rem !important;
+    min-height: 90px !important;
+    border: none !important;
+    color: white !important;
     margin-bottom: 15px;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.card:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25) !important;
 }
 
 .card .info {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    display: flex !important;
+    align-items: center !important;
+    gap: 1.2rem !important;
 }
 
 .card .info i {
-    width: 28px;
-    height: 28px;
+    width: 50px !important;
+    height: 50px !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-radius: 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 10px !important;
+}
+
+/* --- PERBAIKAN: Menambahkan class .right-side --- */
+.right-side {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Jarak antara status dan tombol */
 }
 
 .status {
-    background: white;
-    padding: 5px 10px;
-    border-radius: 6px;
-    font-weight: 600;
+    background: white !important;
+    padding: 8px 14px !important; /* Saya rapikan paddingnya */
+    border-radius: 8px !important;
+    font-weight: 700 !important;
+    font-size: 13px !important;
+    height: 38px; /* Tinggi disamakan */
+    display: flex;
+    align-items: center;
 }
 
 .status.sukses {
-    color: #3ab54a;
+    color: #3ab54a !important;
 }
 
 .status.ditolak {
-    color: #d7263d;
+    color: #d7263d !important;
 }
 
+/* --- PERBAIKAN: Tombol Edit/Lihat --- */
 .edit-btn {
-    background: transparent;
-    border: 2px solid white;
-    color: white;
-    border-radius: 6px;
-    padding: 6px 16px;
-    cursor: pointer;
-    transition: 0.2s;
+    background: white !important;
+    color: #4c6398 !important;
+    
+    /* Ukuran fix biar rapi */
+    height: 38px !important; 
+    padding: 0 20px !important;
+    
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    border: 2px solid white !important;
+    transition: all 0.3s ease !important;
+    
+    /* Biar teks di tengah */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-decoration: none;
+    font-size: 13px !important;
 }
 
 .edit-btn:hover {
-    background: white;
-    color: #263C92;
+    background: transparent !important;
+    color: white !important;
+    transform: translateY(-2px) !important;
 }
 
 .btn-tambahkarya {
@@ -203,12 +235,6 @@ footer {
     gap: 1rem;
 }
 
-.logo {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-}
-
 .location {
     display: flex;
     align-items: flex-start;
@@ -228,6 +254,7 @@ footer {
     justify-content: center;
 }
 
+/* Responsive */
 @media (max-width: 900px) {
     .grid-container {
         grid-template-columns: 1fr;
@@ -237,99 +264,21 @@ footer {
     }
 }
 
-
-/* === CARD KELAS INFO PRODI === */
-
-.card {
-    background: linear-gradient(135deg, #4c6398 0%, #5b75b4 100%) !important;
-    border-radius: 12px !important;
-    padding: 1.5rem 2rem !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
-    transition: all 0.3s ease !important;
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    gap: 1.5rem !important;
-    min-height: 90px !important;
-    border: none !important;
-    color: white !important;
-}
-
-
-/* Hover efek lembut */
-
-.card:hover {
-    transform: translateY(-3px) !important;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25) !important;
-}
-
-
-/* Bagian kiri (icon + nama) */
-
-.card .info {
-    display: flex !important;
-    align-items: center !important;
-    gap: 1.2rem !important;
-}
-
-
-/* Tempat icon */
-
-.card .info i {
-    width: 50px !important;
-    height: 50px !important;
-    background: rgba(255, 255, 255, 0.2) !important;
-    border-radius: 10px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    padding: 10px !important;
-}
-
-
-/* Status di kanan */
-
-.status {
-    background: white !important;
-    padding: 6px 14px !important;
-    border-radius: 8px !important;
-    font-weight: 700 !important;
-}
-
-
-/* Tombol edit */
-
-.edit-btn {
-    background: white !important;
-    color: #4c6398 !important;
-    padding: 0.65rem 1.8rem !important;
-    border-radius: 8px !important;
-    font-weight: 600 !important;
-    border: 2px solid white !important;
-    transition: all 0.3s ease !important;
-}
-
-.edit-btn:hover {
-    background: transparent !important;
-    color: white !important;
-    transform: translateY(-2px) !important;
-}
-
-
-/* Responsive */
-
 @media (max-width: 768px) {
     .card {
         flex-direction: column !important;
         padding: 1.3rem !important;
         gap: 1rem !important;
+        align-items: flex-start !important;
     }
-    .status {
-        width: 100% !important;
-        text-align: center !important;
+    
+    .right-side {
+        width: 100%;
+        justify-content: space-between;
     }
-    .edit-btn {
-        width: 100% !important;
-        text-align: center !important;
+
+    .status, .edit-btn {
+        width: 48%; /* Bagi dua kalau di HP */
+        justify-content: center;
     }
 }

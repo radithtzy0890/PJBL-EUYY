@@ -10,6 +10,12 @@
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}">
   <style>
+    /* --- CSS UTAMA --- */
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f8f9fa;
+    }
+
     .berita-card {
       background: linear-gradient(135deg, #2d5aa8 0%, #3b6fd4 100%);
       border-radius: 15px;
@@ -72,13 +78,9 @@
       box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
     }
     
-    .berita-item:last-child {
-      margin-bottom: 0;
-    }
-    
     .berita-image {
-      width: 260px;
-      height: 180px;
+      width: 200px; /* Saya kecilkan sedikit biar proporsional */
+      height: 140px;
       object-fit: cover;
       border-radius: 8px;
       flex-shrink: 0;
@@ -109,22 +111,39 @@
       font-size: 0.95rem;
     }
     
+    /* --- PERBAIKAN TOMBOL DI SINI --- */
     .berita-actions {
       display: flex;
       gap: 0.5rem;
       flex-wrap: wrap;
+      align-items: center; /* KUNCI UTAMA: Agar tombol tidak melar ke atas */
+    }
+
+    /* Pastikan form tidak nambah margin aneh */
+    .berita-actions form {
+        margin: 0;
+        padding: 0;
+        display: flex;
     }
     
     .btn-action {
-      padding: 0.6rem 1.2rem;
+      /* Bikin ukuran konsisten */
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      
+      height: 38px; /* Tinggi pasti */
+      padding: 0 1.2rem; /* Lebar lewat padding */
+      
       border: none;
       border-radius: 6px;
       font-size: 0.875rem;
       font-weight: 500;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: all 0.2s;
       text-decoration: none;
-      display: inline-block;
+      line-height: 1;
     }
     
     .btn-lihat {
@@ -134,8 +153,8 @@
     
     .btn-lihat:hover {
       background: #3182ce;
-      transform: translateY(-1px);
       color: white;
+      transform: translateY(-1px);
     }
     
     .btn-edit {
@@ -145,8 +164,8 @@
     
     .btn-edit:hover {
       background: #d97706;
-      transform: translateY(-1px);
       color: white;
+      transform: translateY(-1px);
     }
     
     .btn-hapus {
@@ -156,6 +175,7 @@
     
     .btn-hapus:hover {
       background: #dc2626;
+      color: white;
       transform: translateY(-1px);
     }
     
@@ -171,11 +191,6 @@
       opacity: 0.7;
     }
     
-    .empty-state p {
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-    }
-    
     /* Responsive */
     @media (max-width: 968px) {
       .berita-item {
@@ -184,37 +199,7 @@
       
       .berita-image {
         width: 100%;
-        height: 220px;
-      }
-    }
-    
-    @media (max-width: 640px) {
-      .berita-card {
-        padding: 1.5rem;
-      }
-      
-      .berita-header {
-        flex-direction: column;
-        gap: 1rem;
-        align-items: flex-start;
-      }
-      
-      .btn-tambah-berita {
-        width: 100%;
-        text-align: center;
-      }
-      
-      .berita-item {
-        padding: 1rem;
-      }
-      
-      .berita-title {
-        font-size: 1.1rem;
-      }
-      
-      .btn-action {
-        padding: 0.5rem 1rem;
-        font-size: 0.8rem;
+        height: 200px;
       }
     }
   </style>
@@ -244,7 +229,6 @@
     </aside>
 
     <main class="content">
-      <!-- Card Berita -->
       <div class="berita-card">
         <div class="berita-header">
           <h3><i class="fas fa-newspaper"></i> Daftar Berita</h3>
@@ -282,7 +266,6 @@
                   
                   <form action="{{ route('admin.berita.destroy', $item->id) }}"
                         method="POST"
-                        style="display:inline;"
                         onsubmit="return confirm('Yakin ingin menghapus berita ini?');">
                     @csrf
                     @method('DELETE')
