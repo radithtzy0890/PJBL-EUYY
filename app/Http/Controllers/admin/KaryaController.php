@@ -13,13 +13,13 @@ class KaryaController extends Controller
     // ============================================
     // UNTUK USER BIASA (Frontend)
     // ============================================
-    
+
     // Tampilkan semua karya yang ACCEPTED dengan search & filter
     // public function karyaUser(Request $request)
     // {
     //     $query = Karya::where('status_validasi', 'accepted')
     //                   ->with('reviews');
-        
+
     //     // Filter berdasarkan search
     //     if ($request->has('search') && $request->search != '') {
     //         $search = $request->search;
@@ -30,14 +30,14 @@ class KaryaController extends Controller
     //               ->orWhere('deskripsi', 'like', '%' . $search . '%');
     //         });
     //     }
-        
+
     //     // Filter berdasarkan kategori
     //     if ($request->has('kategori') && $request->kategori != '') {
     //         $query->where('kategori', $request->kategori);
     //     }
-        
+
     //     $karyas = $query->orderBy('created_at', 'desc')->get();
-        
+
     //     return view('pages.karya', compact('karyas'));
     // }
 
@@ -45,26 +45,26 @@ class KaryaController extends Controller
     // public function userShow(string $id)
     // {
     //     $karya = Karya::with('reviews.user')->findOrFail($id);
-        
+
     //     // Cek apakah karya sudah ACCEPTED
     //     if ($karya->status_validasi !== 'accepted') {
     //         return redirect()->route('home')
     //                        ->with('error', 'Karya ini belum disetujui atau tidak tersedia.');
     //     }
-        
+
     //     return view('pages.detailkarya', compact('karya'));
     // }
 
     // ============================================
     // UNTUK ADMIN (Backend)
     // ============================================
-    
+
     // Admin - lihat semua karya
     public function index()
     {
         $accepted = Karya::with('user')
-        ->where('status_validasi', 'accepted')
-        ->get();
+            ->where('status_validasi', 'accepted')
+            ->get();
 
         $rejected = Karya::with('user')
             ->where('status_validasi', 'rejected')
@@ -75,29 +75,42 @@ class KaryaController extends Controller
 
     public function store(Request $request)
     {
-        // 1. Validasi input
-        $validated = $request->validate([
-            'judul' => 'required|string|max:255',
-            'kategori' => 'required|string',
-            'deskripsi' => 'required|string',
-            'tim_pembuat' => 'required|string|max:255',
-            'email' => ['required', 'email', 'regex:/^[a-zA-Z0-9._%+-]+@apps\.ipb\.ac\.id$/'],
-            'preview_karya' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'tahun' => 'required|integer|min:2000|max:' . (date('Y') + 1),
-            'link' => 'required|url',
-        ], [
-            'judul.required' => 'Judul karya wajib diisi',
-            'kategori.required' => 'Kategori wajib dipilih',
-            'tim_pembuat.required' => 'Nama tim/pembuat wajib diisi',
-            'tahun.required' => 'Tahun wajib dipilih',
-            'email.required' => 'Email wajib diisi',
-            'deskripsi.required' => 'Deskripsi wajib diisi',
-            '/preview_karya.required' => 'Gambar wajib diupload',
-            'preview_karya.image' => 'File harus berupa gambar',
-            'preview_karya.mimes' => 'Format gambar harus JPG, PNG, atau JPEG',
-            'preview_karya.max' => 'Ukuran gambar maksimal 2MB',
-            'email.regex' => 'Email wajib menggunakan domain @apps.ipb.ac.id'
-        ]);
+        // ambil role user
+        $role = Auth::user()->role;
+
+        // ============================================
+        // VALIDASI BERBEDA UNTUK USER DAN ADMIN
+        // ============================================
+
+        // Jika user biasa → wajib email @apps.ipb.ac.id
+        if ($role === 'user') {
+            $validated = $request->validate([
+                'judul' => 'required|string|max:255',
+                'kategori' => 'required|string',
+                'deskripsi' => 'required|string',
+                'tim_pembuat' => 'required|string|max:255',
+                'email' => ['required', 'email', 'regex:/^[a-zA-Z0-9._%+-]+@apps\.ipb\.ac\.id$/'],
+                'preview_karya' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+                'tahun' => 'required|integer|min:2000|max:' . (date('Y') + 1),
+                'link' => 'required|url',
+            ], [
+                'email.regex' => 'Email wajib menggunakan domain @apps.ipb.ac.id',
+                'preview_karya.required' => 'Gambar wajib diupload',
+            ]);
+        }
+
+        // Jika admin atau superadmin → TIDAK pakai email validasi
+        else {
+            $validated = $request->validate([
+                'judul' => 'required|string|max:255',
+                'kategori' => 'required|string',
+                'deskripsi' => 'required|string',
+                'tim_pembuat' => 'required|string|max:255',
+                'preview_karya' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+                'tahun' => 'required|integer|min:2000|max:' . (date('Y') + 1),
+                'link' => 'nullable|url',
+            ]);
+        }
 
         // 2. Upload gambar
         $gambarPath = null;
@@ -121,7 +134,7 @@ class KaryaController extends Controller
 
         // 4. Redirect dengan pesan sukses
         return redirect()->route('karya.validasi')
-                         ->with('success', 'Karya berhasil diunggah! Menunggu validasi admin.');
+            ->with('success', 'Karya berhasil diunggah! Menunggu validasi admin.');
     }
 
     // Admin - form tambah karya
@@ -136,7 +149,7 @@ class KaryaController extends Controller
         $karya = Karya::with(['user', 'reviews.user'])->findOrFail($id);
         return view('admin.pages.karya.show', compact('karya'));
     }
-    
+
     public function validationForm($id)
     {
         $karya = Karya::with(['user'])->findOrFail($id);
@@ -186,7 +199,7 @@ class KaryaController extends Controller
         $karya->update(['status_validasi' => 'accepted']);
 
         return redirect()->route('kelolakarya')
-                         ->with('success', 'Karya berhasil disetujui!');
+            ->with('success', 'Karya berhasil disetujui!');
     }
 
     // Admin - reject karya
@@ -196,7 +209,7 @@ class KaryaController extends Controller
         $karya->update(['status_validasi' => 'rejected']);
 
         return redirect()->route('kelolakarya')
-                         ->with('success', 'Karya berhasil ditolak!');
+            ->with('success', 'Karya berhasil ditolak!');
     }
 
     // Admin - halaman validasi konten
@@ -206,7 +219,7 @@ class KaryaController extends Controller
             ->where('status_validasi', 'submission')
             ->latest()
             ->get();
-        
+
         return view('admin.pages.karya.validation.index', compact('karyas'));
     }
 
@@ -214,37 +227,37 @@ class KaryaController extends Controller
     // Admin - store karya baru (dari dashboard)
     public function storeAdmin(Request $request)
     {
-    $validated = $request->validate([
-        'judul' => 'required|string|max:255',
-        'kategori' => 'required|string',
-        'deskripsi' => 'required|string',
-        'tim_pembuat' => 'required|string|max:255',
-        'tahun' => 'required|integer|min:2000|max:' . (date('Y') + 1),
-        'link_pengumpulan' => 'nullable|url',
-        'preview_karya' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-    ]);
+        $validated = $request->validate([
+            'judul' => 'required|string|max:255',
+            'kategori' => 'required|string',
+            'deskripsi' => 'required|string',
+            'tim_pembuat' => 'required|string|max:255',
+            'tahun' => 'required|integer|min:2000|max:' . (date('Y') + 1),
+            'link_pengumpulan' => 'nullable|url',
+            'preview_karya' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
 
-    // Upload gambar jika ada
-    $gambarPath = null;
-    if ($request->hasFile('preview_karya')) {
-        $gambarPath = $request->file('preview_karya')->store('karya', 'public');
+        // Upload gambar jika ada
+        $gambarPath = null;
+        if ($request->hasFile('preview_karya')) {
+            $gambarPath = $request->file('preview_karya')->store('karya', 'public');
+        }
+
+        // Simpan ke database dengan status submission
+        Karya::create([
+            'user_id' => Auth::id(),
+            'judul' => $validated['judul'],
+            'kategori' => $validated['kategori'],
+            'deskripsi' => $validated['deskripsi'],
+            'tim_pembuat' => $validated['tim_pembuat'],
+            'tahun' => $validated['tahun'],
+            'link_pengumpulan' => $validated['link_pengumpulan'] ?? null,
+            'preview_karya' => $gambarPath,
+            'status_validasi' => 'submission',
+            'tanggal_upload' => now(),
+        ]);
+
+        return redirect()->route('validasikonten')
+            ->with('success', 'Karya berhasil ditambahkan! Silakan validasi.');
     }
-
-    // Simpan ke database dengan status submission
-    Karya::create([
-        'user_id' => Auth::id(),
-        'judul' => $validated['judul'],
-        'kategori' => $validated['kategori'],
-        'deskripsi' => $validated['deskripsi'],
-        'tim_pembuat' => $validated['tim_pembuat'],
-        'tahun' => $validated['tahun'],
-        'link_pengumpulan' => $validated['link_pengumpulan'] ?? null,
-        'preview_karya' => $gambarPath,
-        'status_validasi' => 'submission',
-        'tanggal_upload' => now(),
-    ]);
-
-    return redirect()->route('validasikonten')
-                     ->with('success', 'Karya berhasil ditambahkan! Silakan validasi.');
-}
 }
