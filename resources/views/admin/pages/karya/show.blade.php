@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portal TPL SVIPB - Dosen</title>
+  <title>Portal TPL SVIPB - Karya</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="stylesheet" href="{{ asset('css/admin/kelolakarya3.css') }}">
@@ -20,48 +21,75 @@
   </div>
 
   <div class="container">
- <aside class="sidebar">
+
+    <aside class="sidebar">
       <a href="{{ route('dashboard') }}">Dashboard</a>
       <a href="{{ route('karya.index') }}">Kelola Karya</a>
-     <a href="{{ route('info-prodi.index') }}">Edit Info Profil</a>
+      <a href="{{ route('info-prodi.index') }}">Edit Info Profil</a>
       <a href="{{ route('karya.validasi') }}">Validasi Konten</a>
-      <a href ="{{ route('dosen.index') }}">Dosen</a>
-      <a href ="{{ route('admin.berita.index') }}">Berita</a>
-      <a href ="{{ route('admin.matakuliah.index') }}">Mata Kuliah</a>
-       @if (Auth::user()->role == "superadmin")
-      <a href ="{{ route('admin.list') }}">Admin</a>
+      <a href="{{ route('dosen.index') }}">Dosen</a>
+      <a href="{{ route('admin.berita.index') }}">Berita</a>
+      <a href="{{ route('admin.matakuliah.index') }}">Mata Kuliah</a>
+      @if (Auth::user()->role == "superadmin")
+        <a href="{{ route('admin.list') }}">Admin</a>
       @endif
     </aside>
-   
 
-<div class="content">
-    <h2 class="title-halaman">Lihat Karya</h2>
-    <div class="form-container">
-      <label>Judul Karya</label>
-      <input type="text" placeholder="Masukkan judul karya" value="{{ $karya->judul }}">
+    <div class="content">
+      <h2 class="title-halaman">Lihat Karya</h2>
 
-      <label>Deskripsi</label>
-      <textarea name="deskripsi">{{ $karya->deskripsi }}</textarea>
+      <div class="form-container">
 
-      <label>Tim Pembuat</label>
-      <input type="text" name="tim_pembuat" value="{{ $karya->tim_pembuat }}">
-      
-      <label>(Link/PDF)</label>
-      <input type="text" placeholder="Masukkan link atau PDF" value="{{ $karya->file_karya }}">
-      
-      {{-- Delete Karya --}}
-      <div class="form-actions">
-        <form action="{{ route('karya.destroy', $karya->id) }}" method="post" style="margin: 0;">
+        {{-- FORM UPDATE --}}
+        <form action="{{ route('karya.update', $karya->id) }}" method="POST">
           @csrf
-          @method("delete")
-          <button class="btn-delete" type="submit">
-            <i data-feather="trash-2" style="width: 18px; height: 18px;"></i>
-            Hapus Karya
+          @method('PUT')
+
+          <label>Judul Karya</label>
+          <input type="text" name="judul" value="{{ $karya->judul }}" required>
+
+          <label>Deskripsi</label>
+          <textarea name="deskripsi" required>{{ $karya->deskripsi }}</textarea>
+
+          <label>Tim Pembuat</label>
+          <input type="text" name="tim_pembuat" value="{{ $karya->tim_pembuat }}" required>
+
+          <label>Link/PDF</label>
+          <input type="text" name="preview_karya" value="{{ $karya->preview_karya }}">
+
+          <label>Status Validasi</label>
+          <select name="status_validasi" required>
+            <option value="submission" {{ $karya->status_validasi == 'submission' ? 'selected' : '' }}>Submission</option>
+            <option value="accepted" {{ $karya->status_validasi == 'accepted' ? 'selected' : '' }}>Accepted</option>
+            <option value="rejected" {{ $karya->status_validasi == 'rejected' ? 'selected' : '' }}>Rejected</option>
+          </select>
+
+          <label>Tahun</label>
+          <input type="number" name="tahun" value="{{ $karya->tahun }}" required>
+
+          <button class="btn-save" type="submit"
+            style="margin-top:15px; background:#2563eb; color:white; padding:10px 20px; border-radius:8px; border:none;">
+            Simpan Perubahan
           </button>
         </form>
+
+        {{-- FORM DELETE --}}
+        <form action="{{ route('karya.destroy', $karya->id) }}" method="POST"
+          onsubmit="return confirm('Yakin ingin menghapus karya ini?');" style="margin-top:20px;">
+          @csrf
+          @method('DELETE')
+
+          <div style="justify-content:center" <button class="btn-delete" type="submit"
+            style="background:#dc2626; color:white; padding:10px 20px; border:none; border-radius:8px;">
+            <i data-feather="trash-2" style="width: 18px; height: 18px;"></i>
+            Hapus Karya
+            </button>
+        </form>
       </div>
+
     </div>
-</div>
+  </div>
+
   </div>
 
   <footer>
@@ -71,7 +99,7 @@
           <i data-feather="map-pin"></i>
           <div class="address">
             <p><strong>KAMPUS BOGOR</strong> — Jl. Raya Pajajaran, Kota Bogor, Jawa Barat 16128</p>
-            <p><strong>KAMPUS SUKABUMI</strong> — Jl. Sarasa No. 46, Babakan, Kec. Cibeureum, Kota Sukabumi, Jawa Barat 43142</p>
+            <p><strong>KAMPUS SUKABUMI</strong> — Jl. Sarasa No. 46, Babakan, Cibeureum, Kota Sukabumi</p>
           </div>
         </div>
       </div>
@@ -87,11 +115,14 @@
         </div>
       </div>
     </div>
+
     <hr>
     <div class="footer-bottom">
       <p>© 2025 IPB University — Sekolah Vokasi</p>
     </div>
-    <script>feather.replace();</script>
   </footer>
+
+  <script>feather.replace();</script>
 </body>
+
 </html>
