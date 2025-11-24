@@ -34,9 +34,30 @@
                     <a class="nav-link nav-tpl-link {{ request()->routeIs('faq') ? 'active' : '' }}" href="{{ route('faq') }}">FAQ</a>
                 </li>
                 @auth
-                    <li class="nav-item">
-                        <a class="nav-link nav-tpl-link" href="">{{ Auth::user()->name }}</a>
-                    </li>
+                <li class="nav-item">
+                                        @if(Auth::user()->role == 'admin' || Auth::user()->role == 'superadmin')
+                                            <a class="nav-link nav-tpl-link fw-bold text"
+                                            href="{{ route('dashboard') }}">
+                                                {{ Auth::user()->name }}
+                                            </a>
+                                        @else
+                                            <a class="nav-link nav-tp<li class="nav-item">
+                        @if(Auth::user()->role == 'admin' || Auth::user()->role == 'superadmin')
+                            <a class="nav-link nav-tpl-link fw-bold text"
+                               href="{{ route('dashboard') }}">
+                                {{ Auth::user()->name }}
+                            </a>
+                        @else
+                            <a class="nav-link nav-tpl-link fw-bold">
+                                {{ Auth::user()->name }}
+                            </a>
+                        @endif
+                    </li>l-link fw-bold">
+                                                {{ Auth::user()->name }}
+                                            </a>
+                                        @endif
+                                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link nav-tpl-link" href="{{ route("logout") }}">Logout</a>
                     </li>
