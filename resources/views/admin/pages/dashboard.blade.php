@@ -40,7 +40,7 @@
       <div class="card-container">
         <div class="card">
           <div class="left">
-            <div class="notif-icon">
+            <div class="">
               <i data-feather="bell"></i>
               <span class="notif-count"></span>
             </div>
@@ -52,7 +52,7 @@
         </div>
         <div class="card">
           <div class="left">
-            <div class="notif-icon">
+            <div class="">
               <i data-feather="bell"></i>
               <span class="notif-count"></span>
             </div>
@@ -65,7 +65,7 @@
 
         <div class="card">
           <div class="left">
-            <div class="notif-icon">
+            <div class="">
               <i data-feather="bell"></i>
               <span class="notif-count"></span>
             </div>
