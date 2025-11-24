@@ -601,54 +601,44 @@
   <script>feather.replace();</script>
   
   <script>
-    let currentSlide = 0;
-    const tabWidth = 146; // 130px width + 16px gap
+let currentSlide = 0;
+const tabWidth = 146; // 130px width + 16px gap
 
-    function showSemester(semester) {
-      // Hide all content
-      document.querySelectorAll('.semester-content').forEach(content => {
-        content.classList.remove('active');
-      });
-      
-      // Remove active from all tabs
-      document.querySelectorAll('.semester-tab').forEach(tab => {
-        tab.classList.remove('active');
-      });
-      
-      // Show selected content and activate tab
-      document.getElementById('semester' + semester).classList.add('active');
-      document.querySelectorAll('.semester-tab')[semester - 1].classList.add('active');
-      
-      // Update slide position to show active tab
-      currentSlide = semester - 1;
-      updateSliderPosition();
-    }
+function showSemester(semester) {
+  document.querySelectorAll('.semester-content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.semester-tab').forEach(t => t.classList.remove('active'));
 
-    function slideLeft() {
-      if (currentSlide > 0) {
-        currentSlide--;
-        updateSliderPosition();
-      }
-    }
+  document.getElementById('semester' + semester).classList.add('active');
+  document.querySelectorAll('.semester-tab')[semester - 1].classList.add('active');
 
-    function slideRight() {
-      if (currentSlide < 7) {
-        currentSlide++;
-        updateSliderPosition();
-      }
-    }
+  currentSlide = semester - 1;
+  updateSliderPosition();
+}
 
-    function updateSliderPosition() {
-      const tabs = document.getElementById('semesterTabs');
-      tabs.style.transform = translateX(-${currentSlide * tabWidth}px);
-      
-      // Update button states
-      document.getElementById('prevBtn').disabled = currentSlide === 0;
-      document.getElementById('nextBtn').disabled = currentSlide === 7;
-    }
-
-    // Initialize
+function slideLeft() {
+  if (currentSlide > 0) {
+    currentSlide--;
     updateSliderPosition();
+  }
+}
+
+function slideRight() {
+  if (currentSlide < 7) {
+    currentSlide++;
+    updateSliderPosition();
+  }
+}
+
+function updateSliderPosition() {
+  const tabs = document.getElementById('semesterTabs');
+  tabs.style.transform = `translateX(-${currentSlide * tabWidth}px)`;
+
+  document.getElementById('prevBtn').disabled = currentSlide === 0;
+  document.getElementById('nextBtn').disabled = currentSlide === 7;
+}
+
+updateSliderPosition();
+
   </script>
 </body>
 </html>
