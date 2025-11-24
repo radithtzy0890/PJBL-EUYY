@@ -18,7 +18,7 @@
     .row {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
+      gap: 0.5rem;
       margin: 0;
     }
 
@@ -127,10 +127,9 @@
     }
 
     @media (max-width: 768px) {
-      .content {
-        padding: 1rem;
-      }
-
+     .content {
+  padding: 1rem 2rem; /* atas jadi lebih kecil */
+}
       .card {
         flex-direction: column;
         text-align: center;

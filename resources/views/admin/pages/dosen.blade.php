@@ -9,185 +9,129 @@
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="stylesheet" href="{{ asset('css/admin/dosen.css') }}">
   <style>
-    /* Card styling yang mirip screenshot */
-    .grid-dosen {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      padding: 2rem;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
 
-    .card {
-      background: white;
-      border-radius: 12px;
-      padding: 1.5rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-      border-left: 5px solid #3b6fd4;
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
+.grid-dosen {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-    .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-    }
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-left: 6px solid #3b6fd4;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
 
-    .blue-strip {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 5px;
-      height: 100%;
-      background: linear-gradient(135deg, #2d5aa8 0%, #3b6fd4 100%);
-      border-radius: 12px 0 0 12px;
-    }
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
 
-    .profile-placeholder {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid #e2e8f0;
-      background: #e2e8f0;
-      flex-shrink: 0;
-    }
+.profile-placeholder {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e2e8f0;
+}
 
-    .info {
-      flex: 1;
-    }
+.info h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: #1e293b;
+}
 
-    .info h3 {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #1e293b;
-      margin-bottom: 0.3rem;
-      line-height: 1.3;
-    }
+.info p {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-bottom: 0.3rem;
+}
 
-    .info p {
-      font-size: 0.85rem;
-      color: #64748b;
-      margin-bottom: 0.5rem;
-      line-height: 1.4;
-    }
+.status {
+  display: inline-block;
+  padding: 0.25rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  background: #d1fae5;
+  color: #065f46;
+}
 
-    .status {
-      display: inline-block;
-      padding: 0.25rem 0.7rem;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 500;
-    }
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
 
-    .status.aktif {
-      background: #d1fae5;
-      color: #065f46;
-    }
+.btn-action {
+  padding: 0.45rem 1rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+  transition: 0.2s;
+}
 
-    /* Tombol di samping kanan */
-    .action-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
+.btn-edit {
+  background: #5850b8;
+  color: white;
+}
 
-    .btn-action {
-      padding: 0.5rem 1.2rem;
-      border: none;
-      border-radius: 6px;
-      font-size: 0.875rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-decoration: none;
-      text-align: center;
-      display: block;
-      min-width: 80px;
-    }
+.btn-edit:hover {
+  background: #4a3f9f;
+}
 
-    .btn-edit {
-      background: #5850b8;
-      color: white;
-    }
+.btn-hapus {
+  background: #ef4444;
+  color: white;
+}
 
-    .btn-edit:hover {
-      background: #4a3f9f;
-      transform: translateY(-1px);
-      color: white;
-    }
+.btn-hapus:hover {
+  background: #dc2626;
+}
 
-    .btn-hapus {
-      background: #ef4444;
-      color: white;
-    }
+.btn-tambahdosen {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, #2d5aa8, #3b6fd4);
+  color: white;
+  border: none;
+  padding: 1.5rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
 
-    .btn-hapus:hover {
-      background: #dc2626;
-      transform: translateY(-1px);
-    }
+.btn-tambahdosen:hover {
+  transform: translateY(-3px);
+}
 
-    /* Tombol Tambah Dosen */
-    .btn-tambahdosen {
-      background: linear-gradient(135deg, #2d5aa8 0%, #3b6fd4 100%);
-      color: white;
-      border: none;
-      padding: 2rem;
-      border-radius: 12px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 4px 12px rgba(45, 90, 168, 0.3);
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      grid-column: 1 / -1;
-    }
+@media (max-width: 768px) {
+  .card {
+    flex-direction: column;
+    text-align: center;
+  }
+  .action-buttons {
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+  }
+}
 
-    .btn-tambahdosen:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(45, 90, 168, 0.4);
-    }
-
-    /* Responsive */
-    @media (max-width: 1200px) {
-      .grid-dosen {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 768px) {
-      .grid-dosen {
-        grid-template-columns: 1fr;
-        padding: 1rem;
-      }
-
-      .card {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .info {
-        text-align: center;
-      }
-
-      .action-buttons {
-        flex-direction: row;
-        width: 100%;
-        gap: 0.5rem;
-      }
-
-      .btn-action {
-        flex: 1;
-      }
-    }
   </style>
 </head>
 
