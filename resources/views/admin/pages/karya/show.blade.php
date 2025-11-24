@@ -99,7 +99,7 @@
           <i data-feather="map-pin"></i>
           <div class="address">
             <p><strong>KAMPUS BOGOR</strong> — Jl. Raya Pajajaran, Kota Bogor, Jawa Barat 16128</p>
-            <p><strong>KAMPUS SUKABUMI</strong> — Jl. Sarasa No. 46, Babakan, Cibeureum, Kota Sukabumi</p>
+            <p><strong>KAMPUS SUKABUMI</strong> — Jl. Sarasa No. 46, Babakan, Cibeureum, Kota Sukabumi, Jawa Barat 43114</p>
           </div>
         </div>
       </div>

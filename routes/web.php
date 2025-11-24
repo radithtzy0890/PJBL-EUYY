@@ -40,37 +40,37 @@ Route::get('/mail/send', function () {
 // });
 
 //oute::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
-//Route::resource('karya', App\Http\Controllers\Admin\KaryaManagementController::class);
+    //Route::resource('karya', App\Http\Controllers\Admin\KaryaManagementController::class);
 //});
 
 
 
 //Route::get('/dashboard', function () {
-//return view('admin.pages.dashboard');
+    //return view('admin.pages.dashboard');
 //})->middleware(['auth', 'verified'])->name('dashboard');
 
 //Route::middleware('auth')->group(function () {
-//Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    //Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    //Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    //Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 //});
 
 //Route::middleware('auth')->group(function () {
-// Route::post('/rating', [RatingController::class, 'store'])->name('rating.store');
-//Route::delete('/rating/{id}', [RatingController::class, 'destroy'])->name('rating.destroy');
+   // Route::post('/rating', [RatingController::class, 'store'])->name('rating.store');
+    //Route::delete('/rating/{id}', [RatingController::class, 'destroy'])->name('rating.destroy');
 //});
 
 //Route::middleware(['auth'])->group(function () {
-//Route::post('/rating', [App\Http\Controllers\RatingController::class, 'store'])->name('rating.store');
-//Route::delete('/rating/{id}', [App\Http\Controllers\RatingController::class, 'destroy'])->name('rating.destroy');
+    //Route::post('/rating', [App\Http\Controllers\RatingController::class, 'store'])->name('rating.store');
+    //Route::delete('/rating/{id}', [App\Http\Controllers\RatingController::class, 'destroy'])->name('rating.destroy');
 //});
 
 // Home
 //Route::get('/', function () {
-//return view('pages.homepages');
+    //return view('pages.homepages');
 //})->name('home');
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
 
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -83,7 +83,7 @@ Route::get('/tentang', [ProfilProdiController::class, 'showUser'])
 Route::get('/dosen', function () {
     $dosens = Dosen::all();
     return view('pages.dosen', compact('dosens'));
-})->name('homepage.dosen');
+})->name('homepage.dosen'); 
 
 
 // Route untuk USER (bisa lihat doang)
@@ -125,56 +125,56 @@ Route::post('/reset-password/{token}', [AuthController::class, 'submitResetPassw
 // Route::post('karya', [KaryaController::class, 'store'])->name('karya.store');
 // Route::get('karya/{id}', [KaryaController::class, 'userShow'])->name('karya.show');
 
-//cari karya lainnya
-Route::get('karya', function (Request $request) {
+    //cari karya lainnya
+    Route::get('karya', function(Request $request){
     $query = Karya::where('status_validasi', 'accepted');
 
     if ($request->has('judul')) {
         $query->where('judul', 'like', '%' . $request->judul . '%');
     }
-
+    
     if ($request->has('kategori')) {
         $query->where('kategori', $request->kategori);
     }
 
     $karya = $query->get();
 
-    return view('pages.karya', compact('karya'));
-});
+    return view('pages.karya',compact('karya'));
+    });
 
-//cari karya lainnya (2)
-Route::get('karya/{id}', function ($id) {
-    $karya = Karya::find($id);
-    $review = Review::with('user')->where('karya_id', $id)->get();
-    return view('pages.detailkarya', compact('karya', 'review'));
-});
+    //cari karya lainnya (2)
+    Route::get('karya/{id}', function($id){
+        $karya=Karya::find($id);
+        $review = Review::with('user')->where('karya_id', $id)->get();
+        return view('pages.detailkarya',compact('karya','review'));
+    });
 
-// Admin routes
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
-    Route::resource('berita', BeritaController::class);
-});
+    // Admin routes
+    Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+        Route::resource('berita', BeritaController::class);
+    });
 
-Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
-Route::get('/berita/{id}', [BeritaController::class, 'indexUser'])->name('berita.show');
+    Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
+    Route::get('/berita/{id}', [BeritaController::class, 'indexUser'])->name('berita.show');
 
-// Unggah Karya
-Route::get('/unggah-karya', function () {
-    return view('pages.unggah');
-})->name('unggah');
+    // Unggah Karya
+    Route::get('/unggah-karya', function () {
+        return view('pages.unggah');
+    })->name('unggah');
 
-Route::middleware(['auth'])->group(function () {
-
+    Route::middleware(['auth'])->group(function () {
+        
     // User Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
+    
     // Unggah Karya (untuk semua user yang login)
     Route::get('/unggah-karya', function () {
         return view('pages.unggah');
     })->name('unggah');
     Route::post('karya', [KaryaController::class, 'store'])->name('karya.store');
-
+    
     // Rating & Review
     Route::post('review', [ReviewController::class, 'store'])->name('review.store');
 });
@@ -183,12 +183,12 @@ Route::middleware(['auth'])->group(function () {
 // ROUTES KHUSUS ADMIN & SUPERADMIN
 // ============================================
 Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->group(function () {
-
+    
     // Dashboard Admin
     Route::get('dashboard', function () {
-        return view('admin.pages.dashboard');
+    return view('admin.pages.dashboard');
     })->name('dashboard');
-
+    
     // Kelola Karya masih salah masih error
     Route::get('karya/validasi', [KaryaController::class, 'validation'])->name("karya.validasi");
     Route::get('karya/validasi/{id}', [KaryaController::class, 'validationForm'])->name("karya.form");
@@ -196,8 +196,7 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->group(fun
 
     // Info Prodi
     Route::resource('info-prodi', ProfilProdiController::class);
-    Route::get(
-        '/info-prodi/{kodeProdi}/edit/{type}',
+    Route::get('/info-prodi/{kodeProdi}/edit/{type}', 
         [ProfilProdiController::class, 'editWithType']
     )->name('info-prodi.editType');
 
@@ -225,33 +224,33 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->group(fun
     })->name('ajuankarya');
 
     Route::get('ajuankarya1', function () {
-        return view('admin.pages.ajuankarya1');
+    return view('admin.pages.ajuankarya1');
     })->name('ajuankarya1');
 
     // Lihat Karya
     Route::get('lihatkarya', function () {
-        $karyas = Karya::where('status_validasi', 'accepted')->get();
+        $karyas = Karya::where('status_validasi', 'accepted')->get();        
         return view('admin.pages.lihatkarya', compact('karyas'));
     })->name('lihatkarya');
-
+    
     // Lihat Validasi
     Route::get('lihatvalidasi', function () {
-        return view('admin.pages.lihatvalidasi');
+    return view('admin.pages.lihatvalidasi');
     })->name('lihatvalidasi');
 
     // ========= BERITA ADMIN =========
-    Route::middleware(['auth', 'role:admin,superadmin'])
-        ->prefix('admin')->name('admin.')
-        ->group(function () {
-            Route::resource('berita', BeritaController::class);
-        });
+Route::middleware(['auth', 'role:admin,superadmin'])
+    ->prefix('admin')->name('admin.')
+    ->group(function () {
+        Route::resource('berita', BeritaController::class);
+    });
 
     // Route::get('validasikonten', function () {
     // return view('admin.pages.validasikonten');
     // })->name('validasikonten');
 
     Route::get('validasikonten1', function () {
-        return view('admin.pages.validasikonten1');
+    return view('admin.pages.validasikonten1');
     })->name('validasikonten1');
 
     // Lihat Pengunjung
@@ -275,24 +274,24 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->group(fun
         ->name('admin.delete');
 });
 
-// Route Berita untuk User
-// ========= BERITA PUBLIK =========
-Route::get('/berita', [BeritaUserController::class, 'index'])->name('berita.index');
-Route::get('/berita/{id}', [BeritaUserController::class, 'show'])->name('berita.show');
+    // Route Berita untuk User
+    // ========= BERITA PUBLIK =========
+    Route::get('/berita', [BeritaUserController::class, 'index'])->name('berita.index');
+    Route::get('/berita/{id}', [BeritaUserController::class, 'show'])->name('berita.show');
 
-// Route untuk USER (bisa lihat doang)
-Route::get('/berita', [BeritaUserController::class, 'index'])->name('berita.user');
-Route::get('/berita/{id}', [BeritaUserController::class, 'show'])->name('berita.show');
+    // Route untuk USER (bisa lihat doang)
+    Route::get('/berita', [BeritaUserController::class, 'index'])->name('berita.user');
+    Route::get('/berita/{id}', [BeritaUserController::class, 'show'])->name('berita.show');
 
-// Route untuk ADMIN (bisa CRUD)
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
-    Route::resource('matakuliah', MataKuliahController::class);
-});
+    // Route untuk ADMIN (bisa CRUD)
+    Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+        Route::resource('matakuliah', MataKuliahController::class);
+    });    
 
-// Nanti di sini kamu bisa tambah route kelola adminf
-// Route::get('kelola-admin', [AdminController::class, 'index'])->name('kelola.admin');
-// Route::post('kelola-admin', [AdminController::class, 'store'])->name('kelola.admin.store');
-// dst...
+        // Nanti di sini kamu bisa tambah route kelola adminf
+    // Route::get('kelola-admin', [AdminController::class, 'index'])->name('kelola.admin');
+    // Route::post('kelola-admin', [AdminController::class, 'store'])->name('kelola.admin.store');
+    // dst...
 //});
 
 // Route::middleware(['auth'])->prefix('admin')->group(function () {
@@ -301,9 +300,9 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 // });
 
 //Route::prefix('admin')->name('admin.')->group(function () {
-//Route::resource('karya', KaryaManagementController::class);
-//Route::patch('karya/{karya}/status', [KaryaManagementController::class, 'updateStatus'])
-//->name('karya.updateStatus');
+    //Route::resource('karya', KaryaManagementController::class);
+    //Route::patch('karya/{karya}/status', [KaryaManagementController::class, 'updateStatus'])
+        //->name('karya.updateStatus');
 //});
 
 // Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {

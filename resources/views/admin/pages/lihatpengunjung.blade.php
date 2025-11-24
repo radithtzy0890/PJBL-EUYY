@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="stylesheet" href="{{ asset('css/admin/lihatpengunjung.css') }}">
+  
 </head>
 
 <body>
@@ -20,16 +21,15 @@
   </div>
 
   <div class="container">
-    <div class="sidebar">
     <aside class="sidebar">
-      <a href="{{ route('dashboard') }}">Dashboard</a>
+      <a href="{{ route('dashboard') }}" class="active">Dashboard</a>
       <a href="{{ route('karya.index') }}">Kelola Karya</a>
       <a href="{{ route('info-prodi.index') }}">Edit Info Profil</a>
       <a href="{{ route('karya.validasi') }}">Validasi Konten</a>
-      <a href="{{ route('dosen.index') }}" class="active">Dosen</a>
+      <a href="{{ route('dosen.index') }}">Dosen</a>
       <a href="{{ route('admin.berita.index') }}">Berita</a>
-      <a href="{{ route('admin.matakuliah.index') }}">Mata Kuliah</a>>
-    </div>
+      <a href="{{ route('admin.matakuliah.index') }}">Mata Kuliah</a>
+    </aside>
 {{-- cek --}}
     <div class="content">
       <h2 class="page-title">Daftar Pengunjung </h2>
