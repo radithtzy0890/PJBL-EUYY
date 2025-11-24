@@ -81,6 +81,7 @@ class KaryaController extends Controller
             'kategori' => 'required|string',
             'deskripsi' => 'required|string',
             'tim_pembuat' => 'required|string|max:255',
+            'email' => ['required', 'email', 'regex:/^[a-zA-Z0-9._%+-]+@apps\.ipb\.ac\.id$/'],
             'preview_karya' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'tahun' => 'required|integer|min:2000|max:' . (date('Y') + 1),
             'link' => 'required|url',
@@ -95,6 +96,7 @@ class KaryaController extends Controller
             'preview_karya.image' => 'File harus berupa gambar',
             'preview_karya.mimes' => 'Format gambar harus JPG, PNG, atau JPEG',
             'preview_karya.max' => 'Ukuran gambar maksimal 2MB',
+            'email.regex' => 'Email wajib menggunakan domain @apps.ipb.ac.id'
         ]);
 
         // 2. Upload gambar

@@ -125,6 +125,7 @@
                                    name="email" 
                                    value="{{ old('email', Auth::user()->email ?? '') }}" 
                                    required 
+                                   readonly
                                    placeholder="pembuat@gmail.com">
                             @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
