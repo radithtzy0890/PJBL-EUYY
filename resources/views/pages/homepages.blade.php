@@ -16,9 +16,15 @@
 @endsection
 
 @section('content')
+@auth
+<div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+    Selamat datang, <strong>{{ Auth::user()->name }}!</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endauth
 <section class="info-section">
     <div class="mb-4" style="animation: fadeIn 0.5s ease-out forwards; opacity: 0;">
-        <div class="ratio ratio-16x9 shadow-sm" style="border-radius: 8px; max-height: 450px;">
+        <div class="ratio ratio-16x9 shadow-sm" style="border-radius: 8px; max-height: 600px;">
             <video controls autoplay muted loop style="width: 100%; height: 100%; object-fit: cover;">
             <source src="{{ asset('videos/TEKNOLOGI REKAYASA PERANGKAT LUNAK - Video Profil 2025 (1).mp4') }}" type="video/mp4">
                 Browser Anda tidak mendukung tag video.

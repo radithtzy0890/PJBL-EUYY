@@ -26,13 +26,6 @@
 
 <body class="font-sans antialiased">
     <div class="min-h-screen d-flex flex-column">
-        @auth
-        <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-            Selamat datang, <strong>{{ Auth::user()->name }}!</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        @endauth
-
         {{-- 🔹 NAVBAR --}}
         @include('partials.navbar')
 

@@ -22,7 +22,7 @@
 
     {{-- ======================== VIDEO PROFIL ======================== --}}
     <div class="profile-video">
-        <div class="ratio ratio-16x9 shadow-sm" style="border-radius: 8px; max-height: 450px;">
+        <div class="ratio ratio-16x9 shadow-sm" style="border-radius: 8px; max-height: 600px;">
 
             <video controls autoplay muted loop style="width: 100%; height: 100%; object-fit: cover;">
 
