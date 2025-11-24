@@ -28,20 +28,18 @@
                             {{-- Author Card --}}
                             <div class="card p-3 mb-4 author-card">
                                 <div class="d-flex align-items-center">
-                                    <img src="https://placehold.co/80x80" alt="Avatar Penulis" class="avatar">
+                                    
+                                    {{-- PERBAIKAN 1: Avatar Penulis (Menggunakan Nama Tim) --}}
+                                    <img src="https://ui-avatars.com/api/?name={{ urlencode($karya->tim_pembuat) }}&background=random&color=fff&size=80" 
+                                         alt="Avatar Penulis" 
+                                         class="avatar rounded-circle" 
+                                         width="80" height="80">
+
                                     <div class="ms-3">
                                         <h5 class="mb-0 fw-bold">{{$karya->tim_pembuat}}</h5>
                                         {{-- <small class="text-muted">pembuat@gmail.com</small>--}}
                                     </div>
                                     <div class="rating-box text-end ms-auto">
-                                        {{-- <h1 class="display-5 fw-bold mb-0">4.7</h1>
-                                        <div class="text-warning">
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-half"></i>
-                                        </div> --}}
                                         @php
                                             $avgRating = $karya->reviews->avg('rating') ?? 0;
                                             $reviewCount = $karya->reviews->count();
@@ -49,11 +47,11 @@
 
                                         @for ($i = 1; $i <= 5; $i++)
                                             @if ($i <= floor($avgRating))
-                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill text-warning"></i>
                                             @elseif ($i <= ceil($avgRating) && $avgRating - floor($avgRating) >= 0.5)
-                                                <i class="bi bi-star-half"></i>
+                                                <i class="bi bi-star-half text-warning"></i>
                                             @else
-                                                <i class="bi bi-star"></i>
+                                                <i class="bi bi-star text-warning"></i>
                                             @endif
                                         @endfor
 
@@ -109,14 +107,21 @@
                                 </form>
                             </div>
 
-                            {{-- Review 1 --}}
+                            {{-- Review List --}}
                             @foreach ($review as $r)
                                 <div class="card p-3 mb-3 feedback-card">
                                     <div class="d-flex align-items-center mb-2">
-                                        <img src="https://placehold.co/50x50" alt="Avatar Reviewer" class="avatar-sm">
+                                        
+                                        {{-- PERBAIKAN 2: Avatar Reviewer (Cek Foto DB atau Inisial) --}}
+                                        <img src="{{ $r->user->foto ? asset('storage/' . $r->user->foto) : 'https://ui-avatars.com/api/?name=' . urlencode($r->user->name) . '&background=random&color=fff' }}" 
+                                             alt="Avatar {{ $r->user->name }}" 
+                                             class="avatar-sm rounded-circle" 
+                                             width="50" height="50"
+                                             style="object-fit: cover;">
+
                                         <div class="ms-3">
                                             <h6 class="mb-0 fw-bold">{{ $r->user->name }}</h6>
-                                            <small class="text-muted">{{ $r->created_at }}</small>
+                                            <small class="text-muted">{{ $r->created_at->diffForHumans() }}</small>
                                         </div>
                                         <div class="stars-display ms-auto text-warning">
                                             @for ($i = 1; $i <= 5; $i++)
@@ -144,7 +149,6 @@
             </div>
         </div>
     </main>
-
     @push('scripts')
         <script>
             // Star Rating System
@@ -162,8 +166,8 @@
 
                     // Fill stars up to clicked value
                     for (let i = 1; i <= value; i++) {
-                        document.querySelector(`.stars-input i[data-value="${i}"]`).classList.add('bi-star-fill');
-                        document.querySelector(`.stars-input i[data-value="${i}"]`).classList.remove('bi-star');
+                        document.querySelector(.stars-input i[data-value="${i}"]).classList.add('bi-star-fill');
+                        document.querySelector(.stars-input i[data-value="${i}"]).classList.remove('bi-star');
                     }
                 });
             });

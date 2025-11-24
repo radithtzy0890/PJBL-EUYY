@@ -260,7 +260,9 @@ body {
     /* angka minus untuk mengangkat ke atas */
 }
 
+
 /* FIX tombol tidak bisa diklik */
+
 .mb-4 {
     animation: fadeIn 0.5s ease-out forwards;
     opacity: 1 !important;
@@ -270,7 +272,7 @@ body {
 .info-section,
 .info-section .row {
     position: relative;
-    z-index: 1  ;
+    z-index: 1;
 }
 
 .hero-section {
@@ -282,4 +284,11 @@ body {
     position: relative;
     z-index: 10;
     background: transparent !important;
+}
+
+
+/* BIKIN TEKS HOME (ACTIVE) JADI PUTIH */
+
+.navbar-custom .nav-link.active {
+    color: #ffffff !important;
 }
