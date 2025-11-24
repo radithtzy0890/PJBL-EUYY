@@ -283,3 +283,11 @@ body {
     color: #ffffff !important;
     font-weight: 700;
 }
+
+.dosen-img {
+    width: 100px !important;
+    height: 100px !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+    border: 3px solid #263c92;
+}

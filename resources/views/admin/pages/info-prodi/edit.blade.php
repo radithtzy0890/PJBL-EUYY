@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="{{ asset('css/admin/infoprodi.css') }}">
 
   <style>
-    /* Style tambahan kecil biar match dengan index */
     .content {
       background: white;
       border-radius: 12px;
@@ -38,19 +37,29 @@
       font-weight: 600;
       margin-bottom: 0.5rem;
       display: block;
+      color: #2d3748;
     }
 
     .form-container input[type="text"],
-    .form-container input[type="file"] {
+    .form-container input[type="file"],
+    .form-container textarea {
       width: 100%;
-      padding: 0.9rem;
+      padding: 1rem;
       border-radius: 8px;
       border: 2px solid #e2e8f0;
-      margin-bottom: 1.4rem;
+      margin-bottom: 1.5rem;
       font-size: 0.95rem;
+      font-family: inherit;
+      box-sizing: border-box;
     }
 
-    .form-container input:focus {
+
+    .form-container textarea {
+        resize: both;; 
+    }
+
+    .form-container input:focus,
+    .form-container textarea:focus {
       border-color: #3b6fd4;
       box-shadow: 0 0 0 3px rgba(59, 111, 212, 0.15);
       outline: none;
@@ -58,7 +67,7 @@
 
     .btn-submit {
       background: linear-gradient(135deg, #4c6398 0%, #5b75b4 100%);
-      padding: 0.9rem 2.2rem;
+      padding: 1rem 3rem;
       border-radius: 8px;
       color: white;
       border: none;
@@ -66,35 +75,31 @@
       font-weight: 600;
       cursor: pointer;
       transition: 0.3s;
+      width: 100%;
     }
 
     .btn-submit:hover {
       transform: translateY(-2px);
       background: linear-gradient(135deg, #3f5382 0%, #5069a3 100%);
     }
-
   </style>
 </head>
 
 <body>
 
-  <!-- NAV 1 -->
   <div class="nav-container1">
     <a href="/">
       <img src="{{ asset('images/logo_TPL.png') }}" alt="Logo TPL SVIPB" class="logo-TPL">
     </a>
   </div>
 
-  <!-- NAV 2 -->
   <div class="nav-container2">
     <h2>Selamat Datang Di Portal Karya Teknologi Rekayasa Perangkat Lunak SV IPB</h2>
     <p>Syntax Error Compile Lagi</p>
   </div>
 
-  <!-- PAGE LAYOUT -->
   <div class="container">
     
-    <!-- SIDEBAR -->
     <aside class="sidebar">
       <a href="{{ route('dashboard') }}">Dashboard</a>
       <a href="{{ route('karya.index') }}">Kelola Karya</a>
@@ -108,7 +113,6 @@
       @endif
     </aside>
 
-    <!-- CONTENT -->
     <main class="content">
       <h2 class="title-halaman">Edit Info Prodi</h2>
 
@@ -125,16 +129,17 @@
             @break
 
             @case('visi-misi')
+              
               <label>Visi</label>
-              <input type="text" name="visi" value="{{ $profil->visi }}" placeholder="Masukkan visi baru">
+              <textarea name="visi" style="height: 150px;" placeholder="Masukkan visi baru">{{ $profil->visi }}</textarea>
 
               <label>Misi</label>
-              <input type="text" name="misi" value="{{ $profil->misi }}" placeholder="Masukkan misi baru">
+              <textarea name="misi" style="height: 300px;" placeholder="Masukkan misi baru">{{ $profil->misi }}</textarea>
             @break
 
             @case('capaian')
               <label>Capaian</label>
-              <input type="text" name="capaian" value="{{ $profil->capaian }}" placeholder="Masukkan capaian baru">
+              <textarea name="capaian" style="height: 150px;" placeholder="Masukkan capaian baru">{{ $profil->capaian }}</textarea>
             @break
 
           @endswitch
@@ -147,7 +152,6 @@
 
   </div>
 
-  <!-- FOOTER -->
   <footer>
     <div class="footer-container">
       <div class="footer-left">
