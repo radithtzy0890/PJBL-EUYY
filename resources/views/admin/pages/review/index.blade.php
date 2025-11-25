@@ -159,6 +159,7 @@
 
               <td>
                 <div class="aksi-wrapper">
+
                   <!-- HAPUS -->
                   <form action="{{ route('admin.review.destroy', $rev->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus review ini?');">
                     @csrf
