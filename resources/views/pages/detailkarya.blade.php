@@ -150,27 +150,31 @@
         </div>
     </main>
     @push('scripts')
-        <script>
-            // Star Rating System
-            document.querySelectorAll('.stars-input i').forEach(star => {
-                star.addEventListener('click', function () {
-                    const value = this.getAttribute('data-value');
-                    document.getElementById('rating-value').value = value;
-                    document.getElementById('rating-display').textContent = value + '.0';
+<script>
+    document.querySelectorAll('.stars-input i').forEach(star => {
+        star.addEventListener('click', function () {
 
-                    // Reset all stars
-                    document.querySelectorAll('.stars-input i').forEach(s => {
-                        s.classList.remove('bi-star-fill');
-                        s.classList.add('bi-star');
-                    });
+            const value = this.getAttribute('data-value');
+            document.getElementById('rating-value').value = value;
+            document.getElementById('rating-display').textContent = value + '.0';
 
-                    // Fill stars up to clicked value
-                    for (let i = 1; i <= value; i++) {
-                        document.querySelector(.stars-input i[data-value="${i}"]).classList.add('bi-star-fill');
-                        document.querySelector(.stars-input i[data-value="${i}"]).classList.remove('bi-star');
-                    }
-                });
+            // Reset semua bintang
+            document.querySelectorAll('.stars-input i').forEach(s => {
+                s.classList.remove('bi-star-fill');
+                s.classList.add('bi-star');
             });
-        </script>
-    @endpush
+
+            // Isi bintang sesuai nilai
+            for (let i = 1; i <= value; i++) {
+                let target = document.querySelector(`.stars-input i[data-value="${i}"]`);
+                if (target) {
+                    target.classList.add('bi-star-fill');
+                    target.classList.remove('bi-star');
+                }
+            }
+        });
+    });
+</script>
+@endpush
+
 @endsection

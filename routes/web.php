@@ -238,13 +238,6 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->group(fun
     return view('admin.pages.lihatvalidasi');
     })->name('lihatvalidasi');
 
-    // ========= BERITA ADMIN =========
-Route::middleware(['auth', 'role:admin,superadmin'])
-    ->prefix('admin')->name('admin.')
-    ->group(function () {
-        Route::resource('berita', BeritaController::class);
-    });
-
     // Route::get('validasikonten', function () {
     // return view('admin.pages.validasikonten');
     // })->name('validasikonten');
@@ -273,20 +266,32 @@ Route::middleware(['auth', 'role:admin,superadmin'])
     Route::delete('/delete/{id}', [AdminController::class, 'destroy'])
         ->name('admin.delete');
 });
-
-    // Route Berita untuk User
-    // ========= BERITA PUBLIK =========
-    Route::get('/berita', [BeritaUserController::class, 'index'])->name('berita.index');
+    //berita 
+    Route::get('/berita', [BeritaController::class, 'indexUser'])->name('berita.user');
     Route::get('/berita/{id}', [BeritaUserController::class, 'show'])->name('berita.show');
+    Route::get('/berita/create',[BeritaController::class, 'create'])->name('berita.create');
+    Route::delete('/berita/{id}/delete',[BeritaController::class, 'destroy'])->name('berita.destroy');
 
-    // Route untuk USER (bisa lihat doang)
     Route::get('/berita', [BeritaUserController::class, 'index'])->name('berita.user');
     Route::get('/berita/{id}', [BeritaUserController::class, 'show'])->name('berita.show');
 
     // Route untuk ADMIN (bisa CRUD)
     Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
         Route::resource('matakuliah', MataKuliahController::class);
-    });    
+    });
+    
+    // kelola review
+    Route::prefix('admin')->middleware(['auth'])->group(function () {
+    Route::get('/review', [ReviewController::class, 'index'])->name('admin.review.index');
+    Route::delete('/review/{id}', [ReviewController::class, 'destroy'])->name('admin.review.destroy');
+});
+
+Route::get('/admin/review', [ReviewController::class, 'index'])->name('admin.review.index');
+Route::get('/admin/review/{id}', [ReviewController::class, 'show'])->name('admin.review.show');
+Route::get('/admin/review/{id}/edit', [ReviewController::class, 'edit'])->name('admin.review.edit');
+Route::put('/admin/review/{id}', [ReviewController::class, 'update'])->name('admin.review.update');
+Route::delete('/admin/review/{id}', [ReviewController::class, 'destroy'])->name('admin.review.destroy');
+
 
         // Nanti di sini kamu bisa tambah route kelola adminf
     // Route::get('kelola-admin', [AdminController::class, 'index'])->name('kelola.admin');

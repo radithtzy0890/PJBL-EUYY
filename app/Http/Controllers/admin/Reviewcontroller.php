@@ -35,4 +35,20 @@ class ReviewController extends Controller
 
         return back()->with('success', 'Review berhasil ditambahkan! Terima kasih atas feedback Anda.');
     }
+    public function index()
+    {
+        $reviews = Review::with(['user', 'karya'])->latest()->get();
+        return view('admin.pages.review.index', compact('reviews'));
+    }
+
+    // ============================
+    //      HAPUS REVIEW
+    // ============================
+    public function destroy($id)
+    {
+        $review = Review::findOrFail($id);
+        $review->delete();
+
+        return back()->with('success', 'Review berhasil dihapus.');
+    }
 }
