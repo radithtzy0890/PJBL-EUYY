@@ -28,12 +28,10 @@
                             {{-- Author Card --}}
                             <div class="card p-3 mb-4 author-card">
                                 <div class="d-flex align-items-center">
-                                    
+
                                     {{-- PERBAIKAN 1: Avatar Penulis (Menggunakan Nama Tim) --}}
-                                    <img src="https://ui-avatars.com/api/?name={{ urlencode($karya->tim_pembuat) }}&background=random&color=fff&size=80" 
-                                         alt="Avatar Penulis" 
-                                         class="avatar rounded-circle" 
-                                         width="80" height="80">
+                                    <img src="https://ui-avatars.com/api/?name={{ urlencode($karya->tim_pembuat) }}&background=random&color=fff&size=80"
+                                        alt="Avatar Penulis" class="avatar rounded-circle" width="80" height="80">
 
                                     <div class="ms-3">
                                         <h5 class="mb-0 fw-bold">{{$karya->tim_pembuat}}</h5>
@@ -69,7 +67,7 @@
                                     class="img-fluid rounded my-3">
 
                                 <h5 class="fw-bold">{{ $karya->deskripsi }}</h5>
-                                
+
                                 {{-- Tombol untuk melihat karya --}}
                                 @if ($karya->link_pengumpulan)
                                     <a href="{{ $karya->link_pengumpulan }}" target="_blank"
@@ -111,13 +109,11 @@
                             @foreach ($review as $r)
                                 <div class="card p-3 mb-3 feedback-card">
                                     <div class="d-flex align-items-center mb-2">
-                                        
+
                                         {{-- PERBAIKAN 2: Avatar Reviewer (Cek Foto DB atau Inisial) --}}
-                                        <img src="{{ $r->user->foto ? asset('storage/' . $r->user->foto) : 'https://ui-avatars.com/api/?name=' . urlencode($r->user->name) . '&background=random&color=fff' }}" 
-                                             alt="Avatar {{ $r->user->name }}" 
-                                             class="avatar-sm rounded-circle" 
-                                             width="50" height="50"
-                                             style="object-fit: cover;">
+                                        <img src="{{ $r->user->foto ? asset('storage/' . $r->user->foto) : 'https://ui-avatars.com/api/?name=' . urlencode($r->user->name) . '&background=random&color=fff' }}"
+                                            alt="Avatar {{ $r->user->name }}" class="avatar-sm rounded-circle" width="50"
+                                            height="50" style="object-fit: cover;">
 
                                         <div class="ms-3">
                                             <h6 class="mb-0 fw-bold">{{ $r->user->name }}</h6>
@@ -151,23 +147,25 @@
     </main>
     @push('scripts')
         <script>
-            // Star Rating System
             document.querySelectorAll('.stars-input i').forEach(star => {
                 star.addEventListener('click', function () {
                     const value = this.getAttribute('data-value');
                     document.getElementById('rating-value').value = value;
                     document.getElementById('rating-display').textContent = value + '.0';
 
-                    // Reset all stars
+                    // Reset semua bintang
                     document.querySelectorAll('.stars-input i').forEach(s => {
                         s.classList.remove('bi-star-fill');
                         s.classList.add('bi-star');
                     });
 
-                    // Fill stars up to clicked value
+                    // Isi bintang hingga value
                     for (let i = 1; i <= value; i++) {
-                        document.querySelector(.stars-input i[data-value="${i}"]).classList.add('bi-star-fill');
-                        document.querySelector(.stars-input i[data-value="${i}"]).classList.remove('bi-star');
+                        let target = document.querySelector(`.stars-input i[data-value="${i}"]`);
+                        if (target) {
+                            target.classList.add('bi-star-fill');
+                            target.classList.remove('bi-star');
+                        }
                     }
                 });
             });
