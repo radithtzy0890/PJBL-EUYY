@@ -156,6 +156,7 @@
       <a href="{{ route('dosen.index') }}" class="active">Dosen</a>
       <a href="{{ route('admin.berita.index') }}">Berita</a>
       <a href="{{ route('admin.matakuliah.index') }}">Mata Kuliah</a>
+        <a href ="{{ route('admin.review.index') }}">Kelola Review</a>
        @if (Auth::user()->role == "superadmin")
       <a href ="{{ route('admin.list') }}">Admin</a>
       @endif

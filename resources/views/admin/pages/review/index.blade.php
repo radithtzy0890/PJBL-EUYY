@@ -134,7 +134,7 @@
 
     <main class="content">
 
-      <h1 style="font-weight:600; margin-bottom: 10px;">Kelola Review</h1>
+      <h1 style="font-weight:600; margin-bottom: 10px;">Kelola Review dan Rating</h1>
 
       <div class="table-card">
 

@@ -146,34 +146,24 @@
         </div>
     </main>
     @push('scripts')
-<<<<<<< HEAD
-<script>
-    document.querySelectorAll('.stars-input i').forEach(star => {
-        star.addEventListener('click', function () {
-
-            const value = this.getAttribute('data-value');
-            document.getElementById('rating-value').value = value;
-            document.getElementById('rating-display').textContent = value + '.0';
-
-            // Reset semua bintang
-            document.querySelectorAll('.stars-input i').forEach(s => {
-                s.classList.remove('bi-star-fill');
-                s.classList.add('bi-star');
-=======
         <script>
             document.querySelectorAll('.stars-input i').forEach(star => {
+
                 star.addEventListener('click', function () {
+
                     const value = this.getAttribute('data-value');
+
+                    // isi hidden rating
                     document.getElementById('rating-value').value = value;
                     document.getElementById('rating-display').textContent = value + '.0';
 
-                    // Reset semua bintang
+                    // reset semua bintang
                     document.querySelectorAll('.stars-input i').forEach(s => {
                         s.classList.remove('bi-star-fill');
                         s.classList.add('bi-star');
                     });
 
-                    // Isi bintang hingga value
+                    // isi bintang sampai value
                     for (let i = 1; i <= value; i++) {
                         let target = document.querySelector(`.stars-input i[data-value="${i}"]`);
                         if (target) {
@@ -182,20 +172,8 @@
                         }
                     }
                 });
->>>>>>> ccde9767ecd378b312fce747cadb385bced825ff
             });
-
-            // Isi bintang sesuai nilai
-            for (let i = 1; i <= value; i++) {
-                let target = document.querySelector(`.stars-input i[data-value="${i}"]`);
-                if (target) {
-                    target.classList.add('bi-star-fill');
-                    target.classList.remove('bi-star');
-                }
-            }
-        });
-    });
-</script>
-@endpush
+        </script>
+    @endpush
 
 @endsection
