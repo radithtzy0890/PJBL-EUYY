@@ -177,7 +177,7 @@
             <a href="{{ route('admin.berita.index') }}">Berita</a>
             <a href="{{ route('admin.matakuliah.index') }}">Mata Kuliah</a>
             <a href ="{{ route('admin.review.index') }}">Kelola Karya</a>
-             @if (Auth::user()->role == "superadmin")
+         @if (Auth::user()->role == "admin")
             <a href ="{{ route('admin.list') }}">Admin</a>
       @endif
       @endif

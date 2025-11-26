@@ -30,7 +30,7 @@
       <a href="{{ route('dosen.index') }}">Dosen</a>
       <a class="active" href="{{ route('admin.berita.index') }}">Berita</a>
       <a href ="{{ route('admin.matakuliah.index') }}">Mata Kuliah</a>
-       @if (Auth::user()->role == "superadmin")
+       @if (Auth::user()->role == "admin")
       <a href ="{{ route('admin.list') }}">Admin</a>
       @endif
     </div>
