@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal Karya Teknologi RPL - SV IPB</title>
+  <title>Portal Karya Teknologi Rekayasa Perangkat Lunak - SV IPB</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('css/admin/loginadmin01.css') }}">
 </head>
