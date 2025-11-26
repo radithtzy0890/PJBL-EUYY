@@ -37,10 +37,9 @@ body {
     font-size: 0.9rem;
 }
 
-.container {
+.main-wrapper {
+    flex: 1;              
     display: flex;
-    flex: 1;
-    min-height: 75vh;
 }
 
 .sidebar {

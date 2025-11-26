@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portal TPL SVIPB - Kelola Karya</title>
+    <title>Portal TPL SV IPB - Kelola Karya</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/feather-icons"></script>
@@ -17,7 +17,7 @@
     {{-- NAVIGASI --}}
     <div class="nav-container1">
         <a href="/">
-            <img src="{{ asset('images/logo_TPL.png') }}" alt="Logo TPL SVIPB" class="logo-TPL">
+            <img src="{{ asset('images/logo_TPL.png') }}" alt="Logo TPL SV IPB" class="logo-TPL">
         </a>
     </div>
 
@@ -27,7 +27,7 @@
     </div>
 
     {{-- LAYOUT UTAMA --}}
-    <div class="container">
+    <div class="main-wrapper">
 
         {{-- SIDEBAR --}}
         <div class="sidebar">
@@ -38,10 +38,10 @@
             <a href="{{ route('dosen.index') }}">Dosen</a>
             <a href="{{ route('admin.berita.index') }}">Berita</a>
             <a href="{{ route('admin.matakuliah.index') }}">Mata Kuliah</a>
-            <a href ="{{ route('admin.review.index') }}">Kelola Review</a>
-             @if (Auth::user()->role == "superadmin")
-      <a href ="{{ route('admin.list') }}">Admin</a>
-      @endif
+            <a href="{{ route('admin.review.index') }}">Kelola Review</a>
+            @if (Auth::user()->role == "admin")
+                <a href="{{ route('admin.list') }}">Admin</a>
+            @endif
         </div>
 
         {{-- KONTEN --}}
@@ -56,9 +56,20 @@
 
             {{-- Tombol Tambah Karya --}}
             <div style="margin: 20px; text-align: right; width: 100%;">
-                <a href="{{ route('karya.create') }}"
-                    style="background: #007bff; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; display: inline-block;">
-                    <i data-feather="plus"></i> Tambah Karya
+                <a href="{{ route('karya.create') }}" style="
+            background: #007bff; 
+            color: white; 
+            padding: 10px 20px; 
+            border-radius: 5px; 
+            text-decoration: none; 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 8px; 
+            font-weight: 500;
+        ">
+                    <i data-feather="plus"></i>
+                    Tambah Karya
                 </a>
             </div>
 
@@ -163,4 +174,3 @@
 </body>
 
 </html>
-x
