@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portal TPL SVIPB - Admin/Super Admin</title>
+  <title>Portal TPL SV IPB - Admin</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}">
@@ -32,7 +32,7 @@
       <a href ="{{ route('admin.berita.index') }}">Berita</a>
       <a href ="{{ route('admin.matakuliah.index') }}">Mata Kuliah</a>
       <a href ="{{ route('admin.review.index') }}">Kelola Review</a>
-      @if (Auth::user()->role == "superadmin")
+      @if (Auth::user()->role == "admin")
       <a href ="{{ route('admin.list') }}">Admin</a>
       @endif
     </aside>

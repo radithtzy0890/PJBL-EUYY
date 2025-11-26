@@ -180,9 +180,9 @@ Route::post('/reset-password/{token}', [AuthController::class, 'submitResetPassw
 });
 
 // ============================================
-// ROUTES KHUSUS ADMIN & SUPERADMIN
+// ROUTES KHUSUS ADMIN
 // ============================================
-Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     
     // Dashboard Admin
     Route::get('dashboard', function () {
@@ -212,7 +212,7 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->group(fun
     Route::get('dosen/{id}/edit', [DosenController::class, 'edit'])->name('dosen.edit');
     Route::put('dosen/{id}', [DosenController::class, 'update'])->name('dosen.update');
 
-    //ini tebrau yaps
+    //ini terbaru yaps
     Route::delete('/dosen/{id}', [DosenController::class, 'destroy'])->name('dosen.destroy');
     Route::get('/dosen/{id}', [DosenController::class, 'show'])->name('dosen.show');
 
@@ -293,7 +293,7 @@ Route::put('/admin/review/{id}', [ReviewController::class, 'update'])->name('adm
 Route::delete('/admin/review/{id}', [ReviewController::class, 'destroy'])->name('admin.review.destroy');
 
 
-        // Nanti di sini kamu bisa tambah route kelola adminf
+        // route kelola admin
     // Route::get('kelola-admin', [AdminController::class, 'index'])->name('kelola.admin');
     // Route::post('kelola-admin', [AdminController::class, 'store'])->name('kelola.admin.store');
     // dst...
