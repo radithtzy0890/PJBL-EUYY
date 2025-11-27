@@ -37,7 +37,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link nav-tpl-link {{ request()->routeIs('faq') ? 'active' : '' }}"
+                    <a class="nav-link nav-tpl-link me-2 {{ request()->routeIs('faq') ? 'active' : '' }}"
                        href="{{ route('faq') }}">FAQ</a>
                 </li>
 
@@ -45,7 +45,7 @@
                 @auth
 
                     
-                    {{-- Jika admin atau superadmin, nama mengarah ke dashboard --}}
+                    {{-- Jika admin, nama mengarah ke dashboard --}}
                     <li class="nav-item">
                         @if(Auth::user()->role == 'admin' || Auth::user()->role == 'superadmin')
                             <a class="nav-link nav-tpl-link fw-bold text"
@@ -71,7 +71,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="btn btn-outline-light {{ request()->routeIs('register') ? 'active' : '' }}"
+                        <a class="btn btn-outline-light me-3 {{ request()->routeIs('register') ? 'active' : '' }}"
                            href="{{ route('register') }}">Register</a>
                     </li>
                 @endauth
