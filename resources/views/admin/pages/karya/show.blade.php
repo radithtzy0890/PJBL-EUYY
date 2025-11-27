@@ -20,7 +20,7 @@
     <p>Syntax Error Compile Lagi</p>
   </div>
 
-  <div class="main-wrapper">
+  <div class="container">
 
     <aside class="sidebar">
       <a href="{{ route('dashboard') }}">Dashboard</a>
@@ -68,35 +68,53 @@
           <label>Tahun</label>
           <input type="number" name="tahun" value="{{ $karya->tahun }}" required>
 
-          <button class="btn-save" type="submit"
-            style="margin-top:15px; background:#2563eb; color:white; padding:10px 20px; border-radius:8px; border:none;">
+          {{-- TOMBOL SIMPAN (Updated: Ada Icon, Ukuran Sama) --}}
+          <button class="btn-save" type="submit" 
+            style="margin-top:20px; 
+                   width: 100%; 
+                   display: flex; 
+                   justify-content: center; 
+                   align-items: center; 
+                   gap: 10px; 
+                   background:#2563eb; 
+                   color:white; 
+                   padding:12px 20px; 
+                   border-radius:8px; 
+                   border:none; 
+                   font-size: 16px; 
+                   cursor: pointer;">
+            <i data-feather="save" style="width:20px; height:20px;"></i>
             Simpan Perubahan
           </button>
         </form>
 
         {{-- FORM DELETE --}}
         <form action="{{ route('karya.destroy', $karya->id) }}" method="POST"
-          onsubmit="return confirm('Yakin ingin menghapus karya ini?');" style="margin-top:20px;">
+          onsubmit="return confirm('Yakin ingin menghapus karya ini?');" style="margin-top:15px;">
           @csrf
           @method('DELETE')
 
-          <button class="btn-delete" type="submit" style="background:#dc2626; 
-               color:white; 
-               padding:10px 20px; 
-               border:none; 
-               border-radius:8px; 
-               width:100%; 
-               display:block;">
-            <i data-feather="trash-2" style="width:18px; height:18px;"></i>
+          {{-- TOMBOL HAPUS (Updated: Ukuran Sama) --}}
+          <button class="btn-delete" type="submit" 
+            style="width: 100%; 
+                   display: flex; 
+                   justify-content: center; 
+                   align-items: center; 
+                   gap: 10px; 
+                   background:#dc2626; 
+                   color:white; 
+                   padding:12px 20px; 
+                   border-radius:8px; 
+                   border:none; 
+                   font-size: 16px; 
+                   cursor: pointer;">
+            <i data-feather="trash-2" style="width:20px; height:20px;"></i>
             Hapus Karya
           </button>
         </form>
 
       </div>
-
     </div>
-  </div>
-
   </div>
 
   <footer>

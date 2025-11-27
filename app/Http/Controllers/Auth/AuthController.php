@@ -21,12 +21,12 @@ class AuthController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-        
+
         // 2. cek di database (email, password)
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             $role = Auth::user()->role; // (superadmin, admin, user)
-            
+
             if ($role === 'superadmin' || $role === 'admin') {
                 // ngarah dashboard
                 return redirect(route('dashboard'))->with('success', 'Login berhasil');
@@ -48,11 +48,12 @@ class AuthController extends Controller
         $password_confirmation = $request->password_confirmation;
 
         // 2. validasi (email udh ada atau blm)
-        $isExist = User::where('email', $email)->first();
-        if ($isExist) {
-            return back();
-        }
-        
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email', // Cek unik otomatis
+            'password' => 'required|min:8|confirmed', // Cek confirmation otomatis
+        ]);
+
         // 3. check password
         if ($password !== $password_confirmation) {
             return back();
@@ -76,11 +77,11 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-    
+
         $request->session()->invalidate();
-    
+
         $request->session()->regenerateToken();
-    
+
         return redirect(route('home'));
     }
 
