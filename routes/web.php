@@ -35,41 +35,6 @@ Route::get('/mail/send', function () {
 
 });
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-//oute::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
-    //Route::resource('karya', App\Http\Controllers\Admin\KaryaManagementController::class);
-//});
-
-
-
-//Route::get('/dashboard', function () {
-    //return view('admin.pages.dashboard');
-//})->middleware(['auth', 'verified'])->name('dashboard');
-
-//Route::middleware('auth')->group(function () {
-    //Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    //Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    //Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-//});
-
-//Route::middleware('auth')->group(function () {
-   // Route::post('/rating', [RatingController::class, 'store'])->name('rating.store');
-    //Route::delete('/rating/{id}', [RatingController::class, 'destroy'])->name('rating.destroy');
-//});
-
-//Route::middleware(['auth'])->group(function () {
-    //Route::post('/rating', [App\Http\Controllers\RatingController::class, 'store'])->name('rating.store');
-    //Route::delete('/rating/{id}', [App\Http\Controllers\RatingController::class, 'destroy'])->name('rating.destroy');
-//});
-
-// Home
-//Route::get('/', function () {
-    //return view('pages.homepages');
-//})->name('home');
-
 require __DIR__.'/auth.php';
 
 // Home
@@ -117,13 +82,6 @@ Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name
 
 Route::get('/reset-password/{token}', [AuthController::class, 'resetPassword'])->name('reset-password');
 Route::post('/reset-password/{token}', [AuthController::class, 'submitResetPassword'])->name('reset-password.submit');
-
-// Proses update password baru
-
-// Karya
-// Route::get('karya', [KaryaController::class, 'karyaUser'])->name('karya.user');
-// Route::post('karya', [KaryaController::class, 'store'])->name('karya.store');
-// Route::get('karya/{id}', [KaryaController::class, 'userShow'])->name('karya.show');
 
     //cari karya lainnya
     Route::get('karya', function(Request $request){
@@ -173,7 +131,7 @@ Route::post('/reset-password/{token}', [AuthController::class, 'submitResetPassw
     Route::get('/unggah-karya', function () {
         return view('pages.unggah');
     })->name('unggah');
-    Route::post('karya', [KaryaController::class, 'store'])->name('karya.store');
+    // Route::post('karya', [KaryaController::class, 'store'])->name('karya.store');
     
     // Rating & Review
     Route::post('review', [ReviewController::class, 'store'])->name('review.store');
@@ -237,11 +195,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('lihatvalidasi', function () {
     return view('admin.pages.lihatvalidasi');
     })->name('lihatvalidasi');
-
-    // Route::get('validasikonten', function () {
-    // return view('admin.pages.validasikonten');
-    // })->name('validasikonten');
-
+    
     Route::get('validasikonten1', function () {
     return view('admin.pages.validasikonten1');
     })->name('validasikonten1');
@@ -291,53 +245,5 @@ Route::get('/admin/review/{id}', [ReviewController::class, 'show'])->name('admin
 Route::get('/admin/review/{id}/edit', [ReviewController::class, 'edit'])->name('admin.review.edit');
 Route::put('/admin/review/{id}', [ReviewController::class, 'update'])->name('admin.review.update');
 Route::delete('/admin/review/{id}', [ReviewController::class, 'destroy'])->name('admin.review.destroy');
-
-
-        // route kelola admin
-    // Route::get('kelola-admin', [AdminController::class, 'index'])->name('kelola.admin');
-    // Route::post('kelola-admin', [AdminController::class, 'store'])->name('kelola.admin.store');
-    // dst...
-//});
-
-// Route::middleware(['auth'])->prefix('admin')->group(function () {
-//     Route::resource('karya', KaryaManagementController::class);
-//     Route::post('karya/{id}/status', [KaryaManagementController::class, 'updateStatus'])->name('karya.status');
-// });
-
-//Route::prefix('admin')->name('admin.')->group(function () {
-    //Route::resource('karya', KaryaManagementController::class);
-    //Route::patch('karya/{karya}/status', [KaryaManagementController::class, 'updateStatus'])
-        //->name('karya.updateStatus');
-//});
-
-// Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-//     Route::resource('pages.karya', KaryaManagementController::class);
-//     Route::patch('karya/{karya}/status', [KaryaManagementController::class, 'updateStatus'])->name('karya.updateStatus');
-// });
-
-// Route::get('/karya', [KaryaManagementController::class, 'index'])->name('karya');
-// Route::get('/unggah', [KaryaManagementController::class, 'create'])->name('unggah');
-
-// Route::prefix('admin')->name('admin.')->group(function () {
-//     Route::resource('karya', KaryaManagementController::class);
-// });
-// Detail Karya
-// Route::get('/karya/{id}', function ($id) {
-//     return view('pages.detailkarya', compact('id'));
-// })->name('detailkarya');
-
-// // Store Karya (untuk handle form submit)
-// Route::post('/karya/store', function () {
-//     // Nanti bisa diisi logic untuk simpan ke database
-//     return redirect()->route('karya')->with('success', 'Karya berhasil diunggah!');
-// })->name('karya.store');
-
-// Route::get('kirimtautan', function () {
-//     return view('admin.pages.kirimtautan');
-// })->name('ajuankarya');
-
-// Route::get('lupasandi', function () {
-//     return view('admin.pages.lupasandi');
-// })->name('lupasandi');
 
 
