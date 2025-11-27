@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Tentang TPL SVIPB')
+@section('title', 'Tentang TPL SV IPB')
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/tentang.css') }}">
