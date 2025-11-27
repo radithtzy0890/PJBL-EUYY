@@ -13,7 +13,7 @@ class Visitor extends Model
         'ip_address',
         'user_agent',
         'page_visited',
-        'visited_at',
+        'visited_at'
     ];
 
     protected $casts = [
